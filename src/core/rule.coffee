@@ -18,6 +18,7 @@ class BaseFunc
 # next: (sum, value) -> value
 exports.GenericTransitionFunc = class GenericTransitionFunc extends BaseFunc
   constructor: ( @code ) ->
+    super(BaseFunc)
     @generation = 0
     @_parse()
   toString: -> @code
@@ -45,6 +46,7 @@ isDayNightRule = (binaryFunc)->
    
 exports.DayNightTransitionFunc = class DayNightTransitionFunc extends BaseFunc
   constructor: (@base) ->
+    super(BaseFunc)
     throw new Error("base function is not flashing") if not isDayNightRule @base
     @phase = 0
     
@@ -68,6 +70,7 @@ exports.DayNightTransitionFunc = class DayNightTransitionFunc extends BaseFunc
 
 exports.BinaryTransitionFunc = class BinaryTransitionFunc extends BaseFunc
   constructor: ( @n, @m, bornAt, stayAt ) ->
+    super(BaseFunc)
     @numNeighbors = @n*(@m-2)
     @table = for arr in [bornAt, stayAt]
       for s in [0 .. @numNeighbors] by 1
