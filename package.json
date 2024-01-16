@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "coffeescript": "^2.7.0"
+  },
+  "dependencies": {
+    "coffeeify": "^3.0.1",
+    "mkdirp": "^3.0.1"
+  }
+}
