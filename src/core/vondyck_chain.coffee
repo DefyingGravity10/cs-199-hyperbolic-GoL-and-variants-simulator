@@ -65,6 +65,7 @@ exports.NodeA = class NodeA extends Node
   letter: 'a'
   letterCode: 0
   constructor: (@p, @t)->
+    super(Node)
     @l = if @t is unity then 1 else @t.l+1
     @h = null
     @mtx = null #support for calculating matrix representations
@@ -73,6 +74,7 @@ exports.NodeB = class NodeB extends Node
   letter: 'b'
   letterCode: 1
   constructor: (@p, @t)->
+    super(Node)
     @l = if @t is unity then 1 else @t.l+1
     @h = null
     @mtx = null
