@@ -1,8 +1,9 @@
 .PHONY = test test_app start startwin publish
 
 application:
-	browserify -t coffeeify src/ui/application.coffee > application.js
+#	browserify -t coffeeify src/ui/application.coffee > application.js
 #	browserify -t coffeeify src/ui/render_worker.coffee > render_worker.js
+	browserify src/ui/application.js > application.js
 
 test:
 	mocha tests/test*.coffee --compilers coffee:coffee-script/register
