@@ -1,18 +1,32 @@
 # A Simulator of the Game of Life and its Variants on the Hyperbolic Plane
 
-TBA
-
 The simulator can be accessed [here](https://defyinggravity10.github.io/cs-199-hyperbolic-gol-and-variants-simulator/).
 
 # Key Features
 
 TBA
 
-# How to Build
+# Running the Application
 
 ## Requirements
 
-TBA
+Before proceeding, ensure that the following packages are installed in your system:
+
+- `Node.js`
+- `nvm` (optional but preferably to install `npm`)
+- `npm`
+- `make`
+- `mkdirp`
+
+Then install `browserify` by using the following command:
+
+- `npm install -g browserify`
+
+## Building the Application
+
+After making edits to any of the `.js` files, enter the following command on a terminal:
+
+- `make`
 
 # Acknowledgements
 
