@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "coffeescript": "^2.7.0"
+    "coffeescript": "^2.7.0",
+    "prettier": "3.2.5"
   },
   "dependencies": {
     "coffeeify": "^3.0.1",
