@@ -24,3 +24,7 @@ publish: test application
 	git checkout master
 	sh publish.sh
 	cd ../homepage-sources && sh ./publish.sh
+
+install:
+	npm install -g browserify
+	npm i --save-dev --save-exact prettier
