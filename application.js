@@ -5914,6 +5914,7 @@ exports.parseFieldData1 = (data) ->
         E("state-selector"),
         E("state-selector-buttons")
       );
+      // this.paintStateSelector.updateImmigration();
       this.transitionFunc = parseTransitionFunction(
         config.getFunctionCode(),
         application.tiling.n,
@@ -6147,6 +6148,9 @@ exports.parseFieldData1 = (data) ->
       } else {
         this.cells.put(cell, this.paintStateSelector.state);
       }
+      //console.log(`xp: ${xp} yp: ${yp}`);
+
+      //console.log(`${x} ${y}`);
       return redraw();
     }
 
@@ -6284,7 +6288,46 @@ exports.parseFieldData1 = (data) ->
       this.container = container;
       this.buttonContainer = buttonContainer;
       this.state = 1;
-      this.numStates = 2;
+      this.numStates = 3; //changed
+    }
+
+    updateImmigration() {
+      var btnId, color, dom, i, id2state, numStates, ref, state;
+      this.numStates = 3;
+      numStates = 3;
+      console.log("Hello world");
+
+      this.buttonContainer.innerHTML = "";
+      this.container.style.display = "";
+      dom = new DomBuilder();
+      id2state = {};
+      this.state2id = {};
+      for (
+        state = i = 1, ref = numStates;
+        1 <= ref ? i < ref : i > ref;
+        state = 1 <= ref ? ++i : --i
+      ) {
+        color = this.application.observer.getColorForState(state);
+        btnId = `select-state-${state}`;
+        this.state2id[state] = btnId;
+        id2state[btnId] = state;
+        dom
+          .tag("button")
+          .store("btn")
+          .CLASS(state === this.state ? "btn-selected" : "")
+          .ID(btnId)
+          .a("style", `background-color:${color}`)
+          .text("" + state)
+          .end();
+        //dom.vars.btn.onclick = (e)->
+      }
+      this.buttonContainer.appendChild(dom.finalize());
+      this.buttons = new ButtonGroup(this.buttonContainer, "button");
+      return this.buttons.addEventListener("change", (e, btnId, oldBtn) => {
+        if ((state = id2state[btnId]) != null) {
+          return (this.state = state);
+        }
+      });
     }
 
     update() {
@@ -6295,6 +6338,8 @@ exports.parseFieldData1 = (data) ->
         return;
       }
       this.numStates = numStates;
+      //this.numStates = 3;
+      //numStates = 3;
       console.log(`Num states changed to ${numStates}`);
       if (this.state >= numStates) {
         this.state = 1;
@@ -6486,7 +6531,9 @@ exports.parseFieldData1 = (data) ->
     e.preventDefault();
     [x, y] = getCanvasCursorPosition(e, canvas);
     isPanAction = (e.button === 1) ^ e.shiftKey ^ isPanMode;
+    //isPanAction = !isPanAction
     if (!isPanAction) {
+      //console.log(`${x} ${y}`);
       application.toggleCellAt(x, y);
       return updatePopulation();
     } else {
@@ -6923,9 +6970,17 @@ exports.parseFieldData1 = (data) ->
   });
 
   // This portion also seems removable
-  /* E("btn-export-uri").addEventListener("click", function (e) {
-    return application.doExportUrl();
-  }); */
+  E("btn-export-uri").addEventListener("click", function (e) {
+    const colorButton = document.getElementById("btn-export-uri");
+    colorButton.classList.toggle("on");
+    if (colorButton.classList.contains("on")) {
+      application.observer.changeColor();
+      console.log("ON!!");
+      return application.paintStateSelector.updateImmigration();
+    } else {
+      return application.paintStateSelector.update();
+    }
+  });
 
   shortcuts = {
     N: function () {
