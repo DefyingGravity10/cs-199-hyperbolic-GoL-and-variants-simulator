@@ -16,7 +16,7 @@ Before proceeding, ensure that the following packages are installed in your syst
 - `nvm` (optional but preferably to install `npm`)
 - `npm`
 - `make`
-- `mkdirp`
+- `mkdir`
 
 Then install `browserify` by using the following command:
 
