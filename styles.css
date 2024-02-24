@@ -110,6 +110,10 @@ span.button-group:first-child {
     width: 12em;
 }
 
+#canvas {
+    border-radius: 50%;
+}
+
 #canvas-container{
     text-align: center;
     padding: 1em;

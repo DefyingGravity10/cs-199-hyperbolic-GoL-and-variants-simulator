@@ -6512,7 +6512,7 @@ exports.parseFieldData1 = (data) ->
       return false;
     }
     // This is the one we change when we wanna change the BG of the canvas
-    context.fillStyle = "white";
+    context.fillStyle = "pink";
     //context.clearRect 0, 0, canvas.width, canvas.height
     context.fillRect(0, 0, w, h);
     context.save();
