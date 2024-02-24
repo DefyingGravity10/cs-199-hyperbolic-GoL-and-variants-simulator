@@ -19,7 +19,11 @@
     cells,
     tiling,
     plus = function (x, y) {
-      return x + y;
+      if (y > 0) {
+        return x + y / y;
+      } else {
+        return x + y;
+      }
     },
     plusInitial = 0
   ) {
@@ -51,8 +55,17 @@
     newCells = new ChainMap();
     sums = neighborsSum(cells, tiling, plus, plusInitial);
     sums.forItems(function (cell, neighSum) {
+      console.log(`cell ${cell}  neighSum ${neighSum}`);
       var cellState, nextState, ref;
       cellState = (ref = cells.get(cell)) != null ? ref : 0;
+      console.log(`cellState: ${cellState}`);
+      if (cellState >= 1) {
+        // Note that each state is represented by a number.
+        // Thus the computation for the next state can be affected.
+        // So we also make it equivalent to 1.
+        // Doing it inside the plus function does not work for some reason
+        cellState = cellState / cellState;
+      }
       nextState = nextStateFunc(cellState, neighSum);
       if (nextState !== 0) {
         return newCells.put(cell, nextState);
@@ -94,12 +107,15 @@
     }
 
     putAccumulate(chain, value, accumulateFunc, accumulateInitial) {
+      // Value is equivalent to the state (number)
       var cell, j, key_value, len;
       cell = this.table[this._index(chain)];
+
+      // console.log(`Cell: ${cell}`);
       for (j = 0, len = cell.length; j < len; j++) {
         key_value = cell[j];
         if (key_value[0].equals(chain)) {
-          //Update existing value
+          // console.log(`key_value[0]: ${key_value[0]}\n key_value[1]: ${key_value[1]}`);
           key_value[1] = accumulateFunc(key_value[1], value);
           return;
         }
@@ -2182,7 +2198,12 @@ exports.parseFieldData1 = (data) ->
   BaseFunc = function () {
     class BaseFunc {
       plus(x, y) {
-        return x + y;
+        if (y > 0) {
+          return x + y / y;
+        } else {
+          return x + y;
+        }
+        // return x + y;
       }
 
       setGeneration(g) {}
@@ -2255,7 +2276,11 @@ exports.parseFieldData1 = (data) ->
         (ref = tfObject.sum) != null
           ? ref
           : function (x, y) {
-              return x + y;
+              if (y > 0) {
+                return x + y / y;
+              } else {
+                return x + y;
+              }
             };
       this.plusInitial = (ref1 = tfObject.sumInitial) != null ? ref1 : 0;
       this.evaluate = tfObject.next;
@@ -2364,7 +2389,11 @@ exports.parseFieldData1 = (data) ->
       }
 
       plus(x, y) {
-        return x + y;
+        if (y > 0) {
+          return x + y / y;
+        } else {
+          return x + y;
+        }
       }
 
       getType() {
@@ -2378,6 +2407,7 @@ exports.parseFieldData1 = (data) ->
         if (sum < 0 || sum > this.numNeighbors) {
           throw new Error(`Bad sum: ${sum}`);
         }
+        // console.log(`table: ${this.table}`);
         return this.table[state][sum];
       }
 
@@ -5920,6 +5950,7 @@ exports.parseFieldData1 = (data) ->
         application.tiling.n,
         application.tiling.m
       );
+      console.log(`Transition function: ${this.transitionFunc.evaluate}`);
       this.lastBinaryTransitionFunc = this.transitionFunc;
       this.openDialog = new OpenDialog(this);
       this.saveDialog = new SaveDialog(this);
@@ -6288,7 +6319,7 @@ exports.parseFieldData1 = (data) ->
       this.container = container;
       this.buttonContainer = buttonContainer;
       this.state = 1;
-      this.numStates = 3; //changed
+      this.numStates = 2; //changed
     }
 
     updateImmigration() {
@@ -6480,6 +6511,7 @@ exports.parseFieldData1 = (data) ->
     if (!application.observer.canDraw()) {
       return false;
     }
+    // This is the one we change when we wanna change the BG of the canvas
     context.fillStyle = "white";
     //context.clearRect 0, 0, canvas.width, canvas.height
     context.fillRect(0, 0, w, h);
@@ -8467,7 +8499,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
     poincare2hyperblic,
     hyperbolic2poincare,
     visibleNeighborhood,
-    makeCellShapePoincare,
+    makeCellShapePoincare
   } = require("../core/poincare_view.js"));
 
   //{eliminateFinalA} = require "../core/vondyck_rewriter.js"
@@ -8526,7 +8558,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
         "cyan",
         "magenta",
         "gray",
-        "orange",
+        "orange"
       ];
       this.onFinish = null;
     }
@@ -8563,6 +8595,11 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
       return this.pattern[
         ((state % this.pattern.length) + this.pattern.length) % this.pattern.length
       ];
+    }
+
+    changeColor() {
+      // a function used to change to immigrant. will be renamed in the future
+      return (this.pattern = ["red", "blue"]);
     }
 
     getViewCenter() {
@@ -8663,6 +8700,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
           context.strokeStyle = this.colorEmptyBorder;
           context.stroke();
         } else {
+          // This can be used to obtain the colors of the cells
           context.fillStyle = this.getColorForState(state);
           context.fill();
           if (this.isDrawingLiveBorders) {

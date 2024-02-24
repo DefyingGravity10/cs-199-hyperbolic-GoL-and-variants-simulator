@@ -417,6 +417,7 @@
         application.tiling.n,
         application.tiling.m
       );
+      console.log(`Transition function: ${this.transitionFunc.evaluate}`);
       this.lastBinaryTransitionFunc = this.transitionFunc;
       this.openDialog = new OpenDialog(this);
       this.saveDialog = new SaveDialog(this);
@@ -785,7 +786,7 @@
       this.container = container;
       this.buttonContainer = buttonContainer;
       this.state = 1;
-      this.numStates = 3; //changed
+      this.numStates = 2; //changed
     }
 
     updateImmigration() {
@@ -977,6 +978,7 @@
     if (!application.observer.canDraw()) {
       return false;
     }
+    // This is the one we change when we wanna change the BG of the canvas
     context.fillStyle = "white";
     //context.clearRect 0, 0, canvas.width, canvas.height
     context.fillRect(0, 0, w, h);

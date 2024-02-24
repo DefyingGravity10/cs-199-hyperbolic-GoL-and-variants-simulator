@@ -16,7 +16,12 @@
   BaseFunc = function () {
     class BaseFunc {
       plus(x, y) {
-        return x + y;
+        if (y > 0) {
+          return x + y / y;
+        } else {
+          return x + y;
+        }
+        // return x + y;
       }
 
       setGeneration(g) {}
@@ -89,7 +94,11 @@
         (ref = tfObject.sum) != null
           ? ref
           : function (x, y) {
-              return x + y;
+              if (y > 0) {
+                return x + y / y;
+              } else {
+                return x + y;
+              }
             };
       this.plusInitial = (ref1 = tfObject.sumInitial) != null ? ref1 : 0;
       this.evaluate = tfObject.next;
@@ -198,7 +207,11 @@
       }
 
       plus(x, y) {
-        return x + y;
+        if (y > 0) {
+          return x + y / y;
+        } else {
+          return x + y;
+        }
       }
 
       getType() {
@@ -212,6 +225,7 @@
         if (sum < 0 || sum > this.numNeighbors) {
           throw new Error(`Bad sum: ${sum}`);
         }
+        // console.log(`table: ${this.table}`);
         return this.table[state][sum];
       }
 

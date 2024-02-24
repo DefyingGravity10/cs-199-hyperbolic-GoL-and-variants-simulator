@@ -8,7 +8,11 @@
     cells,
     tiling,
     plus = function (x, y) {
-      return x + y;
+      if (y > 0) {
+        return x + y / y;
+      } else {
+        return x + y;
+      }
     },
     plusInitial = 0
   ) {
@@ -40,8 +44,17 @@
     newCells = new ChainMap();
     sums = neighborsSum(cells, tiling, plus, plusInitial);
     sums.forItems(function (cell, neighSum) {
+      console.log(`cell ${cell}  neighSum ${neighSum}`);
       var cellState, nextState, ref;
       cellState = (ref = cells.get(cell)) != null ? ref : 0;
+      console.log(`cellState: ${cellState}`);
+      if (cellState >= 1) {
+        // Note that each state is represented by a number.
+        // Thus the computation for the next state can be affected.
+        // So we also make it equivalent to 1.
+        // Doing it inside the plus function does not work for some reason
+        cellState = cellState / cellState;
+      }
       nextState = nextStateFunc(cellState, neighSum);
       if (nextState !== 0) {
         return newCells.put(cell, nextState);
