@@ -115,9 +115,37 @@
       ];
     }
 
-    changeColor() {
+    revertToOriginalStates() {
+      return (this.pattern = [
+        "red",
+        "black",
+        "green",
+        "blue",
+        "yellow",
+        "cyan",
+        "magenta",
+        "gray",
+        "orange"
+      ]);
+    }
+    changeToImmigrant() {
       // a function used to change to immigrant. will be renamed in the future
       return (this.pattern = ["red", "blue"]);
+    }
+
+    changeToRainbow() {
+      return (this.pattern = [
+        "#000000",
+        "#ffffff",
+        "#eef2f0",
+        "#dcdcdc",
+        "#afafaf",
+        "#898989",
+        "#636363",
+        "#49484c",
+        "#383838",
+        "#242424"
+      ]);
     }
 
     getViewCenter() {

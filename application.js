@@ -5944,13 +5944,11 @@ exports.parseFieldData1 = (data) ->
         E("state-selector"),
         E("state-selector-buttons")
       );
-      // this.paintStateSelector.updateImmigration();
       this.transitionFunc = parseTransitionFunction(
         config.getFunctionCode(),
         application.tiling.n,
         application.tiling.m
       );
-      console.log(`Transition function: ${this.transitionFunc.evaluate}`);
       this.lastBinaryTransitionFunc = this.transitionFunc;
       this.openDialog = new OpenDialog(this);
       this.saveDialog = new SaveDialog(this);
@@ -6326,7 +6324,44 @@ exports.parseFieldData1 = (data) ->
       var btnId, color, dom, i, id2state, numStates, ref, state;
       this.numStates = 3;
       numStates = 3;
-      console.log("Hello world");
+
+      this.buttonContainer.innerHTML = "";
+      this.container.style.display = "";
+      dom = new DomBuilder();
+      id2state = {};
+      this.state2id = {};
+      for (
+        state = i = 1, ref = numStates;
+        1 <= ref ? i < ref : i > ref;
+        state = 1 <= ref ? ++i : --i
+      ) {
+        color = this.application.observer.getColorForState(state);
+        btnId = `select-state-${state}`;
+        this.state2id[state] = btnId;
+        id2state[btnId] = state;
+        dom
+          .tag("button")
+          .store("btn")
+          .CLASS(state === this.state ? "btn-selected" : "")
+          .ID(btnId)
+          .a("style", `background-color:${color}`)
+          .text("" + state)
+          .end();
+        //dom.vars.btn.onclick = (e)->
+      }
+      this.buttonContainer.appendChild(dom.finalize());
+      this.buttons = new ButtonGroup(this.buttonContainer, "button");
+      return this.buttons.addEventListener("change", (e, btnId, oldBtn) => {
+        if ((state = id2state[btnId]) != null) {
+          return (this.state = state);
+        }
+      });
+    }
+
+    updateRainbow() {
+      var btnId, color, dom, i, id2state, numStates, ref, state;
+      this.numStates = 11;
+      numStates = 11;
 
       this.buttonContainer.innerHTML = "";
       this.container.style.display = "";
@@ -6890,7 +6925,21 @@ exports.parseFieldData1 = (data) ->
 
   E("btn-export-close").addEventListener("click", doExportClose);
 
-  E("btn-import").addEventListener("click", doShowImport);
+  E("btn-import").addEventListener("click", () => {
+    const rainbowButton = document.getElementById("btn-import");
+    const immigrantButton = document.getElementById("btn-export-uri");
+
+    rainbowButton.classList.toggle("on");
+    immigrantButton.classList.remove("on");
+
+    if (rainbowButton.classList.contains("on")) {
+      application.observer.changeToRainbow();
+      return application.paintStateSelector.updateRainbow();
+    } else {
+      application.observer.revertToOriginalStates();
+      return application.paintStateSelector.update();
+    }
+  });
 
   E("btn-import-cancel").addEventListener("click", doImportCancel);
 
@@ -7003,13 +7052,17 @@ exports.parseFieldData1 = (data) ->
 
   // This portion also seems removable
   E("btn-export-uri").addEventListener("click", function (e) {
-    const colorButton = document.getElementById("btn-export-uri");
-    colorButton.classList.toggle("on");
-    if (colorButton.classList.contains("on")) {
-      application.observer.changeColor();
-      console.log("ON!!");
+    const immigrantButton = document.getElementById("btn-export-uri");
+    const rainbowButton = document.getElementById("btn-import");
+
+    immigrantButton.classList.toggle("on");
+    rainbowButton.classList.remove("on");
+
+    if (immigrantButton.classList.contains("on")) {
+      application.observer.changeToImmigrant();
       return application.paintStateSelector.updateImmigration();
     } else {
+      application.observer.revertToOriginalStates();
       return application.paintStateSelector.update();
     }
   });
@@ -8597,9 +8650,37 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
       ];
     }
 
-    changeColor() {
+    revertToOriginalStates() {
+      return (this.pattern = [
+        "red",
+        "black",
+        "green",
+        "blue",
+        "yellow",
+        "cyan",
+        "magenta",
+        "gray",
+        "orange"
+      ]);
+    }
+    changeToImmigrant() {
       // a function used to change to immigrant. will be renamed in the future
       return (this.pattern = ["red", "blue"]);
+    }
+
+    changeToRainbow() {
+      return (this.pattern = [
+        "#000000",
+        "#ffffff",
+        "#eef2f0",
+        "#dcdcdc",
+        "#afafaf",
+        "#898989",
+        "#636363",
+        "#49484c",
+        "#383838",
+        "#242424"
+      ]);
     }
 
     getViewCenter() {

@@ -61,7 +61,7 @@
             Neighbors: <span id="grid-num-neighbors" class="numdisplay"></span>
           </div>
 
-          <div class="control-group">
+          <div class="control-group" style="display: none">
             <button id="btn-mem-set" title="(M) Store field in the momory">MS</button>
             <button id="btn-mem-get" title="(U) Restore field from memory">MR</button>
             <button id="btn-mem-clear" title="(Alt+M) Clear memory">MC</button>
@@ -79,7 +79,7 @@
             </button>
           </div>
           <div class="control-group">
-            <button id="btn-import" title="Import field from text">Import</button>
+            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
           <div class="control-group">
             <input type="checkbox" id="image-fix-size" title="Fix field size in pixels" />Fix
@@ -177,8 +177,10 @@
             </button>
           </div>
           <div class="control-group">
-            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
-            <button id="btn-export-uri" title="Export world state as URI" class="on">Color</button>
+            <button id="btn-export-uri" title="Swap to the Immigration Variant" class="">
+              Immigration
+            </button>
+            <button id="btn-import" title="Swap to the Rainbow Variant" class="">Rainbow</button>
           </div>
           <div class="control-group">
             <input
