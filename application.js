@@ -6344,7 +6344,7 @@ exports.parseFieldData1 = (data) ->
           .store("btn")
           .CLASS(state === this.state ? "btn-selected" : "")
           .ID(btnId)
-          .a("style", `background-color:${color}`)
+          .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
           .text("" + state)
           .end();
         //dom.vars.btn.onclick = (e)->
@@ -6362,7 +6362,6 @@ exports.parseFieldData1 = (data) ->
       var btnId, color, dom, i, id2state, numStates, ref, state;
       this.numStates = 11;
       numStates = 11;
-
       this.buttonContainer.innerHTML = "";
       this.container.style.display = "";
       dom = new DomBuilder();
@@ -6377,14 +6376,17 @@ exports.parseFieldData1 = (data) ->
         btnId = `select-state-${state}`;
         this.state2id[state] = btnId;
         id2state[btnId] = state;
-        dom
-          .tag("button")
-          .store("btn")
-          .CLASS(state === this.state ? "btn-selected" : "")
-          .ID(btnId)
-          .a("style", `background-color:${color}`)
-          .text("" + state)
-          .end();
+        if (state === 1 || state === 10) {
+          dom
+            .tag("button")
+            .store("btn")
+            .CLASS(state === this.state ? "btn-selected" : "")
+            .ID(btnId)
+            .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
+            .text("" + state)
+            .end();
+        }
+
         //dom.vars.btn.onclick = (e)->
       }
       this.buttonContainer.appendChild(dom.finalize());
