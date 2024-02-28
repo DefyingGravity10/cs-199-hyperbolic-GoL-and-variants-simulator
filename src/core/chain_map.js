@@ -32,10 +32,9 @@
       // Value is equivalent to the state (number)
       var cell, j, key_value, len;
       cell = this.table[this._index(chain)];
-
-      // console.log(`Cell: ${cell}`);
       for (j = 0, len = cell.length; j < len; j++) {
         key_value = cell[j];
+        // console.log(`key_value[0]: ${key_value[0]}`);
         if (key_value[0].equals(chain)) {
           // console.log(`key_value[0]: ${key_value[0]}\n key_value[1]: ${key_value[1]}`);
           key_value[1] = accumulateFunc(key_value[1], value);
