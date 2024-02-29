@@ -3,7 +3,7 @@
   var ChainMap, evaluateTotalisticAutomaton, neighborsSum, NeighborColorMap;
 
   ({ ChainMap } = require("./chain_map.js"));
-  ({ NeighborColorMap } = require("./neighbor_color_map.js"));
+  ({ NeighborColorMap } = require("./neighbor_util.js"));
 
   colorDict = new NeighborColorMap();
 
@@ -11,6 +11,7 @@
     cells,
     tiling,
     plus = function (x, y) {
+      // Unsure if this is correct since it is no longer consistent with the others
       if (y > 0) {
         return x + y;
       } else {
@@ -24,15 +25,17 @@
     cells.forItems(function (cell, value) {
       var i, len, neighbor, ref;
       ref = tiling.moore(cell);
-      console.log(`CELL: ${cell}`);
+      console.log(`CELL: ${cell} (state ${value})`);
       console.log(`NEIGHBORS ${ref}`);
       for (i = 0, len = ref.length; i < len; i++) {
         neighbor = ref[i];
         console.log(`Neighbor: ${neighbor}`);
         colorDict.updateNeighborColorCounts(neighbor, value);
+        colorDict.addStateOfNeighbors(neighbor, cell, value);
         sums.putAccumulate(neighbor, value, plus, plusInitial);
       }
-      console.log(colorDict.getNeighborColorCounts());
+      // console.log(colorDict.getNeighborColorCounts());
+      colorDict.getStatesOfNeighbors();
       //don't forget the cell itself! It must also present, with zero (initial) neighbor sum
       if (sums.get(cell) === null) {
         return sums.put(cell, plusInitial);
@@ -64,11 +67,13 @@
         cellState = cellState / cellState;
       }
       // console.log(`cell: ${cell}`);
-      console.log(`Highest Color Count ${colorDict.determineHighestColorCount(cell)}`);
+      // console.log(`Highest Color Count ${colorDict.determineHighestColorCount(cell)}`);
       nextState = nextStateFunc(cellState, neighSum);
       if (nextState !== 0) {
         if (currentState === 0) {
-          nextState = nextState * colorDict.determineHighestColorCount(cell);
+          // console.log(colorDict.computeNewState(cell));
+          // nextState = nextState * colorDict.determineHighestColorCount(cell);
+          nextState = nextState * colorDict.computeNewState(cell);
         } else {
           nextState = nextState * currentState;
         }
@@ -76,6 +81,7 @@
       }
     });
     colorDict.emptyNeighborColorCounts();
+    colorDict.emptyStatesOfNeighbors();
     return newCells;
   };
 }).call(this);
