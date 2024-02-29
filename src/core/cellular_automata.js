@@ -3,7 +3,7 @@
   var ChainMap, evaluateTotalisticAutomaton, neighborsSum, NeighborColorMap;
 
   ({ ChainMap } = require("./chain_map.js"));
-  ({ NeighborColorMap } = require("./neighbor_util.js"));
+  ({ NeighborColorMap } = require("./variant_util.js"));
 
   colorDict = new NeighborColorMap();
 
@@ -18,7 +18,8 @@
         return x + y;
       }
     },
-    plusInitial = 0
+    plusInitial = 0,
+    variant
   ) {
     var sums;
     sums = new ChainMap();
@@ -30,12 +31,15 @@
       for (i = 0, len = ref.length; i < len; i++) {
         neighbor = ref[i];
         console.log(`Neighbor: ${neighbor}`);
-        colorDict.updateNeighborColorCounts(neighbor, value);
-        colorDict.addStateOfNeighbors(neighbor, cell, value);
+        if (variant === "immigration") {
+          colorDict.updateNeighborColorCounts(neighbor, value);
+        } else if (variant === "rainbow") {
+          colorDict.addStateOfNeighbors(neighbor, cell, value);
+        }
         sums.putAccumulate(neighbor, value, plus, plusInitial);
       }
       // console.log(colorDict.getNeighborColorCounts());
-      colorDict.getStatesOfNeighbors();
+      console.log(colorDict.getStatesOfNeighbors());
       //don't forget the cell itself! It must also present, with zero (initial) neighbor sum
       if (sums.get(cell) === null) {
         return sums.put(cell, plusInitial);
@@ -49,17 +53,18 @@
     tiling,
     nextStateFunc,
     plus,
-    plusInitial
+    plusInitial,
+    variant
   ) {
     var newCells, sums;
     newCells = new ChainMap();
-    sums = neighborsSum(cells, tiling, plus, plusInitial);
+    sums = neighborsSum(cells, tiling, plus, plusInitial, variant);
     sums.forItems(function (cell, neighSum) {
       var cellState, currentState, nextState, ref;
       cellState = (ref = cells.get(cell)) != null ? ref : 0;
       // Done to take note of the cell's current state
       currentState = cellState;
-      if (cellState >= 1) {
+      if (cellState >= 1 && (variant === "immigration" || variant === "rainbow")) {
         // Note that each state is represented by a number.
         // Thus the computation for the next state can be affected.
         // So we also make it equivalent to 1.
@@ -72,8 +77,11 @@
       if (nextState !== 0) {
         if (currentState === 0) {
           // console.log(colorDict.computeNewState(cell));
-          // nextState = nextState * colorDict.determineHighestColorCount(cell);
-          nextState = nextState * colorDict.computeNewState(cell);
+          if (variant === "immigration") {
+            nextState = nextState * colorDict.determineHighestColorCount(cell);
+          } else if (variant === "rainbow") {
+            nextState = nextState * colorDict.computeNewState(cell);
+          }
         } else {
           nextState = nextState * currentState;
         }

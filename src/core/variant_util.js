@@ -1,12 +1,12 @@
 (function () {
   "use strict";
-  var NeighborColorMap;
+  var NeighborColorMap, SimulatorVariant;
 
   exports.NeighborColorMap = NeighborColorMap = class NeighborColorMap {
     constructor() {
       // A dictionary containing the cells that is mapped to a dictionary of states and their tallies
       this.immigrationDictionary = {};
-      // A dictionary containing
+      // A dictionary containing the cells that is mapped to a dictionary of neighbors and their states
       this.rainbowDictionary = {};
     }
 
@@ -46,11 +46,8 @@
       return stateOfMajority;
     }
 
-    // For Rainbow
-    // TODO: Add some function to get average of everything
-
+    // Methods for Rainbow variant
     getStatesOfNeighbors() {
-      console.log(this.rainbowDictionary);
       return this.rainbowDictionary;
     }
     emptyStatesOfNeighbors() {
@@ -91,6 +88,24 @@
         numberOfLiveNeighbors > 0 ? Math.ceil(sumOfStates / numberOfLiveNeighbors) : 0;
       console.log(newState); // For checking purposes ONLY! Remove once not needed
       return newState;
+    }
+  };
+
+  exports.SimulatorVariant = SimulatorVariant = class SimulatorVariant {
+    constructor() {
+      this.variant = "default";
+      this.availableVariants = ["default", "immigration", "rainbow"];
+    }
+
+    getCurrentVariant() {
+      return this.variant;
+    }
+    changeCurrentVariant(variant) {
+      if (!this.availableVariants.includes(variant)) {
+        throw new Error(`The ${variant} is not an existing variant`);
+      }
+      this.variant = variant;
+      return;
     }
   };
 }).call(this);

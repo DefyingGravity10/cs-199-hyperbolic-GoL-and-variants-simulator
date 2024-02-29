@@ -23,6 +23,7 @@
     PaintStateSelector,
     RegularTiling,
     SaveDialog,
+    SimulatorVariant,
     SvgDialog,
     UriConfig,
     ValidatingInput,
@@ -134,6 +135,8 @@
   } = require("../core/rule.js"));
 
   M = require("../core/matrix3.js");
+
+  ({ SimulatorVariant } = require("../core/variant_util.js"));
 
   //Application components
   ({ Animator } = require("./animator.js"));
@@ -522,7 +525,8 @@
         this.tiling,
         this.transitionFunc.evaluate.bind(this.transitionFunc),
         this.transitionFunc.plus,
-        this.transitionFunc.plusInitial
+        this.transitionFunc.plusInitial,
+        currentVariant.getCurrentVariant()
       );
       this.generation += 1;
       redraw();
@@ -1394,22 +1398,6 @@
 
   E("btn-export-close").addEventListener("click", doExportClose);
 
-  E("btn-import").addEventListener("click", () => {
-    const rainbowButton = document.getElementById("btn-import");
-    const immigrantButton = document.getElementById("btn-export-uri");
-
-    rainbowButton.classList.toggle("on");
-    immigrantButton.classList.remove("on");
-
-    if (rainbowButton.classList.contains("on")) {
-      application.observer.changeToRainbow();
-      return application.paintStateSelector.updateRainbow();
-    } else {
-      application.observer.revertToOriginalStates();
-      return application.paintStateSelector.update();
-    }
-  });
-
   E("btn-import-cancel").addEventListener("click", doImportCancel);
 
   E("btn-import-run").addEventListener("click", doImport);
@@ -1503,14 +1491,6 @@
     return doSetPanMode(true);
   });
 
-  E("btn-db-save").addEventListener("click", function (e) {
-    return application.saveDialog.show();
-  });
-
-  E("btn-db-load").addEventListener("click", function (e) {
-    return application.openDialog.show();
-  });
-
   E("btn-export-svg").addEventListener("click", function (e) {
     return application.doExportSvg();
   });
@@ -1519,7 +1499,17 @@
     return application.svgDialog.close();
   });
 
-  // This portion also seems removable
+  E("btn-db-save").addEventListener("click", function (e) {
+    return application.saveDialog.show();
+  });
+
+  E("btn-db-load").addEventListener("click", function (e) {
+    return application.openDialog.show();
+  });
+
+  // THE VARIANTS (change the ids soon)
+  let currentVariant = new SimulatorVariant();
+
   E("btn-export-uri").addEventListener("click", function (e) {
     const immigrantButton = document.getElementById("btn-export-uri");
     const rainbowButton = document.getElementById("btn-import");
@@ -1529,9 +1519,29 @@
 
     if (immigrantButton.classList.contains("on")) {
       application.observer.changeToImmigrant();
+      currentVariant.changeCurrentVariant("immigration");
       return application.paintStateSelector.updateImmigration();
     } else {
       application.observer.revertToOriginalStates();
+      currentVariant.changeCurrentVariant("default");
+      return application.paintStateSelector.update();
+    }
+  });
+
+  E("btn-import").addEventListener("click", () => {
+    const rainbowButton = document.getElementById("btn-import");
+    const immigrantButton = document.getElementById("btn-export-uri");
+
+    rainbowButton.classList.toggle("on");
+    immigrantButton.classList.remove("on");
+
+    if (rainbowButton.classList.contains("on")) {
+      application.observer.changeToRainbow();
+      currentVariant.changeCurrentVariant("rainbow");
+      return application.paintStateSelector.updateRainbow();
+    } else {
+      application.observer.revertToOriginalStates();
+      currentVariant.changeCurrentVariant("default");
       return application.paintStateSelector.update();
     }
   });
