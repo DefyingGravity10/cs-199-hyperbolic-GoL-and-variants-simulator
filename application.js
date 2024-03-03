@@ -6273,6 +6273,9 @@ exports.parseFieldData1 = (data) ->
         case "binary":
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
+          // console.log("Immig");
+          // this.observer.changeToImmigrant();
+          // this.paintStateSelector.updateImmigration(this.transitionFunc);
           break;
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
@@ -6552,8 +6555,6 @@ exports.parseFieldData1 = (data) ->
         return;
       }
       this.numStates = numStates;
-      //this.numStates = 3;
-      //numStates = 3;
       console.log(`Num states changed to ${numStates}`);
       if (this.state >= numStates) {
         this.state = 1;
@@ -7195,11 +7196,15 @@ exports.parseFieldData1 = (data) ->
     if (immigrantButton.classList.contains("on")) {
       application.observer.changeToImmigrant();
       currentVariant.changeCurrentVariant("immigration");
-      return application.paintStateSelector.updateImmigration();
+      application.paintStateSelector.updateImmigration();
+      application.doReset();
+      return redraw();
     } else {
       application.observer.revertToOriginalStates();
       currentVariant.changeCurrentVariant("default");
-      return application.paintStateSelector.update();
+      application.paintStateSelector.update();
+      application.doReset();
+      return redraw();
     }
   });
 
@@ -7213,11 +7218,15 @@ exports.parseFieldData1 = (data) ->
     if (rainbowButton.classList.contains("on")) {
       application.observer.changeToRainbow();
       currentVariant.changeCurrentVariant("rainbow");
-      return application.paintStateSelector.updateRainbow();
+      application.paintStateSelector.updateRainbow();
+      application.doReset();
+      return redraw();
     } else {
       application.observer.revertToOriginalStates();
       currentVariant.changeCurrentVariant("default");
-      return application.paintStateSelector.update();
+      application.paintStateSelector.update();
+      application.doReset();
+      return redraw();
     }
   });
 
@@ -8765,7 +8774,8 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
         "cyan",
         "magenta",
         "gray",
-        "orange"
+        "orange",
+        "purple"
       ];
       this.onFinish = null;
     }
@@ -8814,7 +8824,8 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
         "cyan",
         "magenta",
         "gray",
-        "orange"
+        "orange",
+        "purple"
       ]);
     }
     changeToImmigrant() {

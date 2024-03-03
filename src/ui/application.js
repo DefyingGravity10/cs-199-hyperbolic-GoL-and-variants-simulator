@@ -598,6 +598,9 @@
         case "binary":
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
+          // console.log("Immig");
+          // this.observer.changeToImmigrant();
+          // this.paintStateSelector.updateImmigration(this.transitionFunc);
           break;
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
@@ -877,8 +880,6 @@
         return;
       }
       this.numStates = numStates;
-      //this.numStates = 3;
-      //numStates = 3;
       console.log(`Num states changed to ${numStates}`);
       if (this.state >= numStates) {
         this.state = 1;
@@ -1520,11 +1521,15 @@
     if (immigrantButton.classList.contains("on")) {
       application.observer.changeToImmigrant();
       currentVariant.changeCurrentVariant("immigration");
-      return application.paintStateSelector.updateImmigration();
+      application.paintStateSelector.updateImmigration();
+      application.doReset();
+      return redraw();
     } else {
       application.observer.revertToOriginalStates();
       currentVariant.changeCurrentVariant("default");
-      return application.paintStateSelector.update();
+      application.paintStateSelector.update();
+      application.doReset();
+      return redraw();
     }
   });
 
@@ -1538,11 +1543,15 @@
     if (rainbowButton.classList.contains("on")) {
       application.observer.changeToRainbow();
       currentVariant.changeCurrentVariant("rainbow");
-      return application.paintStateSelector.updateRainbow();
+      application.paintStateSelector.updateRainbow();
+      application.doReset();
+      return redraw();
     } else {
       application.observer.revertToOriginalStates();
       currentVariant.changeCurrentVariant("default");
-      return application.paintStateSelector.update();
+      application.paintStateSelector.update();
+      application.doReset();
+      return redraw();
     }
   });
 
