@@ -76,7 +76,8 @@
         "cyan",
         "magenta",
         "gray",
-        "orange"
+        "orange",
+        "purple"
       ];
       this.onFinish = null;
     }
@@ -125,7 +126,8 @@
         "cyan",
         "magenta",
         "gray",
-        "orange"
+        "orange",
+        "purple"
       ]);
     }
     changeToImmigrant() {
