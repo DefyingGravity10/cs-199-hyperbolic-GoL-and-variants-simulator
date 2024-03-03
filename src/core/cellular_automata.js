@@ -26,11 +26,16 @@
     cells.forItems(function (cell, value) {
       var i, len, neighbor, ref;
       ref = tiling.moore(cell);
+
+      // Logs used for checking
       console.log(`CELL: ${cell} (state ${value})`);
-      console.log(`NEIGHBORS ${ref}`);
+      // console.log(`NEIGHBORS ${ref}`);
+
       for (i = 0, len = ref.length; i < len; i++) {
         neighbor = ref[i];
-        console.log(`Neighbor: ${neighbor}`);
+
+        // Log used for checking
+        // console.log(`Neighbor: ${neighbor}`);
         if (variant === "immigration") {
           colorDict.updateNeighborColorCounts(neighbor, value);
         } else if (variant === "rainbow") {
@@ -38,8 +43,9 @@
         }
         sums.putAccumulate(neighbor, value, plus, plusInitial);
       }
-      // console.log(colorDict.getNeighborColorCounts());
-      console.log(colorDict.getStatesOfNeighbors());
+      // Log used for checking
+      // console.log(colorDict.getStatesOfNeighbors());
+
       //don't forget the cell itself! It must also present, with zero (initial) neighbor sum
       if (sums.get(cell) === null) {
         return sums.put(cell, plusInitial);
@@ -71,15 +77,13 @@
         // Doing it inside the plus function does not work for some reason
         cellState = cellState / cellState;
       }
-      // console.log(`cell: ${cell}`);
-      // console.log(`Highest Color Count ${colorDict.determineHighestColorCount(cell)}`);
       nextState = nextStateFunc(cellState, neighSum);
       if (nextState !== 0) {
         if (currentState === 0) {
-          // console.log(colorDict.computeNewState(cell));
           if (variant === "immigration") {
             nextState = nextState * colorDict.determineHighestColorCount(cell);
           } else if (variant === "rainbow") {
+            console.log(`New State of cell ${cell}: ${colorDict.computeNewState(cell)}`);
             nextState = nextState * colorDict.computeNewState(cell);
           }
         } else {
