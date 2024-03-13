@@ -86,7 +86,7 @@
       // Added a check just in case, but it unlikely that we need the second case
       const newState =
         numberOfLiveNeighbors > 0 ? Math.ceil(sumOfStates / numberOfLiveNeighbors) : 0;
-      console.log(newState); // For checking purposes ONLY! Remove once not needed
+      // console.log(newState); // For checking purposes ONLY! Remove once not needed
       return newState;
     }
   };

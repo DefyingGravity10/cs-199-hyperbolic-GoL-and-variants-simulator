@@ -37,11 +37,16 @@
     cells.forItems(function (cell, value) {
       var i, len, neighbor, ref;
       ref = tiling.moore(cell);
+
+      // Logs used for checking
       console.log(`CELL: ${cell} (state ${value})`);
-      console.log(`NEIGHBORS ${ref}`);
+      // console.log(`NEIGHBORS ${ref}`);
+
       for (i = 0, len = ref.length; i < len; i++) {
         neighbor = ref[i];
-        console.log(`Neighbor: ${neighbor}`);
+
+        // Log used for checking
+        // console.log(`Neighbor: ${neighbor}`);
         if (variant === "immigration") {
           colorDict.updateNeighborColorCounts(neighbor, value);
         } else if (variant === "rainbow") {
@@ -49,8 +54,9 @@
         }
         sums.putAccumulate(neighbor, value, plus, plusInitial);
       }
-      // console.log(colorDict.getNeighborColorCounts());
-      console.log(colorDict.getStatesOfNeighbors());
+      // Log used for checking
+      // console.log(colorDict.getStatesOfNeighbors());
+
       //don't forget the cell itself! It must also present, with zero (initial) neighbor sum
       if (sums.get(cell) === null) {
         return sums.put(cell, plusInitial);
@@ -82,15 +88,13 @@
         // Doing it inside the plus function does not work for some reason
         cellState = cellState / cellState;
       }
-      // console.log(`cell: ${cell}`);
-      // console.log(`Highest Color Count ${colorDict.determineHighestColorCount(cell)}`);
       nextState = nextStateFunc(cellState, neighSum);
       if (nextState !== 0) {
         if (currentState === 0) {
-          // console.log(colorDict.computeNewState(cell));
           if (variant === "immigration") {
             nextState = nextState * colorDict.determineHighestColorCount(cell);
           } else if (variant === "rainbow") {
+            console.log(`New State of cell ${cell}: ${colorDict.computeNewState(cell)}`);
             nextState = nextState * colorDict.computeNewState(cell);
           }
         } else {
@@ -142,9 +146,7 @@
       cell = this.table[this._index(chain)];
       for (j = 0, len = cell.length; j < len; j++) {
         key_value = cell[j];
-        // console.log(`key_value[0]: ${key_value[0]}`);
         if (key_value[0].equals(chain)) {
-          // console.log(`key_value[0]: ${key_value[0]}\n key_value[1]: ${key_value[1]}`);
           key_value[1] = accumulateFunc(key_value[1], value);
           return;
         }
@@ -2863,7 +2865,7 @@ exports.parseFieldData1 = (data) ->
       // Added a check just in case, but it unlikely that we need the second case
       const newState =
         numberOfLiveNeighbors > 0 ? Math.ceil(sumOfStates / numberOfLiveNeighbors) : 0;
-      console.log(newState); // For checking purposes ONLY! Remove once not needed
+      // console.log(newState); // For checking purposes ONLY! Remove once not needed
       return newState;
     }
   };
