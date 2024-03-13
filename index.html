@@ -34,8 +34,17 @@
           </div>
           <div class="control-group">
             <span id="controls-rule-simple">
-              Rule<br /><input id="rule-entry" />
+              Rule<br />
+              <button id="btn-dynamic" title="Dynamic Rule Selection">
+                Dynamic Rule Selection
+              </button>
+              <input id="rule-entry" />
+              <div id="additional-rules-container" class="hidden">
+                <input id="rule-entry-1" />
+                <input id="rule-entry-2" />
+              </div>
               <button id="btn-set-rule" title="Apply this rule">Set</button>
+
               <button id="btn-rule-make-generic" title="Make custom rule, defined by JS code">
                 Generic&hellip;
               </button>

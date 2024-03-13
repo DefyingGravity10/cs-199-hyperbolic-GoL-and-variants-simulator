@@ -43,6 +43,7 @@
     doCanvasTouchStart,
     doClearMemory,
     doCloseEditor,
+    showDynamic,
     doDisableGeneric,
     doEditAsGeneric,
     doExport,
@@ -302,6 +303,12 @@
       this.animator = null;
       this.cells = null;
       this.generation = 0;
+
+      //imagine
+      this.ruleList = [];
+      this.ruleListIndex = 0; //counter
+      //end imagine
+
       this.transitionFunc = null;
       this.lastBinaryTransitionFunc = null;
 
@@ -423,10 +430,12 @@
       this.openDialog = new OpenDialog(this);
       this.saveDialog = new SaveDialog(this);
       this.svgDialog = new SvgDialog(this);
+
       this.ruleEntry = new ValidatingInput(
         E("rule-entry"),
         (ruleStr) => {
           console.log("Parsing TF {@tiling.n} {@tiling.m}");
+          console.log(`ruleStr0: ${ruleStr}`);
           return parseTransitionFunction(ruleStr, this.tiling.n, this.tiling.m);
         },
         function (rule) {
@@ -437,6 +446,39 @@
       this.ruleEntry.onparsed = (rule) => {
         return this.doSetRule();
       };
+      //imagine
+      this.ruleEntry1 = new ValidatingInput(
+        E("rule-entry-1"),
+        (ruleStr) => {
+          console.log("Parsing TF {@tiling.n} {@tiling.m}");
+          console.log(`ruleStr1: ${ruleStr}`);
+          return parseTransitionFunction(ruleStr, this.tiling.n, this.tiling.m);
+        },
+        function (rule) {
+          return "" + rule;
+        },
+        this.transitionFunc
+      );
+      this.ruleEntry1.onparsed = (rule) => {
+        return this.doSetRule();
+      };
+
+      this.ruleEntry2 = new ValidatingInput(
+        E("rule-entry-2"),
+        (ruleStr) => {
+          console.log("Parsing TF {@tiling.n} {@tiling.m}");
+          console.log(`ruleStr2: ${ruleStr}`);
+          return parseTransitionFunction(ruleStr, this.tiling.n, this.tiling.m);
+        },
+        function (rule) {
+          return "" + rule;
+        },
+        this.transitionFunc
+      );
+      this.ruleEntry2.onparsed = (rule) => {
+        return this.doSetRule();
+      };
+      //end of imagine
       this.updateRuleEditor();
       return this.updateGridUI();
     }
@@ -461,12 +503,57 @@
         alert(`Failed to parse function: ${this.ruleEntry.message}`);
         this.transitionFunc =
           (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      } else if (this.ruleEntry1.message != null) {
+        alert(`Failed to parse function: ${this.ruleEntry1.message}`);
+        this.transitionFunc =
+          (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      } else if (this.ruleEntry2.message != null) {
+        alert(`Failed to parse function: ${this.ruleEntry2.message}`);
+        this.transitionFunc =
+          (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
       } else {
-        console.log("revalidate");
+        this.ruleList = [];
+        this.ruleListIndex = 0;
+
+        console.log("revalidate rule 0");
         this.ruleEntry.revalidate();
-        this.transitionFunc = this.ruleEntry.value;
+        this.ruleList.push(this.ruleEntry.value);
+
+        console.log("revalidate rule 1");
+        this.ruleEntry1.revalidate();
+        this.ruleList.push(this.ruleEntry1.value);
+
+        console.log("revalidate rule 2");
+        this.ruleEntry2.revalidate();
+        this.ruleList.push(this.ruleEntry2.value);
+
+        this.transitionFunc = this.ruleList[this.ruleListIndex];
         this.lastBinaryTransitionFunc = this.transitionFunc;
       }
+
+      //imagine
+      // if (this.ruleEntry1.message != null) {
+      //   alert(`Failed to parse function: ${this.ruleEntry1.message}`);
+      //   this.transitionFunc =
+      //     (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      // } else {
+      //   console.log("revalidate rule 1");
+      //   this.ruleEntry1.revalidate();
+      //   this.transitionFunc = this.ruleEntry1.value;
+      //   this.lastBinaryTransitionFunc = this.transitionFunc;
+      // }
+
+      // if (this.ruleEntry2.message != null) {
+      //   alert(`Failed to parse function: ${this.ruleEntry2.message}`);
+      //   this.transitionFunc =
+      //     (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      // } else {
+      //   console.log("revalidate rule 2");
+      //   this.ruleEntry2.revalidate();
+      //   this.transitionFunc = this.ruleEntry2.value;
+      //   this.lastBinaryTransitionFunc = this.transitionFunc;
+      // }
+      //end of imagine
       this.paintStateSelector.update(this.transitionFunc);
       console.log(this.transitionFunc);
       E("controls-rule-simple").style.display = "";
@@ -519,6 +606,8 @@
 
     doStep(onFinish) {
       //Set generation for thse rules who depend on it
+
+      console.log(`transitionFunc: ${this.transitionFunc}`);
       this.transitionFunc.setGeneration(this.generation);
       this.cells = evaluateTotalisticAutomaton(
         this.cells,
@@ -532,6 +621,16 @@
       redraw();
       updatePopulation();
       updateGeneration();
+      // console.log(
+      //   `hidden?: ${document.getElementById("additional-rules-container").classList.contains("hidden")}`
+      // );
+      if (
+        document.getElementById("additional-rules-container").classList.contains("hidden") === false
+      ) {
+        this.ruleListIndex = (this.ruleListIndex + 1) % 3;
+        this.transitionFunc = this.ruleList[this.ruleListIndex];
+      }
+
       return typeof onFinish === "function" ? onFinish() : void 0;
     }
 
@@ -1141,6 +1240,16 @@
     return (E("generic-tf-editor").style.display = "none");
   };
 
+  showDynamic = function () {
+    let myContainer = document.getElementById("additional-rules-container");
+    myContainer.classList.toggle("hidden");
+  };
+
+  // deleteRule = function () {
+  //   let myContainer = document.getElementById("additional-rules-container");
+  //   myContainer.removeChild(myContainer.lastElementChild);
+  // };
+
   doSetRuleGeneric = function () {
     var e;
     try {
@@ -1394,6 +1503,8 @@
   E("btn-rule-make-generic").addEventListener("click", doEditAsGeneric);
 
   E("btn-edit-rule").addEventListener("click", doOpenEditor);
+
+  E("btn-dynamic").addEventListener("click", showDynamic);
 
   E("btn-disable-generic-rule").addEventListener("click", doDisableGeneric);
 

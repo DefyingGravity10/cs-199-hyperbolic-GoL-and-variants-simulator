@@ -46,6 +46,10 @@ div.popup {
 .dialog-content{
     margin: 1em 2em 2em 1em;
 }
+
+.hidden{
+    display: none;
+}
 /*Main layout*/
 
 #main{
