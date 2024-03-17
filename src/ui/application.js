@@ -99,6 +99,7 @@
     shortcuts,
     showExportDialog,
     stringifyFieldData,
+    toggleUpdatePolicy,
     unity,
     updateCanvasSize,
     updateGeneration,
@@ -606,8 +607,6 @@
 
     doStep(onFinish) {
       //Set generation for thse rules who depend on it
-
-      console.log(`transitionFunc: ${this.transitionFunc}`);
       this.transitionFunc.setGeneration(this.generation);
       this.cells = evaluateTotalisticAutomaton(
         this.cells,
@@ -615,7 +614,8 @@
         this.transitionFunc.evaluate.bind(this.transitionFunc),
         this.transitionFunc.plus,
         this.transitionFunc.plusInitial,
-        currentVariant.getCurrentVariant()
+        currentVariant.getCurrentStateVariant(),
+        currentVariant.getCurrentUpdatePolicy()
       );
       this.generation += 1;
       redraw();
@@ -1245,6 +1245,16 @@
     myContainer.classList.toggle("hidden");
   };
 
+  toggleUpdatePolicy = function () {
+    const asynchButton = document.getElementById("btn-asynch");
+    if (asynchButton.innerHTML === "Asynchronous") {
+      asynchButton.innerHTML = "Synchronous";
+      currentVariant.changeCurrentUpdatePolicy("asynchronous");
+    } else {
+      asynchButton.innerHTML = "Asynchronous";
+      currentVariant.changeCurrentUpdatePolicy("synchronous");
+    }
+  };
   // deleteRule = function () {
   //   let myContainer = document.getElementById("additional-rules-container");
   //   myContainer.removeChild(myContainer.lastElementChild);
@@ -1506,6 +1516,8 @@
 
   E("btn-dynamic").addEventListener("click", showDynamic);
 
+  E("btn-asynch").addEventListener("click", toggleUpdatePolicy);
+
   E("btn-disable-generic-rule").addEventListener("click", doDisableGeneric);
 
   E("btn-export-close").addEventListener("click", doExportClose);
@@ -1631,13 +1643,13 @@
 
     if (immigrantButton.classList.contains("on")) {
       application.observer.changeToImmigrant();
-      currentVariant.changeCurrentVariant("immigration");
+      currentVariant.changeCurrentStateVariant("immigration");
       application.paintStateSelector.updateImmigration();
       application.doReset();
       return redraw();
     } else {
       application.observer.revertToOriginalStates();
-      currentVariant.changeCurrentVariant("default");
+      currentVariant.changeCurrentStateVariant("default");
       application.paintStateSelector.update();
       application.doReset();
       return redraw();
@@ -1653,13 +1665,13 @@
 
     if (rainbowButton.classList.contains("on")) {
       application.observer.changeToRainbow();
-      currentVariant.changeCurrentVariant("rainbow");
+      currentVariant.changeCurrentStateVariant("rainbow");
       application.paintStateSelector.updateRainbow();
       application.doReset();
       return redraw();
     } else {
       application.observer.revertToOriginalStates();
-      currentVariant.changeCurrentVariant("default");
+      currentVariant.changeCurrentStateVariant("default");
       application.paintStateSelector.update();
       application.doReset();
       return redraw();

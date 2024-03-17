@@ -93,18 +93,30 @@
 
   exports.SimulatorVariant = SimulatorVariant = class SimulatorVariant {
     constructor() {
-      this.variant = "default";
-      this.availableVariants = ["default", "immigration", "rainbow"];
+      this.stateVariant = "default";
+      this.updatePolicy = "synchronous";
+      this.availableStateVariants = ["default", "immigration", "rainbow"];
+      this.availableUpdatePolicy = ["synchronous", "asynchronous"];
     }
 
-    getCurrentVariant() {
-      return this.variant;
+    getCurrentStateVariant() {
+      return this.stateVariant;
     }
-    changeCurrentVariant(variant) {
-      if (!this.availableVariants.includes(variant)) {
+    changeCurrentStateVariant(variant) {
+      if (!this.availableStateVariants.includes(variant)) {
         throw new Error(`The ${variant} is not an existing variant`);
       }
-      this.variant = variant;
+      this.stateVariant = variant;
+      return;
+    }
+    getCurrentUpdatePolicy() {
+      return this.updatePolicy;
+    }
+    changeCurrentUpdatePolicy(updatePolicy) {
+      if (!this.availableUpdatePolicy.includes(updatePolicy)) {
+        throw new Error(`The ${updatePolicy} is not an existing variant`);
+      }
+      this.updatePolicy = updatePolicy;
       return;
     }
   };

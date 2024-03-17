@@ -28,7 +28,7 @@
       ref = tiling.moore(cell);
 
       // Logs used for checking
-      console.log(`CELL: ${cell} (state ${value})`);
+      // console.log(`CELL: ${cell} (state ${value})`);
       // console.log(`NEIGHBORS ${ref}`);
 
       for (i = 0, len = ref.length; i < len; i++) {
@@ -60,16 +60,28 @@
     nextStateFunc,
     plus,
     plusInitial,
-    variant
+    variant,
+    updatePolicy
   ) {
-    var newCells, sums;
+    var newCells, sums, randomValue;
+    const probability = 0.5; // Fixed value
+
     newCells = new ChainMap();
     sums = neighborsSum(cells, tiling, plus, plusInitial, variant);
     sums.forItems(function (cell, neighSum) {
       var cellState, currentState, nextState, ref;
       cellState = (ref = cells.get(cell)) != null ? ref : 0;
+
       // Done to take note of the cell's current state
       currentState = cellState;
+      // For the asynchronous variant
+      // Check if the update policy is asynchronous AND if the cell will update for this generation
+      randomValue = Math.random();
+      if (updatePolicy === "asynchronous" && randomValue > probability && currentState !== 0) {
+        // Ensure that the state will not change and only "put" cells if their state is not equal to zero
+        return newCells.put(cell, currentState);
+      }
+      // Do this if the state of the cell is expected to change (if needed)
       if (cellState >= 1 && (variant === "immigration" || variant === "rainbow")) {
         // Note that each state is represented by a number.
         // Thus the computation for the next state can be affected.
@@ -78,7 +90,10 @@
         cellState = cellState / cellState;
       }
       nextState = nextStateFunc(cellState, neighSum);
+      // Only "put" cells if nextState is not equal to zero
       if (nextState !== 0) {
+        // For the colored variants. Only let the state change if the current state is 0
+        // as the color only changes once the cell is "born again"
         if (currentState === 0) {
           if (variant === "immigration") {
             nextState = nextState * colorDict.determineHighestColorCount(cell);

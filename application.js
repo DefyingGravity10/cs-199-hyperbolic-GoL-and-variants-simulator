@@ -39,7 +39,7 @@
       ref = tiling.moore(cell);
 
       // Logs used for checking
-      console.log(`CELL: ${cell} (state ${value})`);
+      // console.log(`CELL: ${cell} (state ${value})`);
       // console.log(`NEIGHBORS ${ref}`);
 
       for (i = 0, len = ref.length; i < len; i++) {
@@ -71,16 +71,28 @@
     nextStateFunc,
     plus,
     plusInitial,
-    variant
+    variant,
+    updatePolicy
   ) {
-    var newCells, sums;
+    var newCells, sums, randomValue;
+    const probability = 0.5; // Fixed value
+
     newCells = new ChainMap();
     sums = neighborsSum(cells, tiling, plus, plusInitial, variant);
     sums.forItems(function (cell, neighSum) {
       var cellState, currentState, nextState, ref;
       cellState = (ref = cells.get(cell)) != null ? ref : 0;
+
       // Done to take note of the cell's current state
       currentState = cellState;
+      // For the asynchronous variant
+      // Check if the update policy is asynchronous AND if the cell will update for this generation
+      randomValue = Math.random();
+      if (updatePolicy === "asynchronous" && randomValue > probability && currentState !== 0) {
+        // Ensure that the state will not change and only "put" cells if their state is not equal to zero
+        return newCells.put(cell, currentState);
+      }
+      // Do this if the state of the cell is expected to change (if needed)
       if (cellState >= 1 && (variant === "immigration" || variant === "rainbow")) {
         // Note that each state is represented by a number.
         // Thus the computation for the next state can be affected.
@@ -89,7 +101,10 @@
         cellState = cellState / cellState;
       }
       nextState = nextStateFunc(cellState, neighSum);
+      // Only "put" cells if nextState is not equal to zero
       if (nextState !== 0) {
+        // For the colored variants. Only let the state change if the current state is 0
+        // as the color only changes once the cell is "born again"
         if (currentState === 0) {
           if (variant === "immigration") {
             nextState = nextState * colorDict.determineHighestColorCount(cell);
@@ -2872,18 +2887,30 @@ exports.parseFieldData1 = (data) ->
 
   exports.SimulatorVariant = SimulatorVariant = class SimulatorVariant {
     constructor() {
-      this.variant = "default";
-      this.availableVariants = ["default", "immigration", "rainbow"];
+      this.stateVariant = "default";
+      this.updatePolicy = "synchronous";
+      this.availableStateVariants = ["default", "immigration", "rainbow"];
+      this.availableUpdatePolicy = ["synchronous", "asynchronous"];
     }
 
-    getCurrentVariant() {
-      return this.variant;
+    getCurrentStateVariant() {
+      return this.stateVariant;
     }
-    changeCurrentVariant(variant) {
-      if (!this.availableVariants.includes(variant)) {
+    changeCurrentStateVariant(variant) {
+      if (!this.availableStateVariants.includes(variant)) {
         throw new Error(`The ${variant} is not an existing variant`);
       }
-      this.variant = variant;
+      this.stateVariant = variant;
+      return;
+    }
+    getCurrentUpdatePolicy() {
+      return this.updatePolicy;
+    }
+    changeCurrentUpdatePolicy(updatePolicy) {
+      if (!this.availableUpdatePolicy.includes(updatePolicy)) {
+        throw new Error(`The ${updatePolicy} is not an existing variant`);
+      }
+      this.updatePolicy = updatePolicy;
       return;
     }
   };
@@ -5776,6 +5803,7 @@ exports.parseFieldData1 = (data) ->
     shortcuts,
     showExportDialog,
     stringifyFieldData,
+    toggleUpdatePolicy,
     unity,
     updateCanvasSize,
     updateGeneration,
@@ -6283,8 +6311,6 @@ exports.parseFieldData1 = (data) ->
 
     doStep(onFinish) {
       //Set generation for thse rules who depend on it
-
-      console.log(`transitionFunc: ${this.transitionFunc}`);
       this.transitionFunc.setGeneration(this.generation);
       this.cells = evaluateTotalisticAutomaton(
         this.cells,
@@ -6292,7 +6318,8 @@ exports.parseFieldData1 = (data) ->
         this.transitionFunc.evaluate.bind(this.transitionFunc),
         this.transitionFunc.plus,
         this.transitionFunc.plusInitial,
-        currentVariant.getCurrentVariant()
+        currentVariant.getCurrentStateVariant(),
+        currentVariant.getCurrentUpdatePolicy()
       );
       this.generation += 1;
       redraw();
@@ -6922,6 +6949,16 @@ exports.parseFieldData1 = (data) ->
     myContainer.classList.toggle("hidden");
   };
 
+  toggleUpdatePolicy = function () {
+    const asynchButton = document.getElementById("btn-asynch");
+    if (asynchButton.innerHTML === "Asynchronous") {
+      asynchButton.innerHTML = "Synchronous";
+      currentVariant.changeCurrentUpdatePolicy("asynchronous");
+    } else {
+      asynchButton.innerHTML = "Asynchronous";
+      currentVariant.changeCurrentUpdatePolicy("synchronous");
+    }
+  };
   // deleteRule = function () {
   //   let myContainer = document.getElementById("additional-rules-container");
   //   myContainer.removeChild(myContainer.lastElementChild);
@@ -7183,6 +7220,8 @@ exports.parseFieldData1 = (data) ->
 
   E("btn-dynamic").addEventListener("click", showDynamic);
 
+  E("btn-asynch").addEventListener("click", toggleUpdatePolicy);
+
   E("btn-disable-generic-rule").addEventListener("click", doDisableGeneric);
 
   E("btn-export-close").addEventListener("click", doExportClose);
@@ -7308,13 +7347,13 @@ exports.parseFieldData1 = (data) ->
 
     if (immigrantButton.classList.contains("on")) {
       application.observer.changeToImmigrant();
-      currentVariant.changeCurrentVariant("immigration");
+      currentVariant.changeCurrentStateVariant("immigration");
       application.paintStateSelector.updateImmigration();
       application.doReset();
       return redraw();
     } else {
       application.observer.revertToOriginalStates();
-      currentVariant.changeCurrentVariant("default");
+      currentVariant.changeCurrentStateVariant("default");
       application.paintStateSelector.update();
       application.doReset();
       return redraw();
@@ -7330,13 +7369,13 @@ exports.parseFieldData1 = (data) ->
 
     if (rainbowButton.classList.contains("on")) {
       application.observer.changeToRainbow();
-      currentVariant.changeCurrentVariant("rainbow");
+      currentVariant.changeCurrentStateVariant("rainbow");
       application.paintStateSelector.updateRainbow();
       application.doReset();
       return redraw();
     } else {
       application.observer.revertToOriginalStates();
-      currentVariant.changeCurrentVariant("default");
+      currentVariant.changeCurrentStateVariant("default");
       application.paintStateSelector.update();
       application.doReset();
       return redraw();
