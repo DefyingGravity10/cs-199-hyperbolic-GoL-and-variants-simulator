@@ -23,6 +23,7 @@
     PaintStateSelector,
     RegularTiling,
     SaveDialog,
+    SimulatorVariant,
     SvgDialog,
     UriConfig,
     ValidatingInput,
@@ -42,6 +43,7 @@
     doCanvasTouchStart,
     doClearMemory,
     doCloseEditor,
+    showDynamic,
     doDisableGeneric,
     doEditAsGeneric,
     doExport,
@@ -97,6 +99,7 @@
     shortcuts,
     showExportDialog,
     stringifyFieldData,
+    toggleUpdatePolicy,
     unity,
     updateCanvasSize,
     updateGeneration,
@@ -134,6 +137,8 @@
   } = require("../core/rule.js"));
 
   M = require("../core/matrix3.js");
+
+  ({ SimulatorVariant } = require("../core/variant_util.js"));
 
   //Application components
   ({ Animator } = require("./animator.js"));
@@ -299,6 +304,12 @@
       this.animator = null;
       this.cells = null;
       this.generation = 0;
+
+      //imagine
+      this.ruleList = [];
+      this.ruleListIndex = 0; //counter
+      //end imagine
+
       this.transitionFunc = null;
       this.lastBinaryTransitionFunc = null;
 
@@ -420,10 +431,12 @@
       this.openDialog = new OpenDialog(this);
       this.saveDialog = new SaveDialog(this);
       this.svgDialog = new SvgDialog(this);
+
       this.ruleEntry = new ValidatingInput(
         E("rule-entry"),
         (ruleStr) => {
           console.log("Parsing TF {@tiling.n} {@tiling.m}");
+          console.log(`ruleStr0: ${ruleStr}`);
           return parseTransitionFunction(ruleStr, this.tiling.n, this.tiling.m);
         },
         function (rule) {
@@ -434,6 +447,39 @@
       this.ruleEntry.onparsed = (rule) => {
         return this.doSetRule();
       };
+      //imagine
+      this.ruleEntry1 = new ValidatingInput(
+        E("rule-entry-1"),
+        (ruleStr) => {
+          console.log("Parsing TF {@tiling.n} {@tiling.m}");
+          console.log(`ruleStr1: ${ruleStr}`);
+          return parseTransitionFunction(ruleStr, this.tiling.n, this.tiling.m);
+        },
+        function (rule) {
+          return "" + rule;
+        },
+        this.transitionFunc
+      );
+      this.ruleEntry1.onparsed = (rule) => {
+        return this.doSetRule();
+      };
+
+      this.ruleEntry2 = new ValidatingInput(
+        E("rule-entry-2"),
+        (ruleStr) => {
+          console.log("Parsing TF {@tiling.n} {@tiling.m}");
+          console.log(`ruleStr2: ${ruleStr}`);
+          return parseTransitionFunction(ruleStr, this.tiling.n, this.tiling.m);
+        },
+        function (rule) {
+          return "" + rule;
+        },
+        this.transitionFunc
+      );
+      this.ruleEntry2.onparsed = (rule) => {
+        return this.doSetRule();
+      };
+      //end of imagine
       this.updateRuleEditor();
       return this.updateGridUI();
     }
@@ -458,12 +504,57 @@
         alert(`Failed to parse function: ${this.ruleEntry.message}`);
         this.transitionFunc =
           (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      } else if (this.ruleEntry1.message != null) {
+        alert(`Failed to parse function: ${this.ruleEntry1.message}`);
+        this.transitionFunc =
+          (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      } else if (this.ruleEntry2.message != null) {
+        alert(`Failed to parse function: ${this.ruleEntry2.message}`);
+        this.transitionFunc =
+          (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
       } else {
-        console.log("revalidate");
+        this.ruleList = [];
+        this.ruleListIndex = 0;
+
+        console.log("revalidate rule 0");
         this.ruleEntry.revalidate();
-        this.transitionFunc = this.ruleEntry.value;
+        this.ruleList.push(this.ruleEntry.value);
+
+        console.log("revalidate rule 1");
+        this.ruleEntry1.revalidate();
+        this.ruleList.push(this.ruleEntry1.value);
+
+        console.log("revalidate rule 2");
+        this.ruleEntry2.revalidate();
+        this.ruleList.push(this.ruleEntry2.value);
+
+        this.transitionFunc = this.ruleList[this.ruleListIndex];
         this.lastBinaryTransitionFunc = this.transitionFunc;
       }
+
+      //imagine
+      // if (this.ruleEntry1.message != null) {
+      //   alert(`Failed to parse function: ${this.ruleEntry1.message}`);
+      //   this.transitionFunc =
+      //     (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      // } else {
+      //   console.log("revalidate rule 1");
+      //   this.ruleEntry1.revalidate();
+      //   this.transitionFunc = this.ruleEntry1.value;
+      //   this.lastBinaryTransitionFunc = this.transitionFunc;
+      // }
+
+      // if (this.ruleEntry2.message != null) {
+      //   alert(`Failed to parse function: ${this.ruleEntry2.message}`);
+      //   this.transitionFunc =
+      //     (ref = this.lastBinaryTransitionFunc) != null ? ref : this.transitionFunc;
+      // } else {
+      //   console.log("revalidate rule 2");
+      //   this.ruleEntry2.revalidate();
+      //   this.transitionFunc = this.ruleEntry2.value;
+      //   this.lastBinaryTransitionFunc = this.transitionFunc;
+      // }
+      //end of imagine
       this.paintStateSelector.update(this.transitionFunc);
       console.log(this.transitionFunc);
       E("controls-rule-simple").style.display = "";
@@ -522,12 +613,24 @@
         this.tiling,
         this.transitionFunc.evaluate.bind(this.transitionFunc),
         this.transitionFunc.plus,
-        this.transitionFunc.plusInitial
+        this.transitionFunc.plusInitial,
+        currentVariant.getCurrentStateVariant(),
+        currentVariant.getCurrentUpdatePolicy()
       );
       this.generation += 1;
       redraw();
       updatePopulation();
       updateGeneration();
+      // console.log(
+      //   `hidden?: ${document.getElementById("additional-rules-container").classList.contains("hidden")}`
+      // );
+      if (
+        document.getElementById("additional-rules-container").classList.contains("hidden") === false
+      ) {
+        this.ruleListIndex = (this.ruleListIndex + 1) % 3;
+        this.transitionFunc = this.ruleList[this.ruleListIndex];
+      }
+
       return typeof onFinish === "function" ? onFinish() : void 0;
     }
 
@@ -594,6 +697,9 @@
         case "binary":
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
+          // console.log("Immig");
+          // this.observer.changeToImmigrant();
+          // this.paintStateSelector.updateImmigration(this.transitionFunc);
           break;
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
@@ -644,6 +750,9 @@
       } else {
         this.cells.put(cell, this.paintStateSelector.state);
       }
+      //console.log(`xp: ${xp} yp: ${yp}`);
+
+      //console.log(`${x} ${y}`);
       return redraw();
     }
 
@@ -781,7 +890,85 @@
       this.container = container;
       this.buttonContainer = buttonContainer;
       this.state = 1;
-      this.numStates = 2;
+      this.numStates = 2; //changed
+    }
+
+    updateImmigration() {
+      var btnId, color, dom, i, id2state, numStates, ref, state;
+      this.numStates = 3;
+      numStates = 3;
+
+      this.buttonContainer.innerHTML = "";
+      this.container.style.display = "";
+      dom = new DomBuilder();
+      id2state = {};
+      this.state2id = {};
+      for (
+        state = i = 1, ref = numStates;
+        1 <= ref ? i < ref : i > ref;
+        state = 1 <= ref ? ++i : --i
+      ) {
+        color = this.application.observer.getColorForState(state);
+        btnId = `select-state-${state}`;
+        this.state2id[state] = btnId;
+        id2state[btnId] = state;
+        dom
+          .tag("button")
+          .store("btn")
+          .CLASS(state === this.state ? "btn-selected" : "")
+          .ID(btnId)
+          .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
+          .text("" + state)
+          .end();
+        //dom.vars.btn.onclick = (e)->
+      }
+      this.buttonContainer.appendChild(dom.finalize());
+      this.buttons = new ButtonGroup(this.buttonContainer, "button");
+      return this.buttons.addEventListener("change", (e, btnId, oldBtn) => {
+        if ((state = id2state[btnId]) != null) {
+          return (this.state = state);
+        }
+      });
+    }
+
+    updateRainbow() {
+      var btnId, color, dom, i, id2state, numStates, ref, state;
+      this.numStates = 11;
+      numStates = 11;
+      this.buttonContainer.innerHTML = "";
+      this.container.style.display = "";
+      dom = new DomBuilder();
+      id2state = {};
+      this.state2id = {};
+      for (
+        state = i = 1, ref = numStates;
+        1 <= ref ? i < ref : i > ref;
+        state = 1 <= ref ? ++i : --i
+      ) {
+        color = this.application.observer.getColorForState(state);
+        btnId = `select-state-${state}`;
+        this.state2id[state] = btnId;
+        id2state[btnId] = state;
+        if (state === 1 || state === 10) {
+          dom
+            .tag("button")
+            .store("btn")
+            .CLASS(state === this.state ? "btn-selected" : "")
+            .ID(btnId)
+            .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
+            .text("" + state)
+            .end();
+        }
+
+        //dom.vars.btn.onclick = (e)->
+      }
+      this.buttonContainer.appendChild(dom.finalize());
+      this.buttons = new ButtonGroup(this.buttonContainer, "button");
+      return this.buttons.addEventListener("change", (e, btnId, oldBtn) => {
+        if ((state = id2state[btnId]) != null) {
+          return (this.state = state);
+        }
+      });
     }
 
     update() {
@@ -932,7 +1119,8 @@
     if (!application.observer.canDraw()) {
       return false;
     }
-    context.fillStyle = "white";
+    // This is the one we change when we wanna change the BG of the canvas
+    context.fillStyle = "pink";
     //context.clearRect 0, 0, canvas.width, canvas.height
     context.fillRect(0, 0, w, h);
     context.save();
@@ -983,7 +1171,9 @@
     e.preventDefault();
     [x, y] = getCanvasCursorPosition(e, canvas);
     isPanAction = (e.button === 1) ^ e.shiftKey ^ isPanMode;
+    //isPanAction = !isPanAction
     if (!isPanAction) {
+      //console.log(`${x} ${y}`);
       application.toggleCellAt(x, y);
       return updatePopulation();
     } else {
@@ -1049,6 +1239,26 @@
   doCloseEditor = function () {
     return (E("generic-tf-editor").style.display = "none");
   };
+
+  showDynamic = function () {
+    let myContainer = document.getElementById("additional-rules-container");
+    myContainer.classList.toggle("hidden");
+  };
+
+  toggleUpdatePolicy = function () {
+    const asynchButton = document.getElementById("btn-asynch");
+    if (asynchButton.innerHTML === "Asynchronous") {
+      asynchButton.innerHTML = "Synchronous";
+      currentVariant.changeCurrentUpdatePolicy("asynchronous");
+    } else {
+      asynchButton.innerHTML = "Asynchronous";
+      currentVariant.changeCurrentUpdatePolicy("synchronous");
+    }
+  };
+  // deleteRule = function () {
+  //   let myContainer = document.getElementById("additional-rules-container");
+  //   myContainer.removeChild(myContainer.lastElementChild);
+  // };
 
   doSetRuleGeneric = function () {
     var e;
@@ -1304,11 +1514,13 @@
 
   E("btn-edit-rule").addEventListener("click", doOpenEditor);
 
+  E("btn-dynamic").addEventListener("click", showDynamic);
+
+  E("btn-asynch").addEventListener("click", toggleUpdatePolicy);
+
   E("btn-disable-generic-rule").addEventListener("click", doDisableGeneric);
 
   E("btn-export-close").addEventListener("click", doExportClose);
-
-  E("btn-import").addEventListener("click", doShowImport);
 
   E("btn-import-cancel").addEventListener("click", doImportCancel);
 
@@ -1403,14 +1615,6 @@
     return doSetPanMode(true);
   });
 
-  E("btn-db-save").addEventListener("click", function (e) {
-    return application.saveDialog.show();
-  });
-
-  E("btn-db-load").addEventListener("click", function (e) {
-    return application.openDialog.show();
-  });
-
   E("btn-export-svg").addEventListener("click", function (e) {
     return application.doExportSvg();
   });
@@ -1419,10 +1623,60 @@
     return application.svgDialog.close();
   });
 
-  // This portion also seems removable
-  /* E("btn-export-uri").addEventListener("click", function (e) {
-    return application.doExportUrl();
-  }); */
+  E("btn-db-save").addEventListener("click", function (e) {
+    return application.saveDialog.show();
+  });
+
+  E("btn-db-load").addEventListener("click", function (e) {
+    return application.openDialog.show();
+  });
+
+  // THE VARIANTS (change the ids soon)
+  let currentVariant = new SimulatorVariant();
+
+  E("btn-export-uri").addEventListener("click", function (e) {
+    const immigrantButton = document.getElementById("btn-export-uri");
+    const rainbowButton = document.getElementById("btn-import");
+
+    immigrantButton.classList.toggle("on");
+    rainbowButton.classList.remove("on");
+
+    if (immigrantButton.classList.contains("on")) {
+      application.observer.changeToImmigrant();
+      currentVariant.changeCurrentStateVariant("immigration");
+      application.paintStateSelector.updateImmigration();
+      application.doReset();
+      return redraw();
+    } else {
+      application.observer.revertToOriginalStates();
+      currentVariant.changeCurrentStateVariant("default");
+      application.paintStateSelector.update();
+      application.doReset();
+      return redraw();
+    }
+  });
+
+  E("btn-import").addEventListener("click", () => {
+    const rainbowButton = document.getElementById("btn-import");
+    const immigrantButton = document.getElementById("btn-export-uri");
+
+    rainbowButton.classList.toggle("on");
+    immigrantButton.classList.remove("on");
+
+    if (rainbowButton.classList.contains("on")) {
+      application.observer.changeToRainbow();
+      currentVariant.changeCurrentStateVariant("rainbow");
+      application.paintStateSelector.updateRainbow();
+      application.doReset();
+      return redraw();
+    } else {
+      application.observer.revertToOriginalStates();
+      currentVariant.changeCurrentStateVariant("default");
+      application.paintStateSelector.update();
+      application.doReset();
+      return redraw();
+    }
+  });
 
   shortcuts = {
     N: function () {

@@ -34,11 +34,21 @@
           </div>
           <div class="control-group">
             <span id="controls-rule-simple">
-              Rule<br /><input id="rule-entry" />
+              Rule<br />
+              <button id="btn-dynamic" title="Dynamic Rule Selection">
+                Dynamic Rule Selection
+              </button>
+              <input id="rule-entry" />
+              <div id="additional-rules-container" class="hidden">
+                <input id="rule-entry-1" />
+                <input id="rule-entry-2" />
+              </div>
+
               <button id="btn-set-rule" title="Apply this rule">Set</button>
               <button id="btn-rule-make-generic" title="Make custom rule, defined by JS code">
                 Generic&hellip;
               </button>
+              <button id="btn-asynch" title="Asynchronous">Asynchronous</button>
             </span>
             <span id="controls-rule-generic" style="display: none">
               Generic rule<br />
@@ -61,7 +71,7 @@
             Neighbors: <span id="grid-num-neighbors" class="numdisplay"></span>
           </div>
 
-          <div class="control-group">
+          <div class="control-group" style="display: none">
             <button id="btn-mem-set" title="(M) Store field in the momory">MS</button>
             <button id="btn-mem-get" title="(U) Restore field from memory">MR</button>
             <button id="btn-mem-clear" title="(Alt+M) Clear memory">MC</button>
@@ -79,7 +89,7 @@
             </button>
           </div>
           <div class="control-group">
-            <button id="btn-import" title="Import field from text">Import</button>
+            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
           <div class="control-group">
             <input type="checkbox" id="image-fix-size" title="Fix field size in pixels" />Fix
@@ -177,8 +187,10 @@
             </button>
           </div>
           <div class="control-group">
-            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
-            <button id="btn-export-uri" title="Export world state as URI">URI</button>
+            <button id="btn-export-uri" title="Swap to the Immigration Variant" class="">
+              Immigration
+            </button>
+            <button id="btn-import" title="Swap to the Rainbow Variant" class="">Rainbow</button>
           </div>
           <div class="control-group">
             <input

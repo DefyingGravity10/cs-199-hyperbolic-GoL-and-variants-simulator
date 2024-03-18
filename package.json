@@ -4,6 +4,7 @@
     "prettier": "3.2.5"
   },
   "dependencies": {
+    "browserify": "^17.0.0",
     "coffeeify": "^3.0.1",
     "mkdirp": "^3.0.1"
   }

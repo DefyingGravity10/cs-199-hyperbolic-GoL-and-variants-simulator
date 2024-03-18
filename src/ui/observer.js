@@ -17,7 +17,7 @@
     poincare2hyperblic,
     hyperbolic2poincare,
     visibleNeighborhood,
-    makeCellShapePoincare,
+    makeCellShapePoincare
   } = require("../core/poincare_view.js"));
 
   //{eliminateFinalA} = require "../core/vondyck_rewriter.js"
@@ -77,6 +77,7 @@
         "magenta",
         "gray",
         "orange",
+        "purple"
       ];
       this.onFinish = null;
     }
@@ -113,6 +114,40 @@
       return this.pattern[
         ((state % this.pattern.length) + this.pattern.length) % this.pattern.length
       ];
+    }
+
+    revertToOriginalStates() {
+      return (this.pattern = [
+        "red",
+        "black",
+        "green",
+        "blue",
+        "yellow",
+        "cyan",
+        "magenta",
+        "gray",
+        "orange",
+        "purple"
+      ]);
+    }
+    changeToImmigrant() {
+      // a function used to change to immigrant. will be renamed in the future
+      return (this.pattern = ["red", "blue"]);
+    }
+
+    changeToRainbow() {
+      return (this.pattern = [
+        "#000000",
+        "#ffffff",
+        "#eef2f0",
+        "#dcdcdc",
+        "#afafaf",
+        "#898989",
+        "#636363",
+        "#49484c",
+        "#383838",
+        "#242424"
+      ]);
     }
 
     getViewCenter() {
@@ -213,6 +248,7 @@
           context.strokeStyle = this.colorEmptyBorder;
           context.stroke();
         } else {
+          // This can be used to obtain the colors of the cells
           context.fillStyle = this.getColorForState(state);
           context.fill();
           if (this.isDrawingLiveBorders) {

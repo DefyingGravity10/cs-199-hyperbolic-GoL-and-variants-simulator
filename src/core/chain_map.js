@@ -29,12 +29,12 @@
     }
 
     putAccumulate(chain, value, accumulateFunc, accumulateInitial) {
+      // Value is equivalent to the state (number)
       var cell, j, key_value, len;
       cell = this.table[this._index(chain)];
       for (j = 0, len = cell.length; j < len; j++) {
         key_value = cell[j];
         if (key_value[0].equals(chain)) {
-          //Update existing value
           key_value[1] = accumulateFunc(key_value[1], value);
           return;
         }

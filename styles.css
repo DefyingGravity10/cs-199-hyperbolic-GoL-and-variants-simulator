@@ -46,6 +46,10 @@ div.popup {
 .dialog-content{
     margin: 1em 2em 2em 1em;
 }
+
+.hidden{
+    display: none;
+}
 /*Main layout*/
 
 #main{
@@ -108,6 +112,10 @@ span.button-group:first-child {
 
 #sidebar {
     width: 12em;
+}
+
+#canvas {
+    border-radius: 50%;
 }
 
 #canvas-container{
