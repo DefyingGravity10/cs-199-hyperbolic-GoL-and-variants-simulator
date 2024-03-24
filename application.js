@@ -6116,7 +6116,6 @@ exports.parseFieldData1 = (data) ->
         console.log(`restore ${isDrawing}`);
       } else {
         this.setDrawingHomePtr(E("flag-origin-mark").checked);
-        this.setShowLiveBorders(E("flag-live-borders").checked);
       }
       this.observer.onFinish = function () {
         return redraw();
@@ -7284,10 +7283,6 @@ exports.parseFieldData1 = (data) ->
 
   E("flag-origin-mark").addEventListener("change", function (e) {
     return application.setDrawingHomePtr(E("flag-origin-mark").checked);
-  });
-
-  E("flag-live-borders").addEventListener("change", function (e) {
-    return application.setShowLiveBorders(E("flag-live-borders").checked);
   });
 
   E("btn-mode-edit").addEventListener("click", function (e) {
