@@ -16,6 +16,7 @@
     GenericTransitionFunc,
     GhostClickDetector,
     M,
+    MAX_WIDTH,
     MIN_WIDTH,
     MouseToolCombo,
     Navigator,
@@ -184,6 +185,7 @@
   ({ GhostClickDetector } = require("./ghost_click_detector.js"));
 
   MIN_WIDTH = 100;
+  MAX_WIDTH = 520;
 
   minVisibleSize = 1 / 100;
 
@@ -861,26 +863,12 @@
     if (w <= MIN_WIDTH) {
       w = MIN_WIDTH;
     }
+    if (w > MAX_WIDTH) {
+      w = MAX_WIDTH;
+    }
     if (canvas.width !== w) {
       canvas.width = canvas.height = w;
       redraw();
-      E("image-size").value = "" + w;
-    }
-  };
-
-  doSetFixedSize = function (isFixed) {
-    var size;
-    if (isFixed) {
-      size = parseIntChecked(E("image-size").value);
-      if (size <= 0 || size >= 65536) {
-        throw new Error(`Bad size: ${size}`);
-      }
-      canvasSizeUpdateBlocked = true;
-      canvas.width = canvas.height = size;
-      return redraw();
-    } else {
-      canvasSizeUpdateBlocked = false;
-      return updateCanvasSize();
     }
   };
 
@@ -1588,15 +1576,6 @@
 
   E("view-straighten").addEventListener("click", function (e) {
     return application.observer.straightenView();
-  });
-
-  E("image-fix-size").addEventListener("click", function (e) {
-    return doSetFixedSize(E("image-fix-size").checked);
-  });
-
-  E("image-size").addEventListener("change", function (e) {
-    E("image-fix-size").checked = true;
-    return doSetFixedSize(true);
   });
 
   E("flag-origin-mark").addEventListener("change", function (e) {
