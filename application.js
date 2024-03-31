@@ -7217,9 +7217,9 @@ exports.parseFieldData1 = (data) ->
 
   E("btn-export-close").addEventListener("click", doExportClose);
 
-  E("btn-import-cancel").addEventListener("click", doImportCancel);
+  E("btn-rainbow-cancel").addEventListener("click", doImportCancel);
 
-  E("btn-import-run").addEventListener("click", doImport);
+  E("btn-rainbow-run").addEventListener("click", doImport);
 
   //initialize
   /* E("btn-mem-set").addEventListener("click", doMemorize);
@@ -7316,9 +7316,9 @@ exports.parseFieldData1 = (data) ->
   // THE VARIANTS (change the ids soon)
   let currentVariant = new SimulatorVariant();
 
-  E("btn-export-uri").addEventListener("click", function (e) {
-    const immigrantButton = document.getElementById("btn-export-uri");
-    const rainbowButton = document.getElementById("btn-import");
+  E("btn-immigration").addEventListener("click", function (e) {
+    const immigrantButton = document.getElementById("btn-immigration");
+    const rainbowButton = document.getElementById("btn-rainbow");
 
     immigrantButton.classList.toggle("on");
     rainbowButton.classList.remove("on");
@@ -7338,9 +7338,9 @@ exports.parseFieldData1 = (data) ->
     }
   });
 
-  E("btn-import").addEventListener("click", () => {
-    const rainbowButton = document.getElementById("btn-import");
-    const immigrantButton = document.getElementById("btn-export-uri");
+  E("btn-rainbow").addEventListener("click", () => {
+    const rainbowButton = document.getElementById("btn-rainbow");
+    const immigrantButton = document.getElementById("btn-immigration");
 
     rainbowButton.classList.toggle("on");
     immigrantButton.classList.remove("on");
