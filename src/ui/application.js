@@ -481,6 +481,7 @@
         return this.doSetRule();
       };
       //end of imagine
+      this.doSearch();
       this.updateRuleEditor();
       return this.updateGridUI();
     }
@@ -632,6 +633,7 @@
         this.transitionFunc = this.ruleList[this.ruleListIndex];
       }
 
+      this.doSearch();
       return typeof onFinish === "function" ? onFinish() : void 0;
     }
 
@@ -641,6 +643,7 @@
       this.cells.put(unity, 1);
       updatePopulation();
       updateGeneration();
+      this.doSearch();
       return redraw();
     }
 
@@ -649,7 +652,7 @@
       found = this.navigator.search(this.cells);
       updateCanvasSize();
       if (found > 0) {
-        return this.navigator.navigateToResult(0);
+        //return this.navigator.navigateToResult(0);
       }
     }
 
@@ -833,7 +836,7 @@
     docW = documentWidth();
     winW = windowWidth();
     if (docW > winW) {
-      console.log("overflow");
+      // console.log("overflow");
       usedWidth = docW - canvas.width;
       //console.log "#Win: #{windowWidth()}, doc: #{documentWidth()}, used: #{usedWidth}"
       w = winW - usedWidth;
@@ -1162,6 +1165,7 @@
     if (!isPanAction) {
       //console.log(`${x} ${y}`);
       application.toggleCellAt(x, y);
+      application.doSearch();
       return updatePopulation();
     } else {
       return (dragHandler = new MouseToolCombo(application, x, y));
