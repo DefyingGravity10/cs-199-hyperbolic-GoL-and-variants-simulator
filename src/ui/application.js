@@ -588,8 +588,8 @@
     }
 
     updateGridUI() {
-      E("entry-n").value = "" + application.tiling.n;
-      E("entry-m").value = "" + application.tiling.m;
+      E("entry-p").value = "" + application.tiling.n;
+      E("entry-q").value = "" + application.tiling.m;
       return (E("grid-num-neighbors").innerHTML = (this.tiling.m - 2) * this.tiling.n);
     }
 
@@ -1273,8 +1273,8 @@
   doSetGrid = function () {
     var e, m, n;
     try {
-      n = parseInt(E("entry-n").value, 10);
-      m = parseInt(E("entry-m").value, 10);
+      n = parseInt(E("entry-p").value, 10);
+      m = parseInt(E("entry-q").value, 10);
       if (Number.isNaN(n) || n <= 0) {
         throw new Error("Parameter N is bad");
       }
@@ -1620,12 +1620,20 @@
     rainbowButton.classList.remove("on");
 
     if (immigrantButton.classList.contains("on")) {
+      //change label of variant-name
+      const variantName = document.getElementById("variant-name");
+      variantName.innerHTML = "Immigration Game";
+
       application.observer.changeToImmigrant();
       currentVariant.changeCurrentStateVariant("immigration");
       application.paintStateSelector.updateImmigration();
       application.doReset();
       return redraw();
     } else {
+      //change label of variant-name
+      const variantName = document.getElementById("variant-name");
+      variantName.innerHTML = "Conway's Game of Life";
+
       application.observer.revertToOriginalStates();
       currentVariant.changeCurrentStateVariant("default");
       application.paintStateSelector.update();
@@ -1642,12 +1650,20 @@
     immigrantButton.classList.remove("on");
 
     if (rainbowButton.classList.contains("on")) {
+      //change label of variant-name
+      const variantName = document.getElementById("variant-name");
+      variantName.innerHTML = "Rainbow Game of Life";
+
       application.observer.changeToRainbow();
       currentVariant.changeCurrentStateVariant("rainbow");
       application.paintStateSelector.updateRainbow();
       application.doReset();
       return redraw();
     } else {
+      //change label of variant-name
+      const variantName = document.getElementById("variant-name");
+      variantName.innerHTML = "Conway's Game of Life";
+
       application.observer.revertToOriginalStates();
       currentVariant.changeCurrentStateVariant("default");
       application.paintStateSelector.update();

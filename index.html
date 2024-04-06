@@ -5,34 +5,56 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
   <body>
-    <div id="references">
-      <a href="help.html">Help</a>
+    <div id="header">
+      <div id="variant-menu">
+        <div class="dropdown">
+          <button id="variant-button">≡</button>
+          <div class="dropdown-content">
+            <button id="btn-original" title="Swap to the Conway's Variant" class="">
+              Conway's Game of Life
+            </button>
+            <button id="btn-immigration" title="Swap to the Immigration Variant" class="">
+              Immigration Game
+            </button>
+            <button id="btn-rainbow" title="Swap to the Rainbow Variant" class="">
+              Rainbow Game of Life
+            </button>
+          </div>
+        </div>
+        <div id="variant-name">Conway's Game of Life</div>
+      </div>
+      <div id="references">
+        <a href="help.html">Help</a>
+      </div>
     </div>
 
     <div id="main">
       <div id="main-row">
         <!--Main toolbar, containing most useful buttons-->
         <!-- other tools -->
-        <div id="sidebar">
+        <div id="left-sidebar">
           <!-- misc status information -->
-          <div id="statusbar" class="control-group">
-            <div class="control-table">
-              <div>
-                <div>Population:</div>
-                <div><span id="population" class="numdisplay"></span></div>
-              </div>
-              <div>
-                <div>Generation:</div>
-                <div><span id="generation" class="numdisplay"></span></div>
-              </div>
-            </div>
-          </div>
-          <div class="control-group">
-            <button id="view-straighten" title="(Alt+S) Fix rotation and position of the view">
-              Straighten view
+          <div>
+            <button id="btn-db-save" title="(Ctrl+S) Save state to the local database">Save</button>
+            <button id="btn-db-load" title="(Ctrl+O) Load state from the local database">
+              Open
             </button>
           </div>
-          <div class="control-group">
+          <div id="tiling">
+            Tiling
+
+            <div id="tiling-input">
+              &#123; <input id="entry-p" type="number" class="short" placeholder="p" />
+              <input id="entry-q" type="number" class="short" placeholder="q" /> &#125;
+            </div>
+
+            <button id="btn-set-grid" title="Apply grid">Set</button>
+
+            <div id="neighbors">Neighbors</div>
+            <span id="grid-num-neighbors" class="numdisplay"></span>
+          </div>
+
+          <div id="rules">
             <span id="controls-rule-simple">
               Rule<br />
               <button id="btn-dynamic" title="Dynamic Rule Selection">
@@ -58,17 +80,13 @@
               </button>
             </span>
           </div>
+
+          
+
           <div class="control-group">
-            Grid
-            <br />
-            N=<input id="entry-n" type="number" class="short" /> M=<input
-              id="entry-m"
-              type="number"
-              class="short"
-            />
-            <button id="btn-set-grid" title="Apply grid">Set</button>
-            <br />
-            Neighbors: <span id="grid-num-neighbors" class="numdisplay"></span>
+            <button id="view-straighten" title="(Alt+S) Fix rotation and position of the view">
+              Straighten view
+            </button>
           </div>
 
           <div class="control-group" style="display: none">
@@ -81,6 +99,7 @@
               Search
             </button>
           </div>
+
           <div class="control-group">
             Export <br />
             <button id="btn-export" title="Export whole field to text">All</button>
@@ -88,17 +107,11 @@
               Visible
             </button>
           </div>
+
           <div class="control-group">
             <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
-          <div class="control-group">
-            <button id="btn-db-save" title="(Ctrl+S) Save state to the local database">
-              Save&hellip;
-            </button>
-            <button id="btn-db-load" title="(Ctrl+O) Load state from the local database">
-              Open&hellip;
-            </button>
-          </div>
+
           <div class="control-group" id="animate-controls" style="display: none">
             Upload animation<br />
             <input id="upload-name" type="text" value="frame-{0}.png" />
@@ -177,12 +190,14 @@
               Cancel upload
             </button>
           </div>
+          <!--
           <div class="control-group">
             <button id="btn-immigration" title="Swap to the Immigration Variant" class="">
               Immigration
             </button>
             <button id="btn-rainbow" title="Swap to the Rainbow Variant" class="">Rainbow</button>
           </div>
+          -->
           <div class="control-group">
             <input
               type="checkbox"
@@ -215,47 +230,58 @@
                 Stop
               </button>
             </span>
-            <span class="button-group">
-              <button id="btn-nav-home" title="(H) Navigate to the origin">Home</button>
-            </span>
           </div>
           <div id="state-selector" style="display: none">
             States:<span id="state-selector-buttons"></span>
           </div>
 
           <!-- Main control -->
-          <div id="floating-wrapper">
-            <!-- Floating buttons: PAN/EDIT-->
-            <div id="pan-button-container" class="overlay-toolbar">
+
+          <div id="canvas-container" tabindex="0">
+            <canvas id="canvas" width="600" height="600"></canvas>
+          </div>
+        </div>
+        <div id="right-sidebar">
+          
+            <button
+              id="btn-mode-edit"
+              title="(E) Use left button to edit, middle or left+shift to pan"
+            >
+              Edit
+            </button>
+          
               <button
                 id="btn-mode-pan"
                 title="(P) Use left button to pan, middle or left+shift to edit"
               >
                 Pan
               </button>
-            </div>
-            <div id="edit-button-container" class="overlay-toolbar">
-              <button
-                id="btn-mode-edit"
-                title="(E) Use left button to edit, middle or left+shift to pan"
-              >
-                Edit
-              </button>
-            </div>
-          </div>
-          <div id="canvas-container" tabindex="0">
-            <canvas id="canvas" width="600" height="600"></canvas>
-          </div>
-        </div>
 
-        <div id="navigator">
-          <button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
-            Clear
-          </button>
-          <div id="navigator-wrap">
-            <div id="navigator-cluster-list"></div>
+          <span class="button-group">
+            <button id="btn-nav-home" title="(H) Navigate to the origin">Home</button>
+          </span>
+
+          <div id="statusbar">
+            <div class="control-table">
+              <div>
+                <div>Population:</div>
+                <div><span id="population" class="numdisplay"></span></div>
+              </div>
+              <div>
+                <div>Generation:</div>
+                <div><span id="generation" class="numdisplay"></span></div>
+              </div>
+            </div>
           </div>
-        </div>
+          <div id="navigator">
+            <button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
+              Clear
+            </button>
+            <div id="navigator-wrap">
+              <div id="navigator-cluster-list"></div>
+            </div>
+          </div>
+        
       </div>
     </div>
 
