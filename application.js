@@ -5747,10 +5747,7 @@ exports.parseFieldData1 = (data) ->
     doCanvasTouchMove,
     doCanvasTouchStart,
     doClearMemory,
-    doCloseEditor,
     showDynamic,
-    doDisableGeneric,
-    doEditAsGeneric,
     doExport,
     doExportClose,
     doExportVisible,
@@ -5758,7 +5755,6 @@ exports.parseFieldData1 = (data) ->
     doImportCancel,
     doMemorize,
     doNavigateHome,
-    doOpenEditor,
     doRemember,
     doSetFixedSize,
     doSetGrid,
@@ -6067,15 +6063,6 @@ exports.parseFieldData1 = (data) ->
     setShowLiveBorders(isDrawing) {
       this.observer.isDrawingLiveBorders = isDrawing;
       return redraw();
-    }
-
-    setDrawingHomePtr(isDrawing) {
-      this.observer.isDrawingHomePtr = isDrawing;
-      redraw();
-      if (typeof localStorage !== "undefined" && localStorage !== null) {
-        localStorage.setItem("observer.isDrawingHomePtr", isDrawing ? "1" : "0");
-        return console.log(`store ${isDrawing}`);
-      }
     }
 
     //Convert canvas X,Y coordinates to relative X,Y in (0..1) range
@@ -6926,15 +6913,6 @@ exports.parseFieldData1 = (data) ->
     }
   };
 
-  doOpenEditor = function () {
-    E("generic-tf-code").value = application.transitionFunc.code;
-    return (E("generic-tf-editor").style.display = "");
-  };
-
-  doCloseEditor = function () {
-    return (E("generic-tf-editor").style.display = "none");
-  };
-
   showDynamic = function () {
     let myContainer = document.getElementById("additional-rules-container");
     myContainer.classList.toggle("hidden");
@@ -7129,18 +7107,6 @@ exports.parseFieldData1 = (data) ->
     }
   };
 
-  doEditAsGeneric = function () {
-    application.transitionFunc = application.transitionFunc.toGeneric();
-    updateGenericRuleStatus("Compiled");
-    application.paintStateSelector.update(application.transitionFunc);
-    application.updateRuleEditor();
-    return doOpenEditor();
-  };
-
-  doDisableGeneric = function () {
-    return application.doSetRule();
-  };
-
   doNavigateHome = function () {
     return application.observer.navigateTo(unity);
   };
@@ -7182,17 +7148,6 @@ exports.parseFieldData1 = (data) ->
 
   ghostClickDetector.addListeners(canvas);
 
-  E("btn-set-rule").addEventListener("click", function (e) {
-    return application.doSetRule();
-  });
-
-  E("btn-set-rule-generic").addEventListener("click", function (e) {
-    doSetRuleGeneric();
-    return doCloseEditor();
-  });
-
-  E("btn-rule-generic-close-editor").addEventListener("click", doCloseEditor);
-
   E("btn-set-grid").addEventListener("click", doSetGrid);
 
   E("btn-export").addEventListener("click", doExport);
@@ -7205,15 +7160,9 @@ exports.parseFieldData1 = (data) ->
     return application.doRandomFill();
   });
 
-  E("btn-rule-make-generic").addEventListener("click", doEditAsGeneric);
-
-  E("btn-edit-rule").addEventListener("click", doOpenEditor);
-
   E("btn-dynamic").addEventListener("click", showDynamic);
 
   E("btn-asynch").addEventListener("click", toggleUpdatePolicy);
-
-  E("btn-disable-generic-rule").addEventListener("click", doDisableGeneric);
 
   E("btn-export-close").addEventListener("click", doExportClose);
 
@@ -7283,10 +7232,6 @@ exports.parseFieldData1 = (data) ->
 
   E("view-straighten").addEventListener("click", function (e) {
     return application.observer.straightenView();
-  });*/
-
-  /*E("flag-origin-mark").addEventListener("change", function (e) {
-    return application.setDrawingHomePtr(E("flag-origin-mark").checked);
   });*/
 
   E("btn-mode-edit").addEventListener("click", function (e) {

@@ -67,17 +67,11 @@
               </div>
 
               <button id="btn-set-rule" title="Apply this rule">Set</button>
-              <button id="btn-rule-make-generic" title="Make custom rule, defined by JS code">
-                Generic&hellip;
-              </button>
               <button id="btn-asynch" title="Asynchronous">Asynchronous</button>
             </span>
+            <!--For future clean-ups-->
             <span id="controls-rule-generic" style="display: none">
               Generic rule<br />
-              <button id="btn-edit-rule" title="Edit JS code of the rule">Edit&hellip;</button>
-              <button id="btn-disable-generic-rule" title="Return to the binary rule mode">
-                Disable
-              </button>
             </span>
           </div>
 
@@ -110,7 +104,7 @@
             </button>
           </div>
           
-          <div class="control-group" style="display: none">
+          <div class="control-group">
             <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
           
@@ -193,16 +187,6 @@
               Cancel upload
             </button>
           </div>
-        
-          <!--
-          <div class="control-group">
-            <input
-              type="checkbox"
-              id="flag-origin-mark"
-              title="When checked, marker of origin is shown"
-            />Origin mark
-          </div>
-          -->
         </div>
 
         <!-- Main content -->
@@ -290,27 +274,6 @@
     </div>
 
     <!-- popup dialogs ets -->
-    <div id="generic-tf-editor" style="display: none" class="popup-container">
-      <div class="popup-shadow"></div>
-      <div class="popup">
-        <h1>Custom Rule</h1>
-        Javascript code:<br />
-        <textarea
-          id="generic-tf-code"
-          style="width: 100%"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
-          class="code-entry"
-        ></textarea>
-        <div>Status: <span id="generic-tf-status">modified</span></div>
-        <div class="toolbar">
-          <button id="btn-set-rule-generic">OK</button>
-          <button id="btn-rule-generic-close-editor">Cancel</button>
-        </div>
-      </div>
-    </div>
 
     <div id="export-dialog" style="display: none" class="popup-container">
       <div class="popup-shadow"></div>
