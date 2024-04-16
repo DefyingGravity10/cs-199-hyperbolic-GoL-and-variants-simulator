@@ -123,16 +123,18 @@ div.popup {
 #main-row {
   display: table-row;
 }
-#main-row > div {
+
+#toolbar {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#main-content {
   vertical-align: top;
   display: table-cell;
 }
 
-#main-content {
-}
-#toolbar {
-  text-align: center;
-}
 /*To position floating toolbars*/
 #floating-wrapper {
   position: relative;
@@ -144,6 +146,8 @@ div.overlay-toolbar {
 }
 
 #left-sidebar {
+  vertical-align: top;
+  display: table-cell;
   width: 12em;
   padding-left: 0.5in;
   padding-top: 0.25in;
@@ -198,6 +202,8 @@ div.overlay-toolbar {
 }
 
 #right-sidebar {
+  vertical-align: top;
+  display: table-cell;
   width: 12em;
   padding-right: 0.5in;
   padding-top: 0.25in;

@@ -407,11 +407,11 @@
             : void 0) != null
       ) {
         isDrawing = isDrawing === "1";
-        E("flag-origin-mark").checked = isDrawing;
+        //E("flag-origin-mark").checked = isDrawing;
         this.observer.isDrawingHomePtr = isDrawing;
         console.log(`restore ${isDrawing}`);
       } else {
-        this.setDrawingHomePtr(E("flag-origin-mark").checked);
+        //this.setDrawingHomePtr(E("flag-origin-mark").checked);
       }
       this.observer.onFinish = function () {
         return redraw();
@@ -1573,17 +1573,17 @@
     return application.animator.cancelWork();
   });
  */
-  E("view-straighten").addEventListener("click", function (e) {
+  /*E("view-straighten").addEventListener("click", function (e) {
     return application.observer.straightenView();
   });
 
   E("view-straighten").addEventListener("click", function (e) {
     return application.observer.straightenView();
-  });
+  });*/
 
-  E("flag-origin-mark").addEventListener("change", function (e) {
+  /*E("flag-origin-mark").addEventListener("change", function (e) {
     return application.setDrawingHomePtr(E("flag-origin-mark").checked);
-  });
+  });*/
 
   E("btn-mode-edit").addEventListener("click", function (e) {
     return doSetPanMode(false);

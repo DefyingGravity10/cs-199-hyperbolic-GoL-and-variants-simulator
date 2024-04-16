@@ -82,36 +82,39 @@
           </div>
 
           
-
+          <!--
           <div class="control-group">
             <button id="view-straighten" title="(Alt+S) Fix rotation and position of the view">
               Straighten view
             </button>
           </div>
-
+          -->
           <div class="control-group" style="display: none">
             <button id="btn-mem-set" title="(M) Store field in the momory">MS</button>
             <button id="btn-mem-get" title="(U) Restore field from memory">MR</button>
             <button id="btn-mem-clear" title="(Alt+M) Clear memory">MC</button>
           </div>
-          <div class="control-group">
+          
+          <div class="control-group" style="display: none">
             <button id="btn-search" title="(S) Search for all cell groups in the field">
               Search
             </button>
           </div>
-
-          <div class="control-group">
+          
+          
+          <div class="control-group" style="display: none">
             Export <br />
             <button id="btn-export" title="Export whole field to text">All</button>
             <button id="btn-exp-visible" title="Export visible part of the field to text">
               Visible
             </button>
           </div>
-
-          <div class="control-group">
+          
+          <div class="control-group" style="display: none">
             <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
-
+          
+          <!--Animation (i don't get this)-->
           <div class="control-group" id="animate-controls" style="display: none">
             Upload animation<br />
             <input id="upload-name" type="text" value="frame-{0}.png" />
@@ -190,14 +193,8 @@
               Cancel upload
             </button>
           </div>
+        
           <!--
-          <div class="control-group">
-            <button id="btn-immigration" title="Swap to the Immigration Variant" class="">
-              Immigration
-            </button>
-            <button id="btn-rainbow" title="Swap to the Rainbow Variant" class="">Rainbow</button>
-          </div>
-          -->
           <div class="control-group">
             <input
               type="checkbox"
@@ -205,32 +202,12 @@
               title="When checked, marker of origin is shown"
             />Origin mark
           </div>
+          -->
         </div>
 
         <!-- Main content -->
         <div id="main-content">
-          <div id="toolbar">
-            <span class="button-group">
-              <button id="btn-reset" class="dangerous" title="(C) Clear field and reset view">
-                Reset
-              </button>
-              <button id="btn-random" title="(R) Fill with random cells">Random</button>
-            </span>
-            <span class="button-group">
-              <button id="btn-step" title="(N) Evaluate for one generation">Step</button>
-              <button id="btn-play-start" title="(G or Space) Start continuous evaluation">
-                Go
-              </button>
-              <button
-                id="btn-play-stop"
-                style="display: none"
-                class="button-active"
-                title="(G or Space) Stop continuous evaluation"
-              >
-                Stop
-              </button>
-            </span>
-          </div>
+          
           <div id="state-selector" style="display: none">
             States:<span id="state-selector-buttons"></span>
           </div>
@@ -241,6 +218,33 @@
             <canvas id="canvas" width="600" height="600"></canvas>
           </div>
         </div>
+        <div id="toolbar">
+          
+          <div class="button-group">
+            <button id="btn-reset" class="dangerous" title="(C) Clear field and reset view">
+              Reset
+            </button>
+            <button id="btn-random" title="(R) Fill with random cells" style="display: none">Random</button>
+          </div>
+          <div class="button-group">
+            <button id="btn-step" title="(N) Evaluate for one generation">Step</button>
+          </div>
+          <div class="button-group">
+
+            <button id="btn-play-start" title="(G or Space) Start continuous evaluation">
+              Go
+            </button>
+            <button
+              id="btn-play-stop"
+              style="display: none"
+              class="button-active"
+              title="(G or Space) Stop continuous evaluation"
+            >
+              Stop
+            </button>
+          </div>
+        </div>
+        
         <div id="right-sidebar">
           
             <button
