@@ -5747,7 +5747,6 @@ exports.parseFieldData1 = (data) ->
     doCanvasTouchMove,
     doCanvasTouchStart,
     doClearMemory,
-    showDynamic,
     doExport,
     doExportClose,
     doExportVisible,
@@ -5800,7 +5799,6 @@ exports.parseFieldData1 = (data) ->
     shortcuts,
     showExportDialog,
     stringifyFieldData,
-    toggleUpdatePolicy,
     unity,
     updateCanvasSize,
     updateGeneration,
@@ -6912,22 +6910,6 @@ exports.parseFieldData1 = (data) ->
       return dragHandler.mouseMoved(e);
     }
   };
-
-  showDynamic = function () {
-    let myContainer = document.getElementById("additional-rules-container");
-    myContainer.classList.toggle("hidden");
-  };
-
-  toggleUpdatePolicy = function () {
-    const asynchButton = document.getElementById("btn-asynch");
-    if (asynchButton.innerHTML === "Asynchronous") {
-      asynchButton.innerHTML = "Synchronous";
-      currentVariant.changeCurrentUpdatePolicy("asynchronous");
-    } else {
-      asynchButton.innerHTML = "Asynchronous";
-      currentVariant.changeCurrentUpdatePolicy("synchronous");
-    }
-  };
   // deleteRule = function () {
   //   let myContainer = document.getElementById("additional-rules-container");
   //   myContainer.removeChild(myContainer.lastElementChild);
@@ -7160,9 +7142,32 @@ exports.parseFieldData1 = (data) ->
     return application.doRandomFill();
   });
 
-  E("btn-dynamic").addEventListener("click", showDynamic);
+  E("btn-static").addEventListener("click", function () {
+    const myContainer = document.getElementById("additional-rules-container");
+    myContainer.classList.add("hidden");
 
-  E("btn-asynch").addEventListener("click", toggleUpdatePolicy);
+    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
+    toggleRuleSelectionButton.innerHTML = "Static";
+  });
+  E("btn-dynamic").addEventListener("click", function () {
+    const myContainer = document.getElementById("additional-rules-container");
+    myContainer.classList.remove("hidden");
+
+    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
+    toggleRuleSelectionButton.innerHTML = "Dynamic";
+  });
+
+  E("btn-synch").addEventListener("click", function () {
+    const toggleUpdatingPolicy = document.getElementById("updating-button");
+    toggleUpdatingPolicy.innerHTML = "Synchronous";
+    currentVariant.changeCurrentUpdatePolicy("synchronous");
+  });
+
+  E("btn-asynch").addEventListener("click", function () {
+    const toggleUpdatingPolicy = document.getElementById("updating-button");
+    toggleUpdatingPolicy.innerHTML = "Asynchronous";
+    currentVariant.changeCurrentUpdatePolicy("asynchronous");
+  });
 
   E("btn-export-close").addEventListener("click", doExportClose);
 
@@ -7261,64 +7266,40 @@ exports.parseFieldData1 = (data) ->
   // THE VARIANTS (change the ids soon)
   let currentVariant = new SimulatorVariant();
 
-  E("btn-immigration").addEventListener("click", function (e) {
-    const immigrantButton = document.getElementById("btn-immigration");
-    const rainbowButton = document.getElementById("btn-rainbow");
+  E("btn-immigration").addEventListener("click", function () {
+    //change label of variant-name
+    const variantName = document.getElementById("variant-name");
+    variantName.innerHTML = "Immigration Game";
 
-    immigrantButton.classList.toggle("on");
-    rainbowButton.classList.remove("on");
-
-    if (immigrantButton.classList.contains("on")) {
-      //change label of variant-name
-      const variantName = document.getElementById("variant-name");
-      variantName.innerHTML = "Immigration Game";
-
-      application.observer.changeToImmigrant();
-      currentVariant.changeCurrentStateVariant("immigration");
-      application.paintStateSelector.updateImmigration();
-      application.doReset();
-      return redraw();
-    } else {
-      //change label of variant-name
-      const variantName = document.getElementById("variant-name");
-      variantName.innerHTML = "Conway's Game of Life";
-
-      application.observer.revertToOriginalStates();
-      currentVariant.changeCurrentStateVariant("default");
-      application.paintStateSelector.update();
-      application.doReset();
-      return redraw();
-    }
+    application.observer.changeToImmigrant();
+    currentVariant.changeCurrentStateVariant("immigration");
+    application.paintStateSelector.updateImmigration();
+    application.doReset();
+    return redraw();
   });
 
   E("btn-rainbow").addEventListener("click", () => {
-    const rainbowButton = document.getElementById("btn-rainbow");
-    const immigrantButton = document.getElementById("btn-immigration");
+    //change label of variant-name
+    const variantName = document.getElementById("variant-name");
+    variantName.innerHTML = "Rainbow Game of Life";
 
-    rainbowButton.classList.toggle("on");
-    immigrantButton.classList.remove("on");
+    application.observer.changeToRainbow();
+    currentVariant.changeCurrentStateVariant("rainbow");
+    application.paintStateSelector.updateRainbow();
+    application.doReset();
+    return redraw();
+  });
 
-    if (rainbowButton.classList.contains("on")) {
-      //change label of variant-name
-      const variantName = document.getElementById("variant-name");
-      variantName.innerHTML = "Rainbow Game of Life";
+  E("btn-original").addEventListener("click", () => {
+    //change label of variant-name
+    const variantName = document.getElementById("variant-name");
+    variantName.innerHTML = "Conway's Game of Life";
 
-      application.observer.changeToRainbow();
-      currentVariant.changeCurrentStateVariant("rainbow");
-      application.paintStateSelector.updateRainbow();
-      application.doReset();
-      return redraw();
-    } else {
-      //change label of variant-name
-      const variantName = document.getElementById("variant-name");
-      variantName.innerHTML = "Conway's Game of Life";
-
-      application.observer.revertToOriginalStates();
-      currentVariant.changeCurrentStateVariant("default");
-      application.paintStateSelector.update();
-      application.doReset();
-      return redraw();
-    }
+    application.observer.revertToOriginalStates();
+    currentVariant.changeCurrentStateVariant("default");
+    application.paintStateSelector.update();
+    application.doReset();
+    return redraw();
   });
 
   shortcuts = {
