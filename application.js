@@ -7414,7 +7414,7 @@ exports.parseFieldData1 = (data) ->
 
   redrawLoop();
 
-  application.saveDialog.show();
+  // application.saveDialog.show();
 }).call(this);
 
 },{"../core/acosh_polyfill.js":1,"../core/cellular_automata.js":2,"../core/chain_map.js":3,"../core/field.js":5,"../core/matrix3.js":8,"../core/regular_tiling.js":10,"../core/rule.js":11,"../core/utils.js":13,"../core/variant_util.js":14,"../core/vondyck_chain.js":16,"../ext/canvas2svg.js":18,"../ext/polyfills.js":19,"./animator.js":20,"./canvas_util.js":22,"./dom_builder.js":23,"./ghost_click_detector.js":24,"./htmlutil.js":25,"./indexeddb.js":26,"./mousetool.js":27,"./navigator.js":28,"./observer.js":29,"./parseuri.js":30}],22:[function(require,module,exports){
