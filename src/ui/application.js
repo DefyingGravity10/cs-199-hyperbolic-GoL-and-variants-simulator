@@ -1710,5 +1710,5 @@
 
   redrawLoop();
 
-  //application.saveDialog.show()
+  application.saveDialog.show();
 }).call(this);
