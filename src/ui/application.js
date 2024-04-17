@@ -566,9 +566,9 @@
       this.observer.onFinish = function () {
         return redraw();
       };
-      if ((ref1 = this.navigator) != null) {
+      /*if ((ref1 = this.navigator) != null) {
         ref1.clear();
-      }
+      }*/
       doClearMemory();
       doStopPlayer();
       return this.updateGridUI();
@@ -1479,9 +1479,9 @@
 
   window.addEventListener("resize", updateCanvasSize);
 
-  E("btn-nav-clear").addEventListener("click", function (e) {
+  /*E("btn-nav-clear").addEventListener("click", function (e) {
     return application.navigator.clear();
-  });
+  });*/
 
   E("btn-play-start").addEventListener("click", doTogglePlayer);
 

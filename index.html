@@ -39,6 +39,8 @@
             <button id="btn-db-load" title="(Ctrl+O) Load state from the local database">
               Open
             </button>
+            
+            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
           <div id="tiling">
             Tiling
@@ -50,16 +52,41 @@
 
             <button id="btn-set-grid" title="Apply grid">Set</button>
 
-            <div id="neighbors">Neighbors</div>
-            <span id="grid-num-neighbors" class="numdisplay"></span>
+            
           </div>
 
           <div id="rules">
             <span id="controls-rule-simple">
               Rule<br />
-              <button id="btn-dynamic" title="Dynamic Rule Selection">
-                Dynamic Rule Selection
-              </button>
+              <div id="rule-variants">
+                <div id="rule-variant-labels">
+                  <div id="rule-selction-label">Rule Selection</div>
+                  <div id="updating-label">Updating</div>
+                </div>
+                <div id="rule-selection-menu">
+                  <div class="dropdown">
+                    <button id="rule-selection-button">Static</button>
+                    <div class="dropdown-content">
+                      <button id="btn-static" >
+                        Static
+                      </button>
+                      <button id="btn-dynamic" title="Dynamic Rule Selection">
+                        Dynamic
+                      </button>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <button id="updating-button">Synchronous</button>
+                    <div class="dropdown-content">
+                      <button id="btn-synch" >
+                        Synchronous
+                      </button>
+                      <button id="btn-asynch" title="Asynchronous">Asynchronous</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <input id="rule-entry" />
               <div id="additional-rules-container" class="hidden">
                 <input id="rule-entry-1" />
@@ -67,7 +94,7 @@
               </div>
 
               <button id="btn-set-rule" title="Apply this rule">Set</button>
-              <button id="btn-asynch" title="Asynchronous">Asynchronous</button>
+              
             </span>
             <!--For future clean-ups-->
             <span id="controls-rule-generic" style="display: none">
@@ -104,9 +131,7 @@
             </button>
           </div>
           
-          <div class="control-group">
-            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
-          </div>
+          
           
           <!--Animation (i don't get this)-->
           <div class="control-group" id="animate-controls" style="display: none">
@@ -192,9 +217,7 @@
         <!-- Main content -->
         <div id="main-content">
           
-          <div id="state-selector" style="display: none">
-            States:<span id="state-selector-buttons"></span>
-          </div>
+          
 
           <!-- Main control -->
 
@@ -202,7 +225,11 @@
             <canvas id="canvas" width="600" height="600"></canvas>
           </div>
         </div>
-        <div id="toolbar">
+          <div id="toolbar">
+          <div id="state-selector" style="display: none">
+            <div>States</div>
+            <span id="state-selector-buttons"></span>
+          </div>
           
           <div class="button-group">
             <button id="btn-reset" class="dangerous" title="(C) Clear field and reset view">
@@ -227,6 +254,7 @@
               Stop
             </button>
           </div>
+        
         </div>
         
         <div id="right-sidebar">
@@ -252,6 +280,10 @@
           <div id="statusbar">
             <div class="control-table">
               <div>
+                <div>Neighbors:</div>
+                <div><span id="grid-num-neighbors" class="numdisplay"></span></div>
+              </div>
+              <div>
                 <div>Population:</div>
                 <div><span id="population" class="numdisplay"></span></div>
               </div>
@@ -262,9 +294,9 @@
             </div>
           </div>
           <div id="navigator">
-            <button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
+            <!--<button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
               Clear
-            </button>
+            </button>-->
             <div id="navigator-wrap">
               <div id="navigator-cluster-list"></div>
             </div>

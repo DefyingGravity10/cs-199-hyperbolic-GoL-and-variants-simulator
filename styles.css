@@ -57,6 +57,7 @@ div.popup {
   display: table;
   text-align: center;
   width: 100%;
+  height: 100%;
 }
 
 #header {
@@ -65,10 +66,12 @@ div.popup {
   width: 100%;
   height: 0.5in;
   background-color: #fceb9e;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-color: black;
 }
 #variant-menu {
   position: absolute;
@@ -128,6 +131,9 @@ div.popup {
   text-align: center;
   display: table-cell;
   vertical-align: middle;
+  padding-right: 0.25in;
+  padding-top: 0.25in;
+  padding-bottom: 0.25in;
 }
 
 #main-content {
@@ -148,21 +154,28 @@ div.overlay-toolbar {
 #left-sidebar {
   vertical-align: top;
   display: table-cell;
-  width: 12em;
+  width: 20em;
+  height: 100%;
   padding-left: 0.5in;
   padding-top: 0.25in;
+  padding-right: 0.25in;
+  bottom: 0.5in;
 }
 
 #btn-db-save,
 #btn-db-load,
 #btn-mode-edit,
 #btn-mode-pan,
-#btn-nav-home {
+#btn-nav-home,
+#btn-export-svg {
   border-radius: 50px;
   background-color: #4364c7;
   font-size: 12px;
   color: white;
   width: 25%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
 }
 
 #tiling,
@@ -173,16 +186,53 @@ div.overlay-toolbar {
   border-radius: 20px;
   margin-top: 0.25in;
   padding: 20px;
+  font-size: 14px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+}
+
+#rules {
+  bottom: 0.5in;
+}
+
+#rule-variants {
+  margin: 15px;
+}
+
+#rule-variant-labels {
+  text-align: left;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+}
+
+#rule-selction-label,
+#updating-label {
+  width: 50%;
+}
+
+#rule-selection-menu .dropdown {
+  width: 50%;
+}
+
+#rule-selection-menu {
+  text-align: left;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
 }
 #tiling-input {
   margin-top: 15px;
-  color: #4364c7;
+
   font-size: 32px;
 }
 #entry-p,
 #entry-q {
-  background-color: #d5ddf3;
-  color: #4364c7;
+  background-color: #fcfacd;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
   font-size: 24px;
   text-align: center;
 }
@@ -190,15 +240,13 @@ div.overlay-toolbar {
 #btn-set-grid {
   margin-top: 15px;
   border-radius: 50px;
-  background-color: #4364c7;
+  background-color: #d5ddf3;
   font-size: 12px;
-  color: white;
-  width: 40%;
-}
-
-#neighbors {
-  margin-top: 15px;
-  font-size: 12px;
+  color: black;
+  width: 50%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
 }
 
 #right-sidebar {
@@ -276,9 +324,10 @@ tr.files-func-row td {
 .numdisplay {
   min-width: 3em;
   display: inline-block;
-  text-align: center;
+  text-align: right;
   background-color: transparent;
-  font-weight: 1000;
+  font-weight: 750;
+  font-size: 14px;
   margin-top: 5px;
 }
 
@@ -360,6 +409,11 @@ button.dangerous:active {
   background-color: #f0c0c0;
 }
 
+#state-selector {
+  position: fixed;
+  width: 63px;
+  top: 0.75in;
+}
 #state-selector button {
   color: white;
   margin: 0 0.2em;
@@ -387,10 +441,12 @@ input.wide {
 #navigator-wrap {
   overflow-y: auto;
   -overflow-x: visible;
-  padding-left: 0.1em;
 }
 #navigator table {
   border-collapse: collapse;
+  margin: 0 auto;
+  font-size: 14px;
+  width: 100%;
 }
 /* Navigator styles */
 #navigator tr:hover {

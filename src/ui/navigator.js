@@ -12,14 +12,14 @@
   exports.Navigator = Navigator = class Navigator {
     constructor(
       application,
-      navigatorElemId = "navigator-cluster-list",
-      btnClearId = "btn-nav-clear"
+      navigatorElemId = "navigator-cluster-list"
+      //btnClearId = "btn-nav-clear"
     ) {
       this.application = application;
       this.clustersElem = E(navigatorElemId);
-      this.btnClear = E(btnClearId);
+      //this.btnClear = E(btnClearId);
       this.clusters = [];
-      this.btnClear.style.display = "none";
+      //this.btnClear.style.display = "none";
     }
 
     search(field) {
@@ -27,7 +27,7 @@
       this.clusters = allClusters(field, this.application.tiling);
       this.sortByDistance();
       this.updateClusterList();
-      this.btnClear.style.display = this.clusters ? "" : "none";
+      //this.btnClear.style.display = this.clusters ? "" : "none";
       return this.clusters.length;
     }
 
@@ -75,11 +75,11 @@
       }
     }
 
-    clear() {
+    /*clear() {
       this.clusters = [];
       this.clustersElem.innerHTML = "";
       return (this.btnClear.style.display = "none");
-    }
+    }*/
 
     updateClusterList() {
       var cluster, dist, dom, i, idx, len, listener, ref, size;
