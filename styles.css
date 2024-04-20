@@ -116,8 +116,8 @@ div.popup {
 #references {
   color: #4364c7;
   text-decoration: none;
-  right: 0.5in;
   position: absolute;
+  right: 0.5in;
 }
 #references a:hover {
   text-decoration: underline;
@@ -130,10 +130,17 @@ div.popup {
 #toolbar {
   text-align: center;
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
   padding-right: 0.25in;
   padding-top: 0.25in;
   padding-bottom: 0.25in;
+}
+
+#rsg {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 154.25px;
 }
 
 #main-content {
@@ -153,13 +160,13 @@ div.overlay-toolbar {
 
 #left-sidebar {
   vertical-align: top;
-  display: table-cell;
-  width: 20em;
   height: 100%;
   padding-left: 0.5in;
   padding-top: 0.25in;
   padding-right: 0.25in;
-  bottom: 0.5in;
+  display: flex;
+  flex-direction: column;
+  width: clamp(12rem, 24vw, 20rem);
 }
 
 #btn-db-save,
@@ -224,7 +231,6 @@ div.overlay-toolbar {
 }
 #tiling-input {
   margin-top: 15px;
-
   font-size: 32px;
 }
 #entry-p,
@@ -251,14 +257,16 @@ div.overlay-toolbar {
 
 #right-sidebar {
   vertical-align: top;
-  display: table-cell;
   width: 12em;
   padding-right: 0.5in;
   padding-top: 0.25in;
+  display: flex;
+  flex-direction: column;
 }
 
 #canvas {
   border-radius: 50%;
+  width: clamp(240px, 32vw, 520px);
 }
 
 #canvas-container {
@@ -267,6 +275,8 @@ div.overlay-toolbar {
   border: 0;
   margin: 1em;
   background-color: white;
+  display: flex;
+  width: clamp(240px, 32vw, 520px);
 }
 #file-dialog-files {
   overflow: auto;
@@ -410,9 +420,9 @@ button.dangerous:active {
 }
 
 #state-selector {
-  position: fixed;
+  display: flex;
+  flex-direction: column;
   width: 63px;
-  top: 0.75in;
 }
 #state-selector button {
   color: white;
@@ -441,6 +451,7 @@ input.wide {
 #navigator-wrap {
   overflow-y: auto;
   -overflow-x: visible;
+  max-height: 200px;
 }
 #navigator table {
   border-collapse: collapse;
@@ -482,4 +493,25 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/*Media queries*/
+@media screen and (min-width: 1150px) {
+  #left-sidebar {
+    width: clamp(12rem, 28vw, 20rem);
+  }
+  #canvas,
+  #canvas-container {
+    width: clamp(260px, 32vw, 520px);
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1149px) {
+  #left-sidebar {
+    width: clamp(12rem, 24vw, 20rem);
+  }
+  #canvas,
+  #canvas-container {
+    width: clamp(260px, 32vw, 520px);
+  }
 }

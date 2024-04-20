@@ -5882,7 +5882,7 @@ exports.parseFieldData1 = (data) ->
 
   ({ GhostClickDetector } = require("./ghost_click_detector.js"));
 
-  MIN_WIDTH = 100;
+  MIN_WIDTH = 260;
   MAX_WIDTH = 520;
 
   minVisibleSize = 1 / 100;
@@ -6283,19 +6283,6 @@ exports.parseFieldData1 = (data) ->
     }
 
     //Actions
-    doRandomFill() {
-      randomFillFixedNum(
-        this.cells,
-        randomFillPercent,
-        unity,
-        randomFillNum,
-        this.tiling,
-        randomStateGenerator(this.transitionFunc.numStates)
-      );
-      updatePopulation();
-      return redraw();
-    }
-
     doStep(onFinish) {
       //Set generation for thse rules who depend on it
       this.transitionFunc.setGeneration(this.generation);
@@ -6573,6 +6560,7 @@ exports.parseFieldData1 = (data) ->
     }
 
     updateImmigration() {
+      console.log(this.buttonContainer);
       var btnId, color, dom, i, id2state, numStates, ref, state;
       this.numStates = 3;
       numStates = 3;
@@ -7138,10 +7126,6 @@ exports.parseFieldData1 = (data) ->
     return application.doSearch();
   });
 
-  E("btn-random").addEventListener("click", function () {
-    return application.doRandomFill();
-  });
-
   E("btn-static").addEventListener("click", function () {
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.classList.add("hidden");
@@ -7187,6 +7171,13 @@ exports.parseFieldData1 = (data) ->
   E("btn-nav-home").addEventListener("click", doNavigateHome);
 
   window.addEventListener("resize", updateCanvasSize);
+
+  window.addEventListener("resize", () => {
+    const header = document.getElementById("header");
+    const simulatorContent = document.getElementById("main");
+    header.style.width = `${simulatorContent.offsetWidth}px`;
+    header.style.justifyContent = "flex-end";
+  });
 
   /*E("btn-nav-clear").addEventListener("click", function (e) {
     return application.navigator.clear();
@@ -7271,6 +7262,9 @@ exports.parseFieldData1 = (data) ->
     const variantName = document.getElementById("variant-name");
     variantName.innerHTML = "Immigration Game";
 
+    const rsg = document.getElementById("rsg");
+    rsg.style = "margin-top: 0.5in";
+
     application.observer.changeToImmigrant();
     currentVariant.changeCurrentStateVariant("immigration");
     application.paintStateSelector.updateImmigration();
@@ -7283,6 +7277,9 @@ exports.parseFieldData1 = (data) ->
     const variantName = document.getElementById("variant-name");
     variantName.innerHTML = "Rainbow Game of Life";
 
+    const rsg = document.getElementById("rsg");
+    rsg.style = "margin-top: 0.5in";
+
     application.observer.changeToRainbow();
     currentVariant.changeCurrentStateVariant("rainbow");
     application.paintStateSelector.updateRainbow();
@@ -7294,6 +7291,9 @@ exports.parseFieldData1 = (data) ->
     //change label of variant-name
     const variantName = document.getElementById("variant-name");
     variantName.innerHTML = "Conway's Game of Life";
+
+    const rsg = document.getElementById("rsg");
+    rsg.style = "margin-top: 154.25px";
 
     application.observer.revertToOriginalStates();
     currentVariant.changeCurrentStateVariant("default");
@@ -7311,9 +7311,6 @@ exports.parseFieldData1 = (data) ->
     },
     S: function () {
       return application.doSearch();
-    },
-    R: function () {
-      return application.doRandomFill();
     },
     1: function (e) {
       return application.paintStateSelector.setState(1);

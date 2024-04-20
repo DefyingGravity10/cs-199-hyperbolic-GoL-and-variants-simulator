@@ -39,20 +39,15 @@
             <button id="btn-db-load" title="(Ctrl+O) Load state from the local database">
               Open
             </button>
-            
             <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
           <div id="tiling">
             Tiling
-
             <div id="tiling-input">
               &#123; <input id="entry-p" type="number" class="short" placeholder="p" />
               <input id="entry-q" type="number" class="short" placeholder="q" /> &#125;
             </div>
-
             <button id="btn-set-grid" title="Apply grid">Set</button>
-
-            
           </div>
 
           <div id="rules">
@@ -216,32 +211,22 @@
 
         <!-- Main content -->
         <div id="main-content">
-          
-          
-
           <!-- Main control -->
-
           <div id="canvas-container" tabindex="0">
             <canvas id="canvas" width="600" height="600"></canvas>
           </div>
         </div>
-          <div id="toolbar">
+        <div id="toolbar">
           <div id="state-selector" style="display: none">
             <div>States</div>
             <span id="state-selector-buttons"></span>
           </div>
           
-          <div class="button-group">
+          <div class="button-group" id="rsg">
             <button id="btn-reset" class="dangerous" title="(C) Clear field and reset view">
               Reset
             </button>
-            <button id="btn-random" title="(R) Fill with random cells" style="display: none">Random</button>
-          </div>
-          <div class="button-group">
             <button id="btn-step" title="(N) Evaluate for one generation">Step</button>
-          </div>
-          <div class="button-group">
-
             <button id="btn-play-start" title="(G or Space) Start continuous evaluation">
               Go
             </button>
@@ -254,26 +239,22 @@
               Stop
             </button>
           </div>
-        
         </div>
         
         <div id="right-sidebar">
-          
+          <span class="button-group">
             <button
               id="btn-mode-edit"
               title="(E) Use left button to edit, middle or left+shift to pan"
             >
               Edit
             </button>
-          
-              <button
-                id="btn-mode-pan"
-                title="(P) Use left button to pan, middle or left+shift to edit"
-              >
-                Pan
-              </button>
-
-          <span class="button-group">
+            <button
+              id="btn-mode-pan"
+              title="(P) Use left button to pan, middle or left+shift to edit"
+            >
+              Pan
+            </button>
             <button id="btn-nav-home" title="(H) Navigate to the origin">Home</button>
           </span>
 
@@ -325,6 +306,7 @@
         </div>
       </div>
     </div>
+    
     <div id="import-dialog" style="display: none" class="popup-container">
       <div class="popup-shadow"></div>
       <div class="popup">
