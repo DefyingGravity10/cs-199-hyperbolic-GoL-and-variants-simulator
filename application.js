@@ -6246,7 +6246,14 @@ exports.parseFieldData1 = (data) ->
       //   this.lastBinaryTransitionFunc = this.transitionFunc;
       // }
       //end of imagine
-      this.paintStateSelector.update(this.transitionFunc);
+      if (currentVariant.stateVariant === "immigration") {
+        this.paintStateSelector.updateImmigration(this.transitionFunc);
+      } else if (currentVariant.stateVariant === "rainbow") {
+        this.paintStateSelector.updateRainbow(this.transitionFunc);
+      } else {
+        this.paintStateSelector.update(this.transitionFunc);
+      }
+
       console.log(this.transitionFunc);
       E("controls-rule-simple").style.display = "";
       return (E("controls-rule-generic").style.display = "none");
@@ -6943,6 +6950,14 @@ exports.parseFieldData1 = (data) ->
       return;
     }
     application.setGridImpl(n, m);
+
+    if (currentVariant.stateVariant === "immigration") {
+      application.observer.changeToImmigrant();
+      application.paintStateSelector.updateImmigration();
+    } else if (currentVariant.stateVariant === "rainbow") {
+      application.observer.changeToRainbow();
+      application.paintStateSelector.updateRainbow();
+    }
     application.doReset();
     return application.animator.reset();
   };
@@ -7176,7 +7191,7 @@ exports.parseFieldData1 = (data) ->
     const header = document.getElementById("header");
     const simulatorContent = document.getElementById("main");
     header.style.width = `${simulatorContent.offsetWidth}px`;
-    header.style.justifyContent = "flex-end";
+    header.style.justifyContent = "center";
   });
 
   /*E("btn-nav-clear").addEventListener("click", function (e) {
