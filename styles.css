@@ -2,7 +2,7 @@
 html {
 }
 body {
-  font-family: Verdana, sans-serif;
+  font-family: "Dosis";
   margin: 0;
 }
 
@@ -57,7 +57,6 @@ div.popup {
   display: table;
   text-align: center;
   width: 100%;
-  height: 100%;
 }
 
 #header {
@@ -72,6 +71,8 @@ div.popup {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-color: black;
+  font-weight: 800;
+  font-size: 20px;
 }
 #variant-menu {
   position: absolute;
@@ -81,12 +82,17 @@ div.popup {
   align-items: center;
 }
 #variant-button {
-  color: #4364c7;
-  background-color: transparent;
+  background-color: #fceb9e;
+}
+#variant-button svg {
+  fill: #4364c7;
+  width: 15;
+  height: 12;
+  margin: none;
 }
 #variant-name {
   color: #4364c7;
-  margin-left: 25px;
+  margin-left: 5px;
 }
 
 .dropdown-content {
@@ -108,11 +114,26 @@ div.popup {
   width: 100%;
   text-align: left;
   font-size: 14px;
+  font-family: "Dosis";
+  font-weight: bold;
 }
 .dropdown-content button:hover {
   color: #ffffff;
   background-color: #4364c7;
 }
+
+#btn-db-save:hover,
+#btn-db-load:hover,
+#btn-mode-edit:hover,
+#btn-mode-pan:hover,
+#btn-nav-home:hover,
+#btn-export-svg:hover,
+#btn-set-grid:hover,
+#btn-set-rule:hover {
+  color: #ffffff;
+  background-color: #4364c7;
+}
+
 #references {
   color: #4364c7;
   text-decoration: none;
@@ -141,6 +162,7 @@ div.popup {
   flex-direction: column;
   height: 100%;
   margin-top: 154.25px;
+  align-items: center;
 }
 
 #main-content {
@@ -160,7 +182,7 @@ div.overlay-toolbar {
 
 #left-sidebar {
   vertical-align: top;
-  height: 100%;
+  height: 82vh;
   padding-left: 0.5in;
   padding-top: 0.25in;
   padding-right: 0.25in;
@@ -171,18 +193,83 @@ div.overlay-toolbar {
 
 #btn-db-save,
 #btn-db-load,
+#btn-export-svg,
 #btn-mode-edit,
 #btn-mode-pan,
-#btn-nav-home,
-#btn-export-svg {
+#btn-nav-home {
   border-radius: 50px;
-  background-color: #4364c7;
-  font-size: 12px;
-  color: white;
-  width: 25%;
+  background-color: #d5ddf3;
+  font-family: "Dosis";
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
   border-style: solid;
   border-width: 2px;
   border-color: black;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+#btn-db-save,
+#btn-db-load,
+#btn-export-svg,
+#btn-mode-edit,
+#btn-mode-pan {
+  width: 25%;
+}
+
+#btn-nav-home {
+  width: 35%;
+}
+
+#btn-play-start,
+#btn-play-stop {
+  display: block;
+  width: 60;
+  height: 60;
+  border-radius: 50%;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #4364c7;
+}
+
+#btn-play-start svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+#btn-play-stop svg {
+  width: 30px;
+  height: 30px;
+  fill: white;
+}
+#btn-reset,
+#btn-step {
+  display: block;
+  width: 40;
+  height: 40;
+  background-color: #d5ddf3;
+  border-radius: 50%;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+}
+
+#btn-reset svg,
+#btn-step svg {
+  width: 15px;
+  height: 15px;
+  fill: black;
+}
+
+#btn-reset:hover,
+#btn-step:hover {
+  background-color: #4364c7;
+  & svg {
+    fill: white;
+  }
 }
 
 #tiling,
@@ -191,12 +278,30 @@ div.overlay-toolbar {
 #navigator {
   background-color: #fceb9e;
   border-radius: 20px;
-  margin-top: 0.25in;
-  padding: 20px;
-  font-size: 14px;
+  margin-top: 0.15in;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bolder;
   border-style: solid;
   border-width: 2px;
   border-color: black;
+}
+
+#rules,
+#navigator {
+  height: 100%;
+}
+
+#navigator-cluster-list {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  max-height: 90%;
+  overflow-y: auto;
+  -overflow-x: visible;
+  scrollbar-color: #4364c7 #d5ddf3;
+  scrollbar-width: none;
 }
 
 #rules {
@@ -204,13 +309,16 @@ div.overlay-toolbar {
 }
 
 #rule-variants {
-  margin: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }
 
 #rule-variant-labels {
   text-align: left;
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   align-items: center;
 }
 
@@ -226,12 +334,59 @@ div.overlay-toolbar {
 #rule-selection-menu {
   text-align: left;
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   align-items: center;
+  margin-top: 2px;
 }
+
+#rule-selection-button,
+#updating-button {
+  width: 90%;
+  text-align: left;
+  font-family: "Dosis";
+  font-weight: bold;
+  background: #d5ddf3;
+}
+
+#rule-entry,
+#rule-entry-1,
+#rule-entry-2 {
+  text-align: left;
+  font-family: "Dosis";
+  font-weight: bold;
+  background: #fcfacd;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  margin-top: 2px;
+}
+#rule-entry {
+  width: 100%;
+}
+#rule-entry-1,
+#rule-entry-2 {
+  width: 49.5%;
+}
+#rules-container {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.reveal {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
 #tiling-input {
-  margin-top: 15px;
+  display: flex;
+  margin-top: 10px;
   font-size: 32px;
+  font-weight: 400;
+  align-items: center;
+  justify-content: center;
 }
 #entry-p,
 #entry-q {
@@ -239,17 +394,23 @@ div.overlay-toolbar {
   border-style: solid;
   border-width: 2px;
   border-color: black;
-  font-size: 24px;
+  font-size: 18px;
+  font-weight: 600;
   text-align: center;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
 }
 
-#btn-set-grid {
-  margin-top: 15px;
+#btn-set-grid,
+#btn-set-rule {
+  margin-top: 10px;
   border-radius: 50px;
   background-color: #d5ddf3;
+  font-family: "Dosis";
+  font-weight: bold;
   font-size: 12px;
   color: black;
-  width: 50%;
+  width: 30%;
   border-style: solid;
   border-width: 2px;
   border-color: black;
@@ -257,11 +418,11 @@ div.overlay-toolbar {
 
 #right-sidebar {
   vertical-align: top;
-  width: 12em;
   padding-right: 0.5in;
   padding-top: 0.25in;
   display: flex;
   flex-direction: column;
+  height: 82vh;
 }
 
 #canvas {
@@ -371,7 +532,6 @@ button {
   border-radius: 0.2em;
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
-  /*font-family: Verdana;*/
   width: auto;
   height: auto;
   font-size: 1em;
@@ -408,8 +568,10 @@ button:active {
   background-color: #c0f0f0;
 }
 
-button.button-active {
-  background-color: #c0f0c0;
+#btn-mode-edit.button-active,
+#btn-mode-pan.button-active {
+  color: #ffffff;
+  background-color: #4364c7;
 }
 
 button.dangerous:hover {
@@ -422,11 +584,13 @@ button.dangerous:active {
 #state-selector {
   display: flex;
   flex-direction: column;
-  width: 63px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 #state-selector button {
   color: white;
-  margin: 0 0.2em;
 }
 #state-selector button.btn-selected {
   padding: 0.8em;
@@ -439,7 +603,7 @@ input {
 }
 
 input.short {
-  width: 1.5em;
+  width: 2em;
 }
 input.medium {
   width: 4.5em;
@@ -449,9 +613,7 @@ input.wide {
 }
 
 #navigator-wrap {
-  overflow-y: auto;
-  -overflow-x: visible;
-  max-height: 200px;
+  max-height: 100%;
 }
 #navigator table {
   border-collapse: collapse;

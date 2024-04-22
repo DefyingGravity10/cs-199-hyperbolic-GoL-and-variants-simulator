@@ -3,12 +3,42 @@
     <title>Hyperbolic Cellular Automata Simulator</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="header">
       <div id="variant-menu">
         <div class="dropdown">
-          <button id="variant-button">≡</button>
+          <button id="variant-button">
+            <svg
+              version="1.1"
+              id="svg2"
+              xmlns:dc="http://purl.org/dc/elements/1.1/"
+              xmlns:cc="http://creativecommons.org/ns#"
+              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              xmlns:svg="http://www.w3.org/2000/svg"
+              xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+              xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+              sodipodi:docname="lines.svg"
+              inkscape:version="0.48.4 r9939"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 1200 1200"
+              enable-background="new 0 0 1200 1200"
+              xml:space="preserve"
+            >
+              <path
+                id="rect3039"
+                inkscape:connector-curvature="0"
+                d="M0,0v240h1200V0H0z M0,480v240h1200V480H0z M0,960v240h1200V960H0z"
+              />
+            </svg>
+          </button>
           <div class="dropdown-content">
             <button id="btn-original" title="Swap to the Conway's Variant" class="">
               Conway's Game of Life
@@ -44,8 +74,10 @@
           <div id="tiling">
             Tiling
             <div id="tiling-input">
-              &#123; <input id="entry-p" type="number" class="short" placeholder="p" />
-              <input id="entry-q" type="number" class="short" placeholder="q" /> &#125;
+              &#123;&nbsp;
+              <input id="entry-p" type="number" class="short" placeholder="p" />
+              <input id="entry-q" type="number" class="short" placeholder="q" />
+              &nbsp;&#125;
             </div>
             <button id="btn-set-grid" title="Apply grid">Set</button>
           </div>
@@ -62,42 +94,32 @@
                   <div class="dropdown">
                     <button id="rule-selection-button">Static</button>
                     <div class="dropdown-content">
-                      <button id="btn-static" >
-                        Static
-                      </button>
-                      <button id="btn-dynamic" title="Dynamic Rule Selection">
-                        Dynamic
-                      </button>
+                      <button id="btn-static">Static</button>
+                      <button id="btn-dynamic" title="Dynamic Rule Selection">Dynamic</button>
                     </div>
                   </div>
                   <div class="dropdown">
                     <button id="updating-button">Synchronous</button>
                     <div class="dropdown-content">
-                      <button id="btn-synch" >
-                        Synchronous
-                      </button>
+                      <button id="btn-synch">Synchronous</button>
                       <button id="btn-asynch" title="Asynchronous">Asynchronous</button>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              <input id="rule-entry" />
+
+              <div id="rules-container"><input id="rule-entry" /></div>
               <div id="additional-rules-container" class="hidden">
                 <input id="rule-entry-1" />
                 <input id="rule-entry-2" />
               </div>
 
               <button id="btn-set-rule" title="Apply this rule">Set</button>
-              
             </span>
             <!--For future clean-ups-->
-            <span id="controls-rule-generic" style="display: none">
-              Generic rule<br />
-            </span>
+            <span id="controls-rule-generic" style="display: none"> Generic rule<br /> </span>
           </div>
 
-          
           <!--
           <div class="control-group">
             <button id="view-straighten" title="(Alt+S) Fix rotation and position of the view">
@@ -110,14 +132,13 @@
             <button id="btn-mem-get" title="(U) Restore field from memory">MR</button>
             <button id="btn-mem-clear" title="(Alt+M) Clear memory">MC</button>
           </div>
-          
+
           <div class="control-group" style="display: none">
             <button id="btn-search" title="(S) Search for all cell groups in the field">
               Search
             </button>
           </div>
-          
-          
+
           <div class="control-group" style="display: none">
             Export <br />
             <button id="btn-export" title="Export whole field to text">All</button>
@@ -125,9 +146,7 @@
               Visible
             </button>
           </div>
-          
-          
-          
+
           <!--Animation (i don't get this)-->
           <div class="control-group" id="animate-controls" style="display: none">
             Upload animation<br />
@@ -221,14 +240,52 @@
             <div>States</div>
             <span id="state-selector-buttons"></span>
           </div>
-          
+
           <div class="button-group" id="rsg">
             <button id="btn-reset" class="dangerous" title="(C) Clear field and reset view">
-              Reset
+              <svg
+                version="1.1"
+                id="svg2"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:svg="http://www.w3.org/2000/svg"
+                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                sodipodi:docname="repeat.svg"
+                inkscape:version="0.48.4 r9939"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 1200 1200"
+                enable-background="new 0 0 1200 1200"
+                xml:space="preserve"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    id="path18745"
+                    inkscape:connector-curvature="0"
+                    d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600 c222.411,0,416.39-121.104,520.02-300.879L908.79,777.612C847.217,884.405,732.127,956.47,600,956.47 c-196.873,0-356.47-159.597-356.47-356.47S403.127,243.53,600,243.53c84.387,0,161.732,29.521,222.729,78.589L665.186,434.18 L1200,612.524V53.613l-174.17,123.926C917.124,67.952,766.553,0,600,0z"
+                  />
+                </g>
+              </svg>
             </button>
-            <button id="btn-step" title="(N) Evaluate for one generation">Step</button>
             <button id="btn-play-start" title="(G or Space) Start continuous evaluation">
-              Go
+              <svg
+                viewBox="-1 0 8 8"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <g transform="translate(-427.000000, -3765.000000)">
+                  <g id="icons" transform="translate(56.000000, 160.000000)">
+                    <polygon id="play" points="371 3605 371 3613 378 3609"></polygon>
+                  </g>
+                </g>
+              </svg>
             </button>
             <button
               id="btn-play-stop"
@@ -236,13 +293,63 @@
               class="button-active"
               title="(G or Space) Stop continuous evaluation"
             >
-              Stop
+              <svg
+                fill="#000000"
+                width="250px"
+                height="250px"
+                viewBox="0 0 22 22"
+                xmlns="http://www.w3.org/2000/svg"
+                id="memory-pause"
+                stroke="#000000"
+                stroke-width="0.00022"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke="#CCCCCC"
+                  stroke-width="0.308"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  <path d="M6 4H9V18H6V4M13 18V4H16V18H13Z" />
+                </g>
+              </svg>
+            </button>
+            <button id="btn-step" title="(N) Evaluate for one generation">
+              <svg
+                version="1.1"
+                id="svg2"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:svg="http://www.w3.org/2000/svg"
+                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                sodipodi:docname="step-forward.svg"
+                inkscape:version="0.48.4 r9939"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="800px"
+                height="800px"
+                viewBox="0 0 1200 1200"
+                enable-background="new 0 0 1200 1200"
+                xml:space="preserve"
+              >
+                <path
+                  id="path22739"
+                  inkscape:connector-curvature="0"
+                  d="M950,0v1200H750V650l-500,500V50l500,500V0H950z"
+                />
+              </svg>
             </button>
           </div>
         </div>
-        
+
         <div id="right-sidebar">
-          <span class="button-group">
+          <div class="button-group">
             <button
               id="btn-mode-edit"
               title="(E) Use left button to edit, middle or left+shift to pan"
@@ -255,8 +362,8 @@
             >
               Pan
             </button>
-            <button id="btn-nav-home" title="(H) Navigate to the origin">Home</button>
-          </span>
+            <button id="btn-nav-home" title="(H) Navigate to the origin">Center</button>
+          </div>
 
           <div id="statusbar">
             <div class="control-table">
@@ -279,10 +386,11 @@
               Clear
             </button>-->
             <div id="navigator-wrap">
+              Clusters
               <div id="navigator-cluster-list"></div>
             </div>
           </div>
-        
+        </div>
       </div>
     </div>
 
@@ -306,7 +414,7 @@
         </div>
       </div>
     </div>
-    
+
     <div id="import-dialog" style="display: none" class="popup-container">
       <div class="popup-shadow"></div>
       <div class="popup">

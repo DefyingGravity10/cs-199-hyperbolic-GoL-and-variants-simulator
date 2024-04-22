@@ -823,7 +823,7 @@
     winH = windowHeight();
     h = winH - canvasRect.top;
     navWrap = E("navigator-wrap");
-    navWrap.style.height = `${winH - navWrap.getBoundingClientRect().top - 16}px`;
+    //navWrap.style.height = `${winH - navWrap.getBoundingClientRect().top - 16}px`;
     //get the smaller of both
     w = Math.min(w, h);
 
