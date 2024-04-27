@@ -130,7 +130,7 @@
         "purple"
       ]);
     }
-    changeToImmigrant() {
+    changeToImmigration() {
       // a function used to change to immigrant. will be renamed in the future
       return (this.pattern = ["red", "blue"]);
     }

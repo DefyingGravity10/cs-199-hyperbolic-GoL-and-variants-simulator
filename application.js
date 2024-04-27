@@ -6387,7 +6387,6 @@ exports.parseFieldData1 = (data) ->
 
           switch (record.coloredVariant) {
             case "immigration":
-              console.log("woot");
               break;
           }
 
@@ -6957,7 +6956,7 @@ exports.parseFieldData1 = (data) ->
     application.setGridImpl(n, m);
 
     if (currentVariant.stateVariant === "immigration") {
-      application.observer.changeToImmigrant();
+      application.observer.changeToImmigration();
       application.paintStateSelector.updateImmigration();
     } else if (currentVariant.stateVariant === "rainbow") {
       application.observer.changeToRainbow();
@@ -7285,7 +7284,7 @@ exports.parseFieldData1 = (data) ->
     const rsg = document.getElementById("rsg");
     rsg.style = "margin-top: 0.5in";
 
-    application.observer.changeToImmigrant();
+    application.observer.changeToImmigration();
     currentVariant.changeCurrentStateVariant("immigration");
     application.paintStateSelector.updateImmigration();
     application.doReset();
@@ -8932,7 +8931,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
         "purple"
       ]);
     }
-    changeToImmigrant() {
+    changeToImmigration() {
       // a function used to change to immigrant. will be renamed in the future
       return (this.pattern = ["red", "blue"]);
     }

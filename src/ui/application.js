@@ -683,7 +683,6 @@
 
           switch (record.coloredVariant) {
             case "immigration":
-              console.log("woot");
               break;
           }
 
@@ -1253,7 +1252,7 @@
     application.setGridImpl(n, m);
 
     if (currentVariant.stateVariant === "immigration") {
-      application.observer.changeToImmigrant();
+      application.observer.changeToImmigration();
       application.paintStateSelector.updateImmigration();
     } else if (currentVariant.stateVariant === "rainbow") {
       application.observer.changeToRainbow();
@@ -1581,7 +1580,7 @@
     const rsg = document.getElementById("rsg");
     rsg.style = "margin-top: 0.5in";
 
-    application.observer.changeToImmigrant();
+    application.observer.changeToImmigration();
     currentVariant.changeCurrentStateVariant("immigration");
     application.paintStateSelector.updateImmigration();
     application.doReset();
