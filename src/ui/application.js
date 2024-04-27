@@ -681,6 +681,7 @@
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
 
+          // Consider the colored variants
           const variantName = document.getElementById("variant-name");
           switch (record.coloredVariant) {
             case "default":
@@ -701,8 +702,27 @@
               variantName.innerHTML = "Rainbow Game of Life";
               currentVariant.changeCurrentStateVariant("rainbow");
               break;
+            default:
+              throw new Error(`Unknown variant ${record.coloredVariant}`);
           }
+
+          // Check if it is synchronous or not
+          const toggleUpdatingPolicy = document.getElementById("updating-button");
+          switch (record.updatePolicy) {
+            case "synchronous":
+              toggleUpdatingPolicy.innerHTML = "Synchronous";
+              currentVariant.changeCurrentUpdatePolicy("synchronous");
+              break;
+            case "asynchronous":
+              toggleUpdatingPolicy.innerHTML = "Asynchronous";
+              currentVariant.changeCurrentUpdatePolicy("asynchronous");
+              break;
+            default:
+              throw new Error(`Unknown variant ${record.coloredVariant}`);
+          }
+
           break;
+        // We do not longer consider sub-cases here
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
           this.paintStateSelector.update(this.transitionFunc);
@@ -733,6 +753,7 @@
         size: fieldData.length,
         time: Date.now(),
         coloredVariant: currentVariant.stateVariant,
+        updatePolicy: currentVariant.updatePolicy,
         field: null,
         generation: this.generation
       };

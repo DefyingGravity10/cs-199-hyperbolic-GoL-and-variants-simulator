@@ -90,7 +90,7 @@
     });
     return catalogStore.createIndex(
       "catalogByGrid",
-      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant"],
+      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant", "updatePolicy"],
       {
         unique: false
       }
@@ -447,6 +447,9 @@
         .tag("th")
         .text("Colored Variant")
         .end()
+        .tag("th")
+        .text("Update Policy")
+        .end()
         .end()
         .end()
         .tag("tbody");
@@ -455,7 +458,7 @@
           .tag("tr")
           .CLASS("files-grid-row")
           .tag("td")
-          .a("colspan", "4")
+          .a("colspan", "5")
           .text(`Grid: ${gridName}`)
           .end()
           .end();
@@ -481,7 +484,7 @@
           .tag("tr")
           .CLASS("files-func-row")
           .tag("td")
-          .a("colspan", "4")
+          .a("colspan", "5")
           .text(`Rule: ${funcName}`)
           .end()
           .end();
@@ -538,6 +541,10 @@
           .text(
             res.value.coloredVariant.charAt(0).toUpperCase() + res.value.coloredVariant.slice(1)
           )
+          .end();
+        dom
+          .tag("td")
+          .text(res.value.updatePolicy.charAt(0).toUpperCase() + res.value.updatePolicy.slice(1))
           .end()
           .end();
 

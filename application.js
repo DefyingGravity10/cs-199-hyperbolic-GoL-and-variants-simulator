@@ -6385,6 +6385,7 @@ exports.parseFieldData1 = (data) ->
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
 
+          // Consider the colored variants
           const variantName = document.getElementById("variant-name");
           switch (record.coloredVariant) {
             case "default":
@@ -6405,8 +6406,27 @@ exports.parseFieldData1 = (data) ->
               variantName.innerHTML = "Rainbow Game of Life";
               currentVariant.changeCurrentStateVariant("rainbow");
               break;
+            default:
+              throw new Error(`Unknown variant ${record.coloredVariant}`);
           }
+
+          // Check if it is synchronous or not
+          const toggleUpdatingPolicy = document.getElementById("updating-button");
+          switch (record.updatePolicy) {
+            case "synchronous":
+              toggleUpdatingPolicy.innerHTML = "Synchronous";
+              currentVariant.changeCurrentUpdatePolicy("synchronous");
+              break;
+            case "asynchronous":
+              toggleUpdatingPolicy.innerHTML = "Asynchronous";
+              currentVariant.changeCurrentUpdatePolicy("asynchronous");
+              break;
+            default:
+              throw new Error(`Unknown variant ${record.coloredVariant}`);
+          }
+
           break;
+        // We do not longer consider sub-cases here
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
           this.paintStateSelector.update(this.transitionFunc);
@@ -6437,6 +6457,7 @@ exports.parseFieldData1 = (data) ->
         size: fieldData.length,
         time: Date.now(),
         coloredVariant: currentVariant.stateVariant,
+        updatePolicy: currentVariant.updatePolicy,
         field: null,
         generation: this.generation
       };
@@ -7974,7 +7995,7 @@ exports.parseFieldData1 = (data) ->
     });
     return catalogStore.createIndex(
       "catalogByGrid",
-      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant"],
+      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant", "updatePolicy"],
       {
         unique: false
       }
@@ -8331,6 +8352,9 @@ exports.parseFieldData1 = (data) ->
         .tag("th")
         .text("Colored Variant")
         .end()
+        .tag("th")
+        .text("Update Policy")
+        .end()
         .end()
         .end()
         .tag("tbody");
@@ -8339,7 +8363,7 @@ exports.parseFieldData1 = (data) ->
           .tag("tr")
           .CLASS("files-grid-row")
           .tag("td")
-          .a("colspan", "4")
+          .a("colspan", "5")
           .text(`Grid: ${gridName}`)
           .end()
           .end();
@@ -8365,7 +8389,7 @@ exports.parseFieldData1 = (data) ->
           .tag("tr")
           .CLASS("files-func-row")
           .tag("td")
-          .a("colspan", "4")
+          .a("colspan", "5")
           .text(`Rule: ${funcName}`)
           .end()
           .end();
@@ -8422,6 +8446,10 @@ exports.parseFieldData1 = (data) ->
           .text(
             res.value.coloredVariant.charAt(0).toUpperCase() + res.value.coloredVariant.slice(1)
           )
+          .end();
+        dom
+          .tag("td")
+          .text(res.value.updatePolicy.charAt(0).toUpperCase() + res.value.updatePolicy.slice(1))
           .end()
           .end();
 
