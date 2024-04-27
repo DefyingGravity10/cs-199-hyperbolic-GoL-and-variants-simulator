@@ -657,7 +657,7 @@
         return console.log(`Imported ${this.cells.count} cells`);
       } catch (error) {
         e = error;
-        alert(`Faield to import data: ${e}`);
+        alert(`Failed to import data: ${e}`);
         return (this.cells = new ChainMap());
       }
     }
@@ -680,9 +680,13 @@
         case "binary":
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
-          // console.log("Immig");
-          // this.observer.changeToImmigrant();
-          // this.paintStateSelector.updateImmigration(this.transitionFunc);
+
+          switch (record.coloredVariant) {
+            case "immigration":
+              console.log("woot");
+              break;
+          }
+
           break;
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
@@ -713,6 +717,7 @@
         offset: this.getObserver().getViewOffsetMatrix(),
         size: fieldData.length,
         time: Date.now(),
+        coloredVariant: currentVariant.stateVariant,
         field: null,
         generation: this.generation
       };

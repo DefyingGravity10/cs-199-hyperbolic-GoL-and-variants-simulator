@@ -88,9 +88,13 @@
     catalogStore = db.createObjectStore("catalog", {
       autoIncrement: true
     });
-    return catalogStore.createIndex("catalogByGrid", ["gridN", "gridM", "funcId", "name", "time"], {
-      unique: false
-    });
+    return catalogStore.createIndex(
+      "catalogByGrid",
+      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant"],
+      {
+        unique: false
+      }
+    );
   };
 
   exports.OpenDialog = OpenDialog = class OpenDialog {
@@ -277,6 +281,7 @@
   };
 
   GenerateFileList = class GenerateFileList {
+    // fileCallback = load
     constructor(grid1, rule1, container, fileCallback, readyCallback) {
       this.grid = grid1;
       this.rule = rule1;
@@ -439,6 +444,9 @@
         .tag("th")
         .text("Time")
         .end()
+        .tag("th")
+        .text("Colored Variant")
+        .end()
         .end()
         .end()
         .tag("tbody");
@@ -447,7 +455,7 @@
           .tag("tr")
           .CLASS("files-grid-row")
           .tag("td")
-          .a("colspan", "3")
+          .a("colspan", "4")
           .text(`Grid: ${gridName}`)
           .end()
           .end();
@@ -473,7 +481,7 @@
           .tag("tr")
           .CLASS("files-func-row")
           .tag("td")
-          .a("colspan", "3")
+          .a("colspan", "4")
           .text(`Rule: ${funcName}`)
           .end()
           .end();
@@ -524,7 +532,14 @@
         } else {
           dom.tag("td").text(res.value.name).end();
         }
-        dom.tag("td").text(new Date(res.value.time).toLocaleString()).end().end();
+        dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
+        dom
+          .tag("td")
+          .text(
+            res.value.coloredVariant.charAt(0).toUpperCase() + res.value.coloredVariant.slice(1)
+          )
+          .end()
+          .end();
 
         //dom.tag('div').CLASS("file-list-file").text(res.value.name).end()
         if (dom.vars.alink != null) {
