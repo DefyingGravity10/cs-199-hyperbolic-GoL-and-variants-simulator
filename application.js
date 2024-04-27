@@ -6385,11 +6385,27 @@ exports.parseFieldData1 = (data) ->
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
 
+          const variantName = document.getElementById("variant-name");
           switch (record.coloredVariant) {
+            case "default":
+              this.observer.revertToOriginalStates();
+              this.paintStateSelector.update(this.transitionFunc);
+              variantName.innerHTML = "Conway's Game of Life";
+              currentVariant.changeCurrentStateVariant("default");
+              break;
             case "immigration":
+              this.observer.changeToImmigration();
+              this.paintStateSelector.updateImmigration(this.transitionFunc);
+              variantName.innerHTML = "Immigration Game";
+              currentVariant.changeCurrentStateVariant("immigration");
+              break;
+            case "rainbow":
+              this.observer.changeToRainbow();
+              this.paintStateSelector.updateRainbow(this.transitionFunc);
+              variantName.innerHTML = "Rainbow Game of Life";
+              currentVariant.changeCurrentStateVariant("rainbow");
               break;
           }
-
           break;
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
@@ -6591,12 +6607,14 @@ exports.parseFieldData1 = (data) ->
         this.state2id[state] = btnId;
         id2state[btnId] = state;
         dom
+          .tag("div")
           .tag("button")
           .store("btn")
           .CLASS(state === this.state ? "btn-selected" : "")
           .ID(btnId)
-          .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
+          .a("style", `background-color:${color}; border: 2px solid black; color:${color}`)
           .text("" + state)
+          .end()
           .end();
         //dom.vars.btn.onclick = (e)->
       }
@@ -6629,12 +6647,14 @@ exports.parseFieldData1 = (data) ->
         id2state[btnId] = state;
         if (state === 1 || state === 10) {
           dom
+            .tag("div")
             .tag("button")
             .store("btn")
             .CLASS(state === this.state ? "btn-selected" : "")
             .ID(btnId)
-            .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
+            .a("style", `background-color:${color}; border: 2px solid black; color:${color}`)
             .text("" + state)
+            .end()
             .end();
         }
 
