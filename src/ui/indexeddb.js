@@ -445,6 +445,21 @@
         .text("Time")
         .end()
         .tag("th")
+        .text("Grid")
+        .end()
+        .tag("th")
+        .text("Rule Selection")
+        .end()
+        .tag("th")
+        .text("RS0")
+        .end()
+        .tag("th")
+        .text("RS1")
+        .end()
+        .tag("th")
+        .text("RS2")
+        .end()
+        .tag("th")
         .text("Colored Variant")
         .end()
         .tag("th")
@@ -458,7 +473,7 @@
           .tag("tr")
           .CLASS("files-grid-row")
           .tag("td")
-          .a("colspan", "5")
+          .a("colspan", "10")
           .text(`Grid: ${gridName}`)
           .end()
           .end();
@@ -484,7 +499,7 @@
           .tag("tr")
           .CLASS("files-func-row")
           .tag("td")
-          .a("colspan", "5")
+          .a("colspan", "10")
           .text(`Rule: ${funcName}`)
           .end()
           .end();
@@ -536,6 +551,11 @@
           dom.tag("td").text(res.value.name).end();
         }
         dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
+        dom.tag("td").text(res.value.grid).end();
+        dom.tag("td").text("Static").end();
+        dom.tag("td").text("RS0").end();
+        dom.tag("td").text("RS1").end();
+        dom.tag("td").text("RS2").end();
         dom
           .tag("td")
           .text(
