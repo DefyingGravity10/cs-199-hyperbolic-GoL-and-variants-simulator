@@ -59,6 +59,9 @@
     doStartPlayer,
     doStopPlayer,
     doTogglePlayer,
+    doToggleMenu,
+    doToggleRuleSelection,
+    doToggleUpdating,
     documentWidth,
     dragHandler,
     drawEverything,
@@ -83,6 +86,9 @@
     parseTransitionFunction,
     parseUri,
     player,
+    menu,
+    ruleSelection,
+    updating,
     playerTimeout,
     randomFillFixedNum,
     randomFillNum,
@@ -883,12 +889,13 @@
         this.state2id[state] = btnId;
         id2state[btnId] = state;
         dom
+          .tag("div")
           .tag("button")
           .store("btn")
           .CLASS(state === this.state ? "btn-selected" : "")
           .ID(btnId)
-          .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
-          .text("" + state)
+          .a("style", `background-color:${color}; border: 2px solid #bbbbbb; color:${color}`)
+          .text("" + 1)
           .end();
         //dom.vars.btn.onclick = (e)->
       }
@@ -921,12 +928,13 @@
         id2state[btnId] = state;
         if (state === 1 || state === 10) {
           dom
+            .tag("div")
             .tag("button")
             .store("btn")
             .CLASS(state === this.state ? "btn-selected" : "")
             .ID(btnId)
-            .a("style", `background-color:${color}; border: 2px solid #898989; color:${color}`)
-            .text("" + state)
+            .a("style", `background-color:${color}; border: 2px solid #bbbbbb; color:${color}`)
+            .text("" + 1)
             .end();
         }
 
@@ -1026,12 +1034,15 @@
   ghostClickDetector = new GhostClickDetector();
 
   player = null;
+  menu = null;
+  ruleSelection = null;
+  updating = null;
 
-  playerTimeout = 500;
+  playerTimeout = 1000;
 
   autoplayCriticalPopulation = 90000;
 
-  doStartPlayer = function () {
+  doStartPlayer = function (speed) {
     var runPlayerStep;
     if (player != null) {
       return;
@@ -1043,7 +1054,7 @@
       } else {
         player = setTimeout(function () {
           return application.doStep(runPlayerStep);
-        }, playerTimeout);
+        }, 1000 / speed);
       }
       return updatePlayButtons();
     };
@@ -1062,7 +1073,51 @@
     if (player) {
       return doStopPlayer();
     } else {
-      return doStartPlayer();
+      let speed = document.getElementById("rangeValue").innerText;
+      //console.log(`speed= ${speed}`);
+      return doStartPlayer(speed);
+    }
+  };
+
+  doToggleMenu = function () {
+    if (menu) {
+      menu = null;
+      const myContainer = document.getElementById("dropdown-content-1");
+      myContainer.removeAttribute("style");
+      return;
+    } else {
+      menu = true;
+      const myContainer = document.getElementById("dropdown-content-1");
+      myContainer.style.display = "block";
+      return;
+    }
+  };
+
+  doToggleRuleSelection = function () {
+    if (ruleSelection) {
+      ruleSelection = null;
+      const myContainer = document.getElementById("dropdown-content-2");
+      myContainer.removeAttribute("style");
+      return;
+    } else {
+      ruleSelection = true;
+      const myContainer = document.getElementById("dropdown-content-2");
+      myContainer.style.display = "block";
+      return;
+    }
+  };
+
+  doToggleUpdating = function () {
+    if (updating) {
+      updating = null;
+      const myContainer = document.getElementById("dropdown-content-3");
+      myContainer.removeAttribute("style");
+      return;
+    } else {
+      updating = true;
+      const myContainer = document.getElementById("dropdown-content-3");
+      myContainer.style.display = "block";
+      return;
     }
   };
 
@@ -1438,14 +1493,29 @@
   });
 
   E("btn-static").addEventListener("click", function () {
+    ruleSelection = null;
+    const ruleMenu = document.getElementById("dropdown-content-2");
+    ruleMenu.removeAttribute("style");
+
     const myContainer = document.getElementById("additional-rules-container");
+    myContainer.removeAttribute("style");
+    document.getElementById("rule-entry-1").removeAttribute("style");
     myContainer.classList.add("hidden");
 
     const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
     toggleRuleSelectionButton.innerHTML = "Static";
   });
   E("btn-dynamic").addEventListener("click", function () {
+    ruleSelection = null;
+    const ruleMenu = document.getElementById("dropdown-content-2");
+    ruleMenu.removeAttribute("style");
     const myContainer = document.getElementById("additional-rules-container");
+    myContainer.style.display = "flex";
+    myContainer.style.marginLeft = "10px";
+    myContainer.style.marginRight = "10px";
+    myContainer.style.marginTop = "10px";
+    myContainer.style.justifyContent = "space-between";
+    document.getElementById("rule-entry-1").style.marginRight = "10px";
     myContainer.classList.remove("hidden");
 
     const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
@@ -1453,12 +1523,18 @@
   });
 
   E("btn-synch").addEventListener("click", function () {
+    updating = null;
+    const myContainer = document.getElementById("dropdown-content-3");
+    myContainer.removeAttribute("style");
     const toggleUpdatingPolicy = document.getElementById("updating-button");
     toggleUpdatingPolicy.innerHTML = "Synchronous";
     currentVariant.changeCurrentUpdatePolicy("synchronous");
   });
 
   E("btn-asynch").addEventListener("click", function () {
+    updating = null;
+    const myContainer = document.getElementById("dropdown-content-3");
+    myContainer.removeAttribute("style");
     const toggleUpdatingPolicy = document.getElementById("updating-button");
     toggleUpdatingPolicy.innerHTML = "Asynchronous";
     currentVariant.changeCurrentUpdatePolicy("asynchronous");
@@ -1565,10 +1641,25 @@
     return application.openDialog.show();
   });
 
+  E("variant-button").addEventListener("click", function (e) {
+    return doToggleMenu();
+  });
+
+  E("rule-selection-button").addEventListener("click", function (e) {
+    return doToggleRuleSelection();
+  });
+
+  E("updating-button").addEventListener("click", function (e) {
+    return doToggleUpdating();
+  });
+
   // THE VARIANTS (change the ids soon)
   let currentVariant = new SimulatorVariant();
 
   E("btn-immigration").addEventListener("click", function () {
+    menu = null;
+    const myContainer = document.getElementById("dropdown-content-1");
+    myContainer.removeAttribute("style");
     //change label of variant-name
     const variantName = document.getElementById("variant-name");
     variantName.innerHTML = "Immigration Game";
@@ -1584,6 +1675,9 @@
   });
 
   E("btn-rainbow").addEventListener("click", () => {
+    menu = null;
+    const myContainer = document.getElementById("dropdown-content-1");
+    myContainer.removeAttribute("style");
     //change label of variant-name
     const variantName = document.getElementById("variant-name");
     variantName.innerHTML = "Rainbow Game of Life";
@@ -1595,16 +1689,22 @@
     currentVariant.changeCurrentStateVariant("rainbow");
     application.paintStateSelector.updateRainbow();
     application.doReset();
+
     return redraw();
   });
 
   E("btn-original").addEventListener("click", () => {
+    menu = null;
+    const myContainer = document.getElementById("dropdown-content-1");
+    myContainer.removeAttribute("style");
+
     //change label of variant-name
     const variantName = document.getElementById("variant-name");
     variantName.innerHTML = "Conway's Game of Life";
 
     const rsg = document.getElementById("rsg");
-    rsg.style = "margin-top: 154.25px";
+    //rsg.style = "margin-top: 154.25px";
+    rsg.style = "margin-top: 100px";
 
     application.observer.revertToOriginalStates();
     currentVariant.changeCurrentStateVariant("default");

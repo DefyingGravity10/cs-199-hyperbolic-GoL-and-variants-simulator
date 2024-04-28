@@ -39,14 +39,14 @@
               />
             </svg>
           </button>
-          <div class="dropdown-content">
-            <button id="btn-original" title="Swap to the Conway's Variant" class="">
+          <div id="dropdown-content-1">
+            <button id="btn-original" title="Play Conway's Game of Life" class="">
               Conway's Game of Life
             </button>
-            <button id="btn-immigration" title="Swap to the Immigration Variant" class="">
+            <button id="btn-immigration" title="Play the Immigration Game" class="">
               Immigration Game
             </button>
-            <button id="btn-rainbow" title="Swap to the Rainbow Variant" class="">
+            <button id="btn-rainbow" title="Play the Rainbow Game of Life" class="">
               Rainbow Game of Life
             </button>
           </div>
@@ -79,7 +79,7 @@
               <input id="entry-q" type="number" class="short" placeholder="q" />
               &nbsp;&#125;
             </div>
-            <button id="btn-set-grid" title="Apply grid">Set</button>
+            <button id="btn-set-grid" title="Apply this tiling">Set</button>
           </div>
 
           <div id="rules">
@@ -93,16 +93,20 @@
                 <div id="rule-selection-menu">
                   <div class="dropdown">
                     <button id="rule-selection-button">Static</button>
-                    <div class="dropdown-content">
-                      <button id="btn-static">Static</button>
-                      <button id="btn-dynamic" title="Dynamic Rule Selection">Dynamic</button>
+                    <div id="dropdown-content-2">
+                      <button id="btn-static" title="Use one rule only">Static</button>
+                      <button id="btn-dynamic" title="Use multiple rules">Dynamic</button>
                     </div>
                   </div>
                   <div class="dropdown">
                     <button id="updating-button">Synchronous</button>
-                    <div class="dropdown-content">
-                      <button id="btn-synch">Synchronous</button>
-                      <button id="btn-asynch" title="Asynchronous">Asynchronous</button>
+                    <div id="dropdown-content-3">
+                      <button id="btn-synch" title="Update all cells simultaneously">
+                        Synchronous
+                      </button>
+                      <button id="btn-asynch" title="Update cells individually">
+                        Asynchronous
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -242,7 +246,7 @@
           </div>
 
           <div class="button-group" id="rsg">
-            <button id="btn-reset" class="dangerous" title="(C) Clear field and reset view">
+            <button id="btn-reset" class="dangerous" title="(C) Clear plane and reset view">
               <svg
                 version="1.1"
                 id="svg2"
@@ -273,7 +277,7 @@
                 </g>
               </svg>
             </button>
-            <button id="btn-play-start" title="(G or Space) Start continuous evaluation">
+            <button id="btn-play-start" title="(G or Space) Start continuous evolution of cells">
               <svg
                 viewBox="-1 0 8 8"
                 version="1.1"
@@ -291,7 +295,7 @@
               id="btn-play-stop"
               style="display: none"
               class="button-active"
-              title="(G or Space) Stop continuous evaluation"
+              title="(G or Space) Stop continuous evolution of cells"
             >
               <svg
                 fill="#000000"
@@ -318,7 +322,7 @@
                 </g>
               </svg>
             </button>
-            <button id="btn-step" title="(N) Evaluate for one generation">
+            <button id="btn-step" title="(N) Evolve cells for one generation">
               <svg
                 version="1.1"
                 id="svg2"
@@ -345,24 +349,38 @@
                 />
               </svg>
             </button>
+            <div id="slider">
+              <div id="speed">
+                <span>Speed</span>
+              </div>
+              <input
+                class="slider"
+                type="range"
+                orient="vertical"
+                min="0.25"
+                max="4"
+                value="1"
+                step="0.25"
+                oninput="rangeValue.innerText = this.value"
+              />
+              <div id="speed-value"><span id="rangeValue"> 1 </span><span>x</span></div>
+            </div>
           </div>
         </div>
 
         <div id="right-sidebar">
           <div class="button-group">
-            <button
+            <!--<button
               id="btn-mode-edit"
               title="(E) Use left button to edit, middle or left+shift to pan"
-            >
-              Edit
-            </button>
-            <button
+            >-->
+            <button id="btn-mode-edit" title="(E) Toggle initial population of cells">Edit</button>
+            <!--<button
               id="btn-mode-pan"
               title="(P) Use left button to pan, middle or left+shift to edit"
-            >
-              Pan
-            </button>
-            <button id="btn-nav-home" title="(H) Navigate to the origin">Center</button>
+            >-->
+            <button id="btn-mode-pan" title="(P) Pan through the disk">Pan</button>
+            <button id="btn-nav-home" title="(H) Navigate to the origin">Origin</button>
           </div>
 
           <div id="statusbar">

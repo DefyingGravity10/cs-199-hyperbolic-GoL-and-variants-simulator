@@ -95,16 +95,20 @@ div.popup {
   margin-left: 5px;
 }
 
-.dropdown-content {
+#dropdown-content-1,
+#dropdown-content-2,
+#dropdown-content-3 {
   display: none;
   position: absolute;
   background-color: #d5ddf3;
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
 }
-.dropdown:hover .dropdown-content {
+/*.dropdown:current .dropdown-content {
   display: block;
-}
-.dropdown-content button {
+}*/
+#dropdown-content-1 button,
+#dropdown-content-2 button,
+#dropdown-content-3 button {
   display: block;
   color: black;
   background-color: transparent;
@@ -117,7 +121,9 @@ div.popup {
   font-family: "Dosis";
   font-weight: bold;
 }
-.dropdown-content button:hover {
+#dropdown-content-1 button:hover,
+#dropdown-content-2 button:hover,
+#dropdown-content-3 button:hover {
   color: #ffffff;
   background-color: #4364c7;
 }
@@ -157,12 +163,59 @@ div.popup {
   padding-bottom: 0.25in;
 }
 
+.slider {
+  width: 75px;
+  height: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #4364c7;
+  border-radius: 50px;
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  outline: none;
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
 #rsg {
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-top: 154.25px;
+  /*margin-top: 154.25px;*/
+  margin-top: 100px;
   align-items: center;
+}
+
+#slider {
+  padding-top: 0.25in;
+}
+
+#speed {
+  padding-bottom: 0.1in;
+  font-weight: bold;
+}
+
+#speed-value {
+  font-weight: bold;
 }
 
 #main-content {
