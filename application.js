@@ -6459,12 +6459,7 @@ exports.parseFieldData1 = (data) ->
               this.ruleEntry.setValue(record.ruleEntry0);
               this.ruleEntry1.setValue(record.ruleEntry1);
               this.ruleEntry2.setValue(record.ruleEntry2);
-              myContainer.style.display = "flex";
-              myContainer.style.marginLeft = "10px";
-              myContainer.style.marginRight = "10px";
-              myContainer.style.marginTop = "10px";
-              myContainer.style.justifyContent = "space-between";
-              document.getElementById("rule-entry-1").style.marginRight = "10px";
+              myContainer.style.display = "";
               break;
             default:
               throw new Error(`Unknown rule selection ${record.ruleSelection}`);
@@ -7293,7 +7288,7 @@ exports.parseFieldData1 = (data) ->
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.removeAttribute("style");
     document.getElementById("rule-entry-1").removeAttribute("style");
-    myContainer.classList.add("hidden");
+    myContainer.style.display = "none";
 
     const ruleSelectionButton = document.getElementById("rule-selection-button");
     ruleSelectionButton.innerHTML = "Static";
@@ -7304,13 +7299,7 @@ exports.parseFieldData1 = (data) ->
     const ruleMenu = document.getElementById("dropdown-content-2");
     ruleMenu.removeAttribute("style");
     const myContainer = document.getElementById("additional-rules-container");
-    myContainer.style.display = "flex";
-    myContainer.style.marginLeft = "10px";
-    myContainer.style.marginRight = "10px";
-    myContainer.style.marginTop = "10px";
-    myContainer.style.justifyContent = "space-between";
-    document.getElementById("rule-entry-1").style.marginRight = "10px";
-    myContainer.classList.remove("hidden");
+    myContainer.style.display = "";
 
     const ruleSelectionButton = document.getElementById("rule-selection-button");
     ruleSelectionButton.innerHTML = "Dynamic";

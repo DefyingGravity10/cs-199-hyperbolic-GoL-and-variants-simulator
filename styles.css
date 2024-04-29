@@ -48,9 +48,6 @@ div.popup {
   margin: 1em 2em 2em 1em;
 }
 
-.hidden {
-  display: none;
-}
 /*Main layout*/
 
 #main {
@@ -413,13 +410,25 @@ div.overlay-toolbar {
   border-color: black;
   margin-top: 2px;
 }
-#rule-entry {
-  width: 100%;
-}
+
 #rule-entry-1,
 #rule-entry-2 {
   width: 49.5%;
 }
+#rule-entry {
+  width: 100%;
+}
+
+#rule-entry-1 {
+  margin-right: 10px;
+}
+
+#additional-rules-container {
+  display: flex;
+  margin: 10px 10px 0 10px;
+  justify-content: space-between;
+}
+
 #rules-container {
   margin-left: 10px;
   margin-right: 10px;
@@ -494,6 +503,9 @@ div.overlay-toolbar {
 }
 #file-dialog-files {
   overflow: auto;
+}
+.hidden {
+  display: none;
 }
 
 table.files-table {
