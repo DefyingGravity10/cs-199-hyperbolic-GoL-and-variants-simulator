@@ -6451,7 +6451,7 @@ exports.parseFieldData1 = (data) ->
               ruleSelectionButton.innerHTML = "Static";
               currentVariant.changeCurrentRuleSelection("static");
               this.ruleEntry.setValue(record.ruleEntry0);
-              myContainer.classList.add("hidden");
+              myContainer.style.display = "none";
               break;
             case "dynamic":
               ruleSelectionButton.innerHTML = "Dynamic";
@@ -6459,7 +6459,12 @@ exports.parseFieldData1 = (data) ->
               this.ruleEntry.setValue(record.ruleEntry0);
               this.ruleEntry1.setValue(record.ruleEntry1);
               this.ruleEntry2.setValue(record.ruleEntry2);
-              myContainer.classList.remove("hidden");
+              myContainer.style.display = "flex";
+              myContainer.style.marginLeft = "10px";
+              myContainer.style.marginRight = "10px";
+              myContainer.style.marginTop = "10px";
+              myContainer.style.justifyContent = "space-between";
+              document.getElementById("rule-entry-1").style.marginRight = "10px";
               break;
             default:
               throw new Error(`Unknown rule selection ${record.ruleSelection}`);
