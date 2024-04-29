@@ -718,7 +718,29 @@
               currentVariant.changeCurrentUpdatePolicy("asynchronous");
               break;
             default:
-              throw new Error(`Unknown variant ${record.coloredVariant}`);
+              throw new Error(`Unknown updating policy ${record.updatePolicy}`);
+          }
+
+          // Consider Rule Selection
+          const ruleSelection = document.getElementById("rule-selection-button");
+          const myContainer = document.getElementById("additional-rules-container");
+          switch (record.ruleSelection) {
+            case "static":
+              ruleSelection.innerHTML = "Static";
+              currentVariant.changeCurrentRuleSelection("static");
+              this.ruleEntry.setValue(record.ruleEntry0);
+              myContainer.classList.add("hidden");
+              break;
+            case "dynamic":
+              ruleSelection.innerHTML = "Dynamic";
+              currentVariant.changeCurrentRuleSelection("dynamic");
+              this.ruleEntry.setValue(record.ruleEntry0);
+              this.ruleEntry1.setValue(record.ruleEntry1);
+              this.ruleEntry2.setValue(record.ruleEntry2);
+              myContainer.classList.remove("hidden");
+              break;
+            default:
+              throw new Error(`Unknown rule selection ${record.ruleSelection}`);
           }
 
           break;
@@ -754,6 +776,15 @@
         time: Date.now(),
         coloredVariant: currentVariant.getCurrentStateVariant(),
         updatePolicy: currentVariant.getCurrentUpdatePolicy(),
+        ruleSelection: currentVariant.getCurrentRuleSelection(),
+        ruleEntry0:
+          currentVariant.getCurrentRuleSelection() === "dynamic"
+            ? "" + this.ruleList[0]
+            : "" + this.getTransitionFunc(),
+        ruleEntry1:
+          currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[1] : "N/A",
+        ruleEntry2:
+          currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[2] : "N/A",
         field: null,
         generation: this.generation
       };

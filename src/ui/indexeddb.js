@@ -90,7 +90,16 @@
     });
     return catalogStore.createIndex(
       "catalogByGrid",
-      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant", "updatePolicy"],
+      [
+        "gridN",
+        "gridM",
+        "funcId",
+        "name",
+        "time",
+        "coloredVariant",
+        "updatePolicy",
+        "ruleSelection"
+      ],
       {
         unique: false
       }
@@ -551,11 +560,14 @@
           dom.tag("td").text(res.value.name).end();
         }
         dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
-        dom.tag("td").text(res.value.grid).end();
-        dom.tag("td").text("Static").end();
-        dom.tag("td").text("RS0").end();
-        dom.tag("td").text("RS1").end();
-        dom.tag("td").text("RS2").end();
+        dom.tag("td").text(`{${res.value.gridN}, ${res.value.gridM}}`).end();
+        dom
+          .tag("td")
+          .text(res.value.ruleSelection.charAt(0).toUpperCase() + res.value.ruleSelection.slice(1))
+          .end();
+        dom.tag("td").text(res.value.ruleEntry0).end();
+        dom.tag("td").text(res.value.ruleEntry1).end();
+        dom.tag("td").text(res.value.ruleEntry2).end();
         dom
           .tag("td")
           .text(

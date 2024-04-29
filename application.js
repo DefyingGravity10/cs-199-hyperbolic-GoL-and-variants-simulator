@@ -6434,7 +6434,29 @@ exports.parseFieldData1 = (data) ->
               currentVariant.changeCurrentUpdatePolicy("asynchronous");
               break;
             default:
-              throw new Error(`Unknown variant ${record.coloredVariant}`);
+              throw new Error(`Unknown updating policy ${record.updatePolicy}`);
+          }
+
+          // Consider Rule Selection
+          const ruleSelection = document.getElementById("rule-selection-button");
+          const myContainer = document.getElementById("additional-rules-container");
+          switch (record.ruleSelection) {
+            case "static":
+              ruleSelection.innerHTML = "Static";
+              currentVariant.changeCurrentRuleSelection("static");
+              this.ruleEntry.setValue(record.ruleEntry0);
+              myContainer.classList.add("hidden");
+              break;
+            case "dynamic":
+              ruleSelection.innerHTML = "Dynamic";
+              currentVariant.changeCurrentRuleSelection("dynamic");
+              this.ruleEntry.setValue(record.ruleEntry0);
+              this.ruleEntry1.setValue(record.ruleEntry1);
+              this.ruleEntry2.setValue(record.ruleEntry2);
+              myContainer.classList.remove("hidden");
+              break;
+            default:
+              throw new Error(`Unknown rule selection ${record.ruleSelection}`);
           }
 
           break;
@@ -6470,6 +6492,15 @@ exports.parseFieldData1 = (data) ->
         time: Date.now(),
         coloredVariant: currentVariant.getCurrentStateVariant(),
         updatePolicy: currentVariant.getCurrentUpdatePolicy(),
+        ruleSelection: currentVariant.getCurrentRuleSelection(),
+        ruleEntry0:
+          currentVariant.getCurrentRuleSelection() === "dynamic"
+            ? "" + this.ruleList[0]
+            : "" + this.getTransitionFunc(),
+        ruleEntry1:
+          currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[1] : "N/A",
+        ruleEntry2:
+          currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[2] : "N/A",
         field: null,
         generation: this.generation
       };
@@ -8009,7 +8040,16 @@ exports.parseFieldData1 = (data) ->
     });
     return catalogStore.createIndex(
       "catalogByGrid",
-      ["gridN", "gridM", "funcId", "name", "time", "coloredVariant", "updatePolicy"],
+      [
+        "gridN",
+        "gridM",
+        "funcId",
+        "name",
+        "time",
+        "coloredVariant",
+        "updatePolicy",
+        "ruleSelection"
+      ],
       {
         unique: false
       }
@@ -8470,11 +8510,14 @@ exports.parseFieldData1 = (data) ->
           dom.tag("td").text(res.value.name).end();
         }
         dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
-        dom.tag("td").text(res.value.grid).end();
-        dom.tag("td").text("Static").end();
-        dom.tag("td").text("RS0").end();
-        dom.tag("td").text("RS1").end();
-        dom.tag("td").text("RS2").end();
+        dom.tag("td").text(`{${res.value.gridN}, ${res.value.gridM}}`).end();
+        dom
+          .tag("td")
+          .text(res.value.ruleSelection.charAt(0).toUpperCase() + res.value.ruleSelection.slice(1))
+          .end();
+        dom.tag("td").text(res.value.ruleEntry0).end();
+        dom.tag("td").text(res.value.ruleEntry1).end();
+        dom.tag("td").text(res.value.ruleEntry2).end();
         dom
           .tag("td")
           .text(
@@ -8924,7 +8967,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
         }
         return results;
       })();
-      this.isDrawingHomePtr = true;
+      this.isDrawingHomePtr = false;
       this.isDrawingLiveBorders = true;
       this.colorHomePtr = "rgba(255,100,100,0.7)";
       this.colorEmptyBorder = "rgb(128,128,128)";
