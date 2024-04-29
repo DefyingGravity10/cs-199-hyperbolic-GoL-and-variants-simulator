@@ -6446,7 +6446,7 @@ exports.parseFieldData1 = (data) ->
           // Consider Rule Selection
           const ruleSelectionButton = document.getElementById("rule-selection-button");
           const myContainer = document.getElementById("additional-rules-container");
-          switch (record.ruleSelection) {
+          switch (record.ruleSelectionVariant) {
             case "static":
               ruleSelectionButton.innerHTML = "Static";
               currentVariant.changeCurrentRuleSelection("static");
@@ -6498,7 +6498,7 @@ exports.parseFieldData1 = (data) ->
         time: Date.now(),
         coloredVariant: currentVariant.getCurrentStateVariant(),
         updatePolicy: currentVariant.getCurrentUpdatePolicy(),
-        ruleSelection: currentVariant.getCurrentRuleSelection(),
+        ruleSelectionVariant: currentVariant.getCurrentRuleSelection(),
         ruleEntry0:
           currentVariant.getCurrentRuleSelection() === "dynamic"
             ? "" + this.ruleList[0]
@@ -8144,7 +8144,7 @@ exports.parseFieldData1 = (data) ->
         "time",
         "coloredVariant",
         "updatePolicy",
-        "ruleSelection"
+        "ruleSelectionVariant"
       ],
       {
         unique: false
@@ -8609,7 +8609,10 @@ exports.parseFieldData1 = (data) ->
         dom.tag("td").text(`{${res.value.gridN}, ${res.value.gridM}}`).end();
         dom
           .tag("td")
-          .text(res.value.ruleSelection.charAt(0).toUpperCase() + res.value.ruleSelection.slice(1))
+          .text(
+            res.value.ruleSelectionVariant.charAt(0).toUpperCase() +
+              res.value.ruleSelectionVariant.slice(1)
+          )
           .end();
         dom.tag("td").text(res.value.ruleEntry0).end();
         dom.tag("td").text(res.value.ruleEntry1).end();

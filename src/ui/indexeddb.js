@@ -98,7 +98,7 @@
         "time",
         "coloredVariant",
         "updatePolicy",
-        "ruleSelection"
+        "ruleSelectionVariant"
       ],
       {
         unique: false
@@ -563,7 +563,10 @@
         dom.tag("td").text(`{${res.value.gridN}, ${res.value.gridM}}`).end();
         dom
           .tag("td")
-          .text(res.value.ruleSelection.charAt(0).toUpperCase() + res.value.ruleSelection.slice(1))
+          .text(
+            res.value.ruleSelectionVariant.charAt(0).toUpperCase() +
+              res.value.ruleSelectionVariant.slice(1)
+          )
           .end();
         dom.tag("td").text(res.value.ruleEntry0).end();
         dom.tag("td").text(res.value.ruleEntry1).end();

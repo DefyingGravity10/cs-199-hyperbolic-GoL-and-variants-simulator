@@ -730,7 +730,7 @@
           // Consider Rule Selection
           const ruleSelectionButton = document.getElementById("rule-selection-button");
           const myContainer = document.getElementById("additional-rules-container");
-          switch (record.ruleSelection) {
+          switch (record.ruleSelectionVariant) {
             case "static":
               ruleSelectionButton.innerHTML = "Static";
               currentVariant.changeCurrentRuleSelection("static");
@@ -782,7 +782,7 @@
         time: Date.now(),
         coloredVariant: currentVariant.getCurrentStateVariant(),
         updatePolicy: currentVariant.getCurrentUpdatePolicy(),
-        ruleSelection: currentVariant.getCurrentRuleSelection(),
+        ruleSelectionVariant: currentVariant.getCurrentRuleSelection(),
         ruleEntry0:
           currentVariant.getCurrentRuleSelection() === "dynamic"
             ? "" + this.ruleList[0]
