@@ -728,17 +728,17 @@
           }
 
           // Consider Rule Selection
-          const ruleSelection = document.getElementById("rule-selection-button");
+          const ruleSelectionButton = document.getElementById("rule-selection-button");
           const myContainer = document.getElementById("additional-rules-container");
           switch (record.ruleSelection) {
             case "static":
-              ruleSelection.innerHTML = "Static";
+              ruleSelectionButton.innerHTML = "Static";
               currentVariant.changeCurrentRuleSelection("static");
               this.ruleEntry.setValue(record.ruleEntry0);
               myContainer.classList.add("hidden");
               break;
             case "dynamic":
-              ruleSelection.innerHTML = "Dynamic";
+              ruleSelectionButton.innerHTML = "Dynamic";
               currentVariant.changeCurrentRuleSelection("dynamic");
               this.ruleEntry.setValue(record.ruleEntry0);
               this.ruleEntry1.setValue(record.ruleEntry1);
