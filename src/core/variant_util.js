@@ -95,8 +95,10 @@
     constructor() {
       this.stateVariant = "default";
       this.updatePolicy = "synchronous";
+      this.ruleSelection = "static";
       this.availableStateVariants = ["default", "immigration", "rainbow"];
       this.availableUpdatePolicy = ["synchronous", "asynchronous"];
+      this.availableRuleSelection = ["static", "dynamic"];
     }
 
     getCurrentStateVariant() {
@@ -114,9 +116,19 @@
     }
     changeCurrentUpdatePolicy(updatePolicy) {
       if (!this.availableUpdatePolicy.includes(updatePolicy)) {
-        throw new Error(`The ${updatePolicy} is not an existing variant`);
+        throw new Error(`There is no ${updatePolicy} updating policy`);
       }
       this.updatePolicy = updatePolicy;
+      return;
+    }
+    getCurrentRuleSelection() {
+      return this.ruleSelection;
+    }
+    changeCurrentRuleSelection(ruleSelection) {
+      if (!this.availableRuleSelection.includes(ruleSelection)) {
+        throw new Error(`There is no ${ruleSelection} rule selection`);
+      }
+      this.ruleSelection = ruleSelection;
       return;
     }
   };

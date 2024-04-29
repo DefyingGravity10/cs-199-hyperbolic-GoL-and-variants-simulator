@@ -41,7 +41,7 @@
         }
         return results;
       })();
-      this.isDrawingHomePtr = true;
+      this.isDrawingHomePtr = false;
       this.isDrawingLiveBorders = true;
       this.colorHomePtr = "rgba(255,100,100,0.7)";
       this.colorEmptyBorder = "rgb(128,128,128)";
@@ -130,7 +130,7 @@
         "purple"
       ]);
     }
-    changeToImmigrant() {
+    changeToImmigration() {
       // a function used to change to immigrant. will be renamed in the future
       return (this.pattern = ["red", "blue"]);
     }

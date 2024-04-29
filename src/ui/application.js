@@ -663,7 +663,7 @@
         return console.log(`Imported ${this.cells.count} cells`);
       } catch (error) {
         e = error;
-        alert(`Faield to import data: ${e}`);
+        alert(`Failed to import data: ${e}`);
         return (this.cells = new ChainMap());
       }
     }
@@ -686,10 +686,71 @@
         case "binary":
           this.transitionFunc = parseTransitionFunction(record.funcId, record.gridN, record.gridM);
           this.ruleEntry.setValue(this.transitionFunc);
-          // console.log("Immig");
-          // this.observer.changeToImmigrant();
-          // this.paintStateSelector.updateImmigration(this.transitionFunc);
+
+          // Consider the colored variants
+          const variantName = document.getElementById("variant-name");
+          switch (record.coloredVariant) {
+            case "default":
+              this.observer.revertToOriginalStates();
+              this.paintStateSelector.update(this.transitionFunc);
+              variantName.innerHTML = "Conway's Game of Life";
+              currentVariant.changeCurrentStateVariant("default");
+              break;
+            case "immigration":
+              this.observer.changeToImmigration();
+              this.paintStateSelector.updateImmigration(this.transitionFunc);
+              variantName.innerHTML = "Immigration Game";
+              currentVariant.changeCurrentStateVariant("immigration");
+              break;
+            case "rainbow":
+              this.observer.changeToRainbow();
+              this.paintStateSelector.updateRainbow(this.transitionFunc);
+              variantName.innerHTML = "Rainbow Game of Life";
+              currentVariant.changeCurrentStateVariant("rainbow");
+              break;
+            default:
+              throw new Error(`Unknown variant ${record.coloredVariant}`);
+          }
+
+          // Check if it is synchronous or not
+          const updatingPolicy = document.getElementById("updating-button");
+          switch (record.updatePolicy) {
+            case "synchronous":
+              updatingPolicy.innerHTML = "Synchronous";
+              currentVariant.changeCurrentUpdatePolicy("synchronous");
+              break;
+            case "asynchronous":
+              updatingPolicy.innerHTML = "Asynchronous";
+              currentVariant.changeCurrentUpdatePolicy("asynchronous");
+              break;
+            default:
+              throw new Error(`Unknown updating policy ${record.updatePolicy}`);
+          }
+
+          // Consider Rule Selection
+          const ruleSelection = document.getElementById("rule-selection-button");
+          const myContainer = document.getElementById("additional-rules-container");
+          switch (record.ruleSelection) {
+            case "static":
+              ruleSelection.innerHTML = "Static";
+              currentVariant.changeCurrentRuleSelection("static");
+              this.ruleEntry.setValue(record.ruleEntry0);
+              myContainer.classList.add("hidden");
+              break;
+            case "dynamic":
+              ruleSelection.innerHTML = "Dynamic";
+              currentVariant.changeCurrentRuleSelection("dynamic");
+              this.ruleEntry.setValue(record.ruleEntry0);
+              this.ruleEntry1.setValue(record.ruleEntry1);
+              this.ruleEntry2.setValue(record.ruleEntry2);
+              myContainer.classList.remove("hidden");
+              break;
+            default:
+              throw new Error(`Unknown rule selection ${record.ruleSelection}`);
+          }
+
           break;
+        // We do not longer consider sub-cases here
         case "custom":
           this.transitionFunc = new GenericTransitionFunc(record.funcId);
           this.paintStateSelector.update(this.transitionFunc);
@@ -719,6 +780,17 @@
         offset: this.getObserver().getViewOffsetMatrix(),
         size: fieldData.length,
         time: Date.now(),
+        coloredVariant: currentVariant.getCurrentStateVariant(),
+        updatePolicy: currentVariant.getCurrentUpdatePolicy(),
+        ruleSelection: currentVariant.getCurrentRuleSelection(),
+        ruleEntry0:
+          currentVariant.getCurrentRuleSelection() === "dynamic"
+            ? "" + this.ruleList[0]
+            : "" + this.getTransitionFunc(),
+        ruleEntry1:
+          currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[1] : "N/A",
+        ruleEntry2:
+          currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[2] : "N/A",
         field: null,
         generation: this.generation
       };
@@ -1303,7 +1375,7 @@
     application.setGridImpl(n, m);
 
     if (currentVariant.stateVariant === "immigration") {
-      application.observer.changeToImmigrant();
+      application.observer.changeToImmigration();
       application.paintStateSelector.updateImmigration();
     } else if (currentVariant.stateVariant === "rainbow") {
       application.observer.changeToRainbow();
@@ -1502,8 +1574,9 @@
     document.getElementById("rule-entry-1").removeAttribute("style");
     myContainer.classList.add("hidden");
 
-    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
-    toggleRuleSelectionButton.innerHTML = "Static";
+    const ruleSelectionButton = document.getElementById("rule-selection-button");
+    ruleSelectionButton.innerHTML = "Static";
+    currentVariant.changeCurrentRuleSelection("static");
   });
   E("btn-dynamic").addEventListener("click", function () {
     ruleSelection = null;
@@ -1518,16 +1591,17 @@
     document.getElementById("rule-entry-1").style.marginRight = "10px";
     myContainer.classList.remove("hidden");
 
-    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
-    toggleRuleSelectionButton.innerHTML = "Dynamic";
+    const ruleSelectionButton = document.getElementById("rule-selection-button");
+    ruleSelectionButton.innerHTML = "Dynamic";
+    currentVariant.changeCurrentRuleSelection("dynamic");
   });
 
   E("btn-synch").addEventListener("click", function () {
     updating = null;
     const myContainer = document.getElementById("dropdown-content-3");
     myContainer.removeAttribute("style");
-    const toggleUpdatingPolicy = document.getElementById("updating-button");
-    toggleUpdatingPolicy.innerHTML = "Synchronous";
+    const updatingPolicy = document.getElementById("updating-button");
+    updatingPolicy.innerHTML = "Synchronous";
     currentVariant.changeCurrentUpdatePolicy("synchronous");
   });
 
@@ -1667,7 +1741,7 @@
     const rsg = document.getElementById("rsg");
     rsg.style = "margin-top: 0.5in";
 
-    application.observer.changeToImmigrant();
+    application.observer.changeToImmigration();
     currentVariant.changeCurrentStateVariant("immigration");
     application.paintStateSelector.updateImmigration();
     application.doReset();

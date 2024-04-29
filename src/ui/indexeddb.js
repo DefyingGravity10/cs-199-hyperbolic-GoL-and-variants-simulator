@@ -88,9 +88,22 @@
     catalogStore = db.createObjectStore("catalog", {
       autoIncrement: true
     });
-    return catalogStore.createIndex("catalogByGrid", ["gridN", "gridM", "funcId", "name", "time"], {
-      unique: false
-    });
+    return catalogStore.createIndex(
+      "catalogByGrid",
+      [
+        "gridN",
+        "gridM",
+        "funcId",
+        "name",
+        "time",
+        "coloredVariant",
+        "updatePolicy",
+        "ruleSelection"
+      ],
+      {
+        unique: false
+      }
+    );
   };
 
   exports.OpenDialog = OpenDialog = class OpenDialog {
@@ -277,6 +290,7 @@
   };
 
   GenerateFileList = class GenerateFileList {
+    // fileCallback = load
     constructor(grid1, rule1, container, fileCallback, readyCallback) {
       this.grid = grid1;
       this.rule = rule1;
@@ -439,6 +453,27 @@
         .tag("th")
         .text("Time")
         .end()
+        .tag("th")
+        .text("Grid")
+        .end()
+        .tag("th")
+        .text("Rule Selection")
+        .end()
+        .tag("th")
+        .text("RS0")
+        .end()
+        .tag("th")
+        .text("RS1")
+        .end()
+        .tag("th")
+        .text("RS2")
+        .end()
+        .tag("th")
+        .text("Colored Variant")
+        .end()
+        .tag("th")
+        .text("Update Policy")
+        .end()
         .end()
         .end()
         .tag("tbody");
@@ -447,7 +482,7 @@
           .tag("tr")
           .CLASS("files-grid-row")
           .tag("td")
-          .a("colspan", "3")
+          .a("colspan", "10")
           .text(`Grid: ${gridName}`)
           .end()
           .end();
@@ -473,7 +508,7 @@
           .tag("tr")
           .CLASS("files-func-row")
           .tag("td")
-          .a("colspan", "3")
+          .a("colspan", "10")
           .text(`Rule: ${funcName}`)
           .end()
           .end();
@@ -524,7 +559,26 @@
         } else {
           dom.tag("td").text(res.value.name).end();
         }
-        dom.tag("td").text(new Date(res.value.time).toLocaleString()).end().end();
+        dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
+        dom.tag("td").text(`{${res.value.gridN}, ${res.value.gridM}}`).end();
+        dom
+          .tag("td")
+          .text(res.value.ruleSelection.charAt(0).toUpperCase() + res.value.ruleSelection.slice(1))
+          .end();
+        dom.tag("td").text(res.value.ruleEntry0).end();
+        dom.tag("td").text(res.value.ruleEntry1).end();
+        dom.tag("td").text(res.value.ruleEntry2).end();
+        dom
+          .tag("td")
+          .text(
+            res.value.coloredVariant.charAt(0).toUpperCase() + res.value.coloredVariant.slice(1)
+          )
+          .end();
+        dom
+          .tag("td")
+          .text(res.value.updatePolicy.charAt(0).toUpperCase() + res.value.updatePolicy.slice(1))
+          .end()
+          .end();
 
         //dom.tag('div').CLASS("file-list-file").text(res.value.name).end()
         if (dom.vars.alink != null) {
