@@ -6450,19 +6450,19 @@ exports.parseFieldData1 = (data) ->
             case "static":
               ruleSelectionButton.innerHTML = "Static";
               currentVariant.changeCurrentRuleSelection("static");
-              this.ruleEntry.setValue(record.ruleEntry0);
+              this.ruleEntry.setValue(record.funcId);
               myContainer.style.display = "none";
               break;
             case "dynamic":
               ruleSelectionButton.innerHTML = "Dynamic";
               currentVariant.changeCurrentRuleSelection("dynamic");
-              this.ruleEntry.setValue(record.ruleEntry0);
               this.ruleEntry1.setValue(record.ruleEntry1);
               this.ruleEntry2.setValue(record.ruleEntry2);
+              application.doSetRule();
               myContainer.style.display = "";
               break;
             default:
-              throw new Error(`Unknown rule selection ${record.ruleSelection}`);
+              throw new Error(`Unknown rule selection ${record.ruleSelectionVariant}`);
           }
 
           break;
@@ -7330,6 +7330,9 @@ exports.parseFieldData1 = (data) ->
 
   E("btn-rainbow-run").addEventListener("click", doImport);
 
+  E("btn-set-rule").addEventListener("click", function (e) {
+    return application.doSetRule();
+  });
   //initialize
   /* E("btn-mem-set").addEventListener("click", doMemorize);
 
