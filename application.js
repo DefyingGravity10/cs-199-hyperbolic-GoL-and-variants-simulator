@@ -2889,8 +2889,10 @@ exports.parseFieldData1 = (data) ->
     constructor() {
       this.stateVariant = "default";
       this.updatePolicy = "synchronous";
+      this.ruleSelection = "static";
       this.availableStateVariants = ["default", "immigration", "rainbow"];
       this.availableUpdatePolicy = ["synchronous", "asynchronous"];
+      this.availableRuleSelection = ["static", "dynamic"];
     }
 
     getCurrentStateVariant() {
@@ -2908,9 +2910,19 @@ exports.parseFieldData1 = (data) ->
     }
     changeCurrentUpdatePolicy(updatePolicy) {
       if (!this.availableUpdatePolicy.includes(updatePolicy)) {
-        throw new Error(`The ${updatePolicy} is not an existing variant`);
+        throw new Error(`There is no ${updatePolicy} updating policy`);
       }
       this.updatePolicy = updatePolicy;
+      return;
+    }
+    getCurrentRuleSelection() {
+      return this.ruleSelection;
+    }
+    changeCurrentRuleSelection(ruleSelection) {
+      if (!this.availableRuleSelection.includes(ruleSelection)) {
+        throw new Error(`There is no ${ruleSelection} rule selection`);
+      }
+      this.ruleSelection = ruleSelection;
       return;
     }
   };
@@ -6411,14 +6423,14 @@ exports.parseFieldData1 = (data) ->
           }
 
           // Check if it is synchronous or not
-          const toggleUpdatingPolicy = document.getElementById("updating-button");
+          const updatingPolicy = document.getElementById("updating-button");
           switch (record.updatePolicy) {
             case "synchronous":
-              toggleUpdatingPolicy.innerHTML = "Synchronous";
+              updatingPolicy.innerHTML = "Synchronous";
               currentVariant.changeCurrentUpdatePolicy("synchronous");
               break;
             case "asynchronous":
-              toggleUpdatingPolicy.innerHTML = "Asynchronous";
+              updatingPolicy.innerHTML = "Asynchronous";
               currentVariant.changeCurrentUpdatePolicy("asynchronous");
               break;
             default:
@@ -6456,8 +6468,8 @@ exports.parseFieldData1 = (data) ->
         offset: this.getObserver().getViewOffsetMatrix(),
         size: fieldData.length,
         time: Date.now(),
-        coloredVariant: currentVariant.stateVariant,
-        updatePolicy: currentVariant.updatePolicy,
+        coloredVariant: currentVariant.getCurrentStateVariant(),
+        updatePolicy: currentVariant.getCurrentUpdatePolicy(),
         field: null,
         generation: this.generation
       };
@@ -7190,26 +7202,28 @@ exports.parseFieldData1 = (data) ->
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.classList.add("hidden");
 
-    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
-    toggleRuleSelectionButton.innerHTML = "Static";
+    const ruleSelectionButton = document.getElementById("rule-selection-button");
+    ruleSelectionButton.innerHTML = "Static";
+    currentVariant.changeCurrentRuleSelection("static");
   });
   E("btn-dynamic").addEventListener("click", function () {
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.classList.remove("hidden");
 
-    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
-    toggleRuleSelectionButton.innerHTML = "Dynamic";
+    const ruleSelectionButton = document.getElementById("rule-selection-button");
+    ruleSelectionButton.innerHTML = "Dynamic";
+    currentVariant.changeCurrentRuleSelection("dynamic");
   });
 
   E("btn-synch").addEventListener("click", function () {
-    const toggleUpdatingPolicy = document.getElementById("updating-button");
-    toggleUpdatingPolicy.innerHTML = "Synchronous";
+    const updatingPolicy = document.getElementById("updating-button");
+    updatingPolicy.innerHTML = "Synchronous";
     currentVariant.changeCurrentUpdatePolicy("synchronous");
   });
 
   E("btn-asynch").addEventListener("click", function () {
-    const toggleUpdatingPolicy = document.getElementById("updating-button");
-    toggleUpdatingPolicy.innerHTML = "Asynchronous";
+    const updatingPolicy = document.getElementById("updating-button");
+    updatingPolicy.innerHTML = "Asynchronous";
     currentVariant.changeCurrentUpdatePolicy("asynchronous");
   });
 

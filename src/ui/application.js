@@ -707,14 +707,14 @@
           }
 
           // Check if it is synchronous or not
-          const toggleUpdatingPolicy = document.getElementById("updating-button");
+          const updatingPolicy = document.getElementById("updating-button");
           switch (record.updatePolicy) {
             case "synchronous":
-              toggleUpdatingPolicy.innerHTML = "Synchronous";
+              updatingPolicy.innerHTML = "Synchronous";
               currentVariant.changeCurrentUpdatePolicy("synchronous");
               break;
             case "asynchronous":
-              toggleUpdatingPolicy.innerHTML = "Asynchronous";
+              updatingPolicy.innerHTML = "Asynchronous";
               currentVariant.changeCurrentUpdatePolicy("asynchronous");
               break;
             default:
@@ -752,8 +752,8 @@
         offset: this.getObserver().getViewOffsetMatrix(),
         size: fieldData.length,
         time: Date.now(),
-        coloredVariant: currentVariant.stateVariant,
-        updatePolicy: currentVariant.updatePolicy,
+        coloredVariant: currentVariant.getCurrentStateVariant(),
+        updatePolicy: currentVariant.getCurrentUpdatePolicy(),
         field: null,
         generation: this.generation
       };
@@ -1486,26 +1486,28 @@
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.classList.add("hidden");
 
-    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
-    toggleRuleSelectionButton.innerHTML = "Static";
+    const ruleSelectionButton = document.getElementById("rule-selection-button");
+    ruleSelectionButton.innerHTML = "Static";
+    currentVariant.changeCurrentRuleSelection("static");
   });
   E("btn-dynamic").addEventListener("click", function () {
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.classList.remove("hidden");
 
-    const toggleRuleSelectionButton = document.getElementById("rule-selection-button");
-    toggleRuleSelectionButton.innerHTML = "Dynamic";
+    const ruleSelectionButton = document.getElementById("rule-selection-button");
+    ruleSelectionButton.innerHTML = "Dynamic";
+    currentVariant.changeCurrentRuleSelection("dynamic");
   });
 
   E("btn-synch").addEventListener("click", function () {
-    const toggleUpdatingPolicy = document.getElementById("updating-button");
-    toggleUpdatingPolicy.innerHTML = "Synchronous";
+    const updatingPolicy = document.getElementById("updating-button");
+    updatingPolicy.innerHTML = "Synchronous";
     currentVariant.changeCurrentUpdatePolicy("synchronous");
   });
 
   E("btn-asynch").addEventListener("click", function () {
-    const toggleUpdatingPolicy = document.getElementById("updating-button");
-    toggleUpdatingPolicy.innerHTML = "Asynchronous";
+    const updatingPolicy = document.getElementById("updating-button");
+    updatingPolicy.innerHTML = "Asynchronous";
     currentVariant.changeCurrentUpdatePolicy("asynchronous");
   });
 
