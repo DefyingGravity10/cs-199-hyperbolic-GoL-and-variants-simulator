@@ -8610,8 +8610,7 @@ exports.parseFieldData1 = (data) ->
         dom
           .tag("td")
           .text(
-            res.value.ruleSelectionVariant.charAt(0).toUpperCase() +
-              res.value.ruleSelectionVariant.slice(1)
+            "res.value.ruleSelectionVariant.charAt(0).toUpperCase() +res.value.ruleSelectionVariant.slice(1)"
           )
           .end();
         dom.tag("td").text(res.value.ruleEntry0).end();
