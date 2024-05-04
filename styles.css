@@ -337,6 +337,15 @@ div.overlay-toolbar {
   border-color: black;
 }
 
+#tiling-guide {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  top: 100px;
+  left: 300px;
+}
+
 #rules,
 #navigator {
   height: 100%;

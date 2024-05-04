@@ -6933,7 +6933,7 @@ exports.parseFieldData1 = (data) ->
       return false;
     }
     // This is the one we change when we wanna change the BG of the canvas
-    context.fillStyle = "pink";
+    context.fillStyle = "#ffc5c5";
     //context.clearRect 0, 0, canvas.width, canvas.height
     context.fillRect(0, 0, w, h);
     context.save();
@@ -7498,6 +7498,27 @@ exports.parseFieldData1 = (data) ->
     application.paintStateSelector.update();
     application.doReset();
     return redraw();
+  });
+
+  const wtv = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("tiling-guide").classList.add("hidden");
+    } else {
+      E("tiling-guide").classList.remove("hidden");
+    }
+  };
+  E("tiling-guide").addEventListener("click", () => {
+    E("tiling-guide").classList.add("hidden");
+  });
+
+  E("btn-guide").addEventListener("click", () => {
+    E("btn-guide").classList.toggle("guide-mode");
+    if (E("btn-guide").classList.contains("guide-mode")) {
+      E("tiling").addEventListener("click", wtv);
+    } else {
+      E("tiling").removeEventListener("click", wtv);
+      E("tiling-guide").classList.add("hidden");
+    }
   });
 
   shortcuts = {
