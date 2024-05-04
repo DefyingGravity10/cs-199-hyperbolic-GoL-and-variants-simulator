@@ -611,9 +611,7 @@
       // console.log(
       //   `hidden?: ${document.getElementById("additional-rules-container").classList.contains("hidden")}`
       // );
-      if (
-        document.getElementById("additional-rules-container").classList.contains("hidden") === false
-      ) {
+      if (currentVariant.getCurrentRuleSelection() === "dynamic") {
         this.ruleListIndex = (this.ruleListIndex + 1) % 3;
         this.transitionFunc = this.ruleList[this.ruleListIndex];
       }
