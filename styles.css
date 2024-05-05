@@ -360,7 +360,8 @@ div.overlay-toolbar {
 }
 
 #tiling-guide,
-#save-load-guide {
+#save-load-guide,
+#canvas-guide {
   position: absolute;
   background-color: #d5ddf3;
   border-radius: 20px;
@@ -380,6 +381,13 @@ div.overlay-toolbar {
   left: 30%;
   width: 200px;
   height: 140px;
+}
+
+#canvas-guide {
+  top: 30%;
+  left: 15%;
+  width: 220px;
+  height: 180px;
 }
 
 #rules,

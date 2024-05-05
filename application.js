@@ -7522,6 +7522,17 @@ exports.parseFieldData1 = (data) ->
     E("save-load-guide").classList.add("hidden");
   });
 
+  const handleCanvas = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("canvas-guide").classList.add("hidden");
+    } else {
+      E("canvas-guide").classList.remove("hidden");
+    }
+  };
+  E("close-canvas").addEventListener("click", () => {
+    E("canvas-guide").classList.add("hidden");
+  });
+
   E("btn-guide").addEventListener("click", () => {
     // Toggle between guide mode and game mode
     E("btn-guide").classList.toggle("guide-mode");
@@ -7533,6 +7544,9 @@ exports.parseFieldData1 = (data) ->
 
       E("save-load").addEventListener("click", handleSaveLoad);
       E("save-load").addEventListener("mouseover", handleSaveLoad);
+
+      E("canvas-container").addEventListener("click", handleCanvas);
+      E("canvas-container").addEventListener("mouseover", handleCanvas);
     }
     // Hide all guide pop-ups, and disallow them
     else {
@@ -7543,6 +7557,10 @@ exports.parseFieldData1 = (data) ->
       E("save-load").removeEventListener("click", handleSaveLoad);
       E("save-load").removeEventListener("mouseover", handleSaveLoad);
       E("save-load-guide").classList.add("hidden");
+
+      E("canvas-container").removeEventListener("click", handleCanvas);
+      E("canvas-container").removeEventListener("mouseover", handleCanvas);
+      E("canvas-guide").classList.add("hidden");
     }
   });
 
