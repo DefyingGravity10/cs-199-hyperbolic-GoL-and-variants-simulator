@@ -359,16 +359,27 @@ div.overlay-toolbar {
   text-decoration: underline;
 }
 
-#tiling-guide {
+#tiling-guide,
+#save-load-guide {
   position: absolute;
   background-color: #d5ddf3;
   border-radius: 20px;
   border: solid 2px black;
   padding: 10px;
+}
+
+#tiling-guide {
   top: 80px;
   left: 30%;
   width: 200px;
   height: 190px;
+}
+
+#save-load-guide {
+  top: 60px;
+  left: 30%;
+  width: 200px;
+  height: 140px;
 }
 
 #rules,
@@ -778,7 +789,8 @@ input::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 768px) {
-  #tiling-guide {
+  #tiling-guide,
+  #save-load-guide {
     left: 40%;
   }
 }

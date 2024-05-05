@@ -64,7 +64,7 @@
         <!-- other tools -->
         <div id="left-sidebar">
           <!-- misc status information -->
-          <div>
+          <div id="save-load">
             <button id="btn-db-save" title="(Ctrl+S) Save state to the local database">Save</button>
             <button id="btn-db-load" title="(Ctrl+O) Load state from the local database">
               Open
@@ -132,6 +132,15 @@
             </span>
             <!--For future clean-ups-->
             <span id="controls-rule-generic" style="display: none"> Generic rule<br /> </span>
+          </div>
+
+          <div id="save-load-guide" class="hidden">
+            <div class="guide-title">Saving and Loading Patterns</div>
+            <div class="guide-content">
+              Allows users to easily access their generated patterns by storing them in a local
+              database.
+            </div>
+            <div class="close-guide" id="close-save-load">Close</div>
           </div>
 
           <!--

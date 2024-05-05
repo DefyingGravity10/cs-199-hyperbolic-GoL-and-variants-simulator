@@ -7488,7 +7488,6 @@ exports.parseFieldData1 = (data) ->
     variantName.innerHTML = "Conway's Game of Life";
 
     const rsg = document.getElementById("rsg");
-    //rsg.style = "margin-top: 154.25px";
     rsg.style = "margin-top: 100px";
 
     application.observer.revertToOriginalStates();
@@ -7498,6 +7497,9 @@ exports.parseFieldData1 = (data) ->
     return redraw();
   });
 
+  /* Hanlders for the guides */
+
+  // Tiling
   const handleTilingGuide = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("tiling-guide").classList.add("hidden");
@@ -7509,13 +7511,38 @@ exports.parseFieldData1 = (data) ->
     E("tiling-guide").classList.add("hidden");
   });
 
+  const handleSaveLoad = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("save-load-guide").classList.add("hidden");
+    } else {
+      E("save-load-guide").classList.remove("hidden");
+    }
+  };
+  E("close-save-load").addEventListener("click", () => {
+    E("save-load-guide").classList.add("hidden");
+  });
+
   E("btn-guide").addEventListener("click", () => {
+    // Toggle between guide mode and game mode
     E("btn-guide").classList.toggle("guide-mode");
+
+    // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
       E("tiling").addEventListener("click", handleTilingGuide);
-    } else {
+      E("tiling").addEventListener("mouseover", handleTilingGuide);
+
+      E("save-load").addEventListener("click", handleSaveLoad);
+      E("save-load").addEventListener("mouseover", handleSaveLoad);
+    }
+    // Hide all guide pop-ups, and disallow them
+    else {
       E("tiling").removeEventListener("click", handleTilingGuide);
+      E("tiling").removeEventListener("mouseover", handleTilingGuide);
       E("tiling-guide").classList.add("hidden");
+
+      E("save-load").removeEventListener("click", handleSaveLoad);
+      E("save-load").removeEventListener("mouseover", handleSaveLoad);
+      E("save-load-guide").classList.add("hidden");
     }
   });
 
