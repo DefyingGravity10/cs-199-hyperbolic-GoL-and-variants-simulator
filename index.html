@@ -54,7 +54,7 @@
         <div id="variant-name">Conway's Game of Life</div>
       </div>
       <div id="references">
-        <a href="help.html">Help</a>
+        <button id="btn-guide">User Guide</button>
       </div>
     </div>
 
@@ -81,7 +81,16 @@
             </div>
             <button id="btn-set-grid" title="Apply this tiling">Set</button>
           </div>
-          <div id="tiling-guide" class="hidden">Yay tiling!!</div>
+          <div id="tiling-guide" class="hidden">
+            <div class="guide-title">Tiling Control</div>
+            <div class="guide-content">
+              Allows users to choose the tiling {p,q} for the Poincaré Disk. <br /><br />
+              <span style="font-weight: bold">p</span> = the number of sides of the polygons <br />
+              <span style="font-weight: bold">q</span> = the number of polygons that meet at a
+              vertex.
+            </div>
+            <div class="close-guide" id="close-tiling">Close</div>
+          </div>
 
           <div id="rules">
             <span id="controls-rule-simple">
@@ -247,7 +256,6 @@
           </div>
 
           <div class="button-group" id="rsg">
-            <button id="btn-guide">HII</button>
             <button id="btn-reset" class="dangerous" title="(C) Clear plane and reset view">
               <svg
                 version="1.1"

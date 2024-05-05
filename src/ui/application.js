@@ -1782,23 +1782,23 @@
     return redraw();
   });
 
-  const wtv = function () {
+  const handleTilingGuide = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("tiling-guide").classList.add("hidden");
     } else {
       E("tiling-guide").classList.remove("hidden");
     }
   };
-  E("tiling-guide").addEventListener("click", () => {
+  E("close-tiling").addEventListener("click", () => {
     E("tiling-guide").classList.add("hidden");
   });
 
   E("btn-guide").addEventListener("click", () => {
     E("btn-guide").classList.toggle("guide-mode");
     if (E("btn-guide").classList.contains("guide-mode")) {
-      E("tiling").addEventListener("click", wtv);
+      E("tiling").addEventListener("click", handleTilingGuide);
     } else {
-      E("tiling").removeEventListener("click", wtv);
+      E("tiling").removeEventListener("click", handleTilingGuide);
       E("tiling-guide").classList.add("hidden");
     }
   });
