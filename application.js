@@ -7551,15 +7551,12 @@ exports.parseFieldData1 = (data) ->
     // Hide all guide pop-ups, and disallow them
     else {
       E("tiling").removeEventListener("click", handleTilingGuide);
-      E("tiling").removeEventListener("mouseover", handleTilingGuide);
       E("tiling-guide").classList.add("hidden");
 
       E("save-load").removeEventListener("click", handleSaveLoad);
-      E("save-load").removeEventListener("mouseover", handleSaveLoad);
       E("save-load-guide").classList.add("hidden");
 
       E("canvas-container").removeEventListener("click", handleCanvas);
-      E("canvas-container").removeEventListener("mouseover", handleCanvas);
       E("canvas-guide").classList.add("hidden");
     }
   });
