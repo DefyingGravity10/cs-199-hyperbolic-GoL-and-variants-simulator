@@ -373,21 +373,21 @@ div.overlay-toolbar {
   top: 80px;
   left: 30%;
   width: 200px;
-  height: 190px;
+  height: 210px;
 }
 
 #save-load-guide {
   top: 60px;
   left: 30%;
-  width: 200px;
-  height: 140px;
+  width: 220px;
+  height: 130px;
 }
 
 #canvas-guide {
-  top: 30%;
+  top: 35%;
   left: 15%;
   width: 220px;
-  height: 180px;
+  height: 140px;
 }
 
 #rules,

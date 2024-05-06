@@ -7333,9 +7333,7 @@ exports.parseFieldData1 = (data) ->
   E("btn-rainbow-run").addEventListener("click", doImport);
 
   E("btn-set-rule").addEventListener("click", function (e) {
-    if (!E("btn-guide").classList.contains("guide-mode")) {
-      return application.doSetRule();
-    }
+    return application.doSetRule();
   });
   //initialize
   /* E("btn-mem-set").addEventListener("click", doMemorize);
