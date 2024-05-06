@@ -1818,6 +1818,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("variant-menu-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("variant-menu-guide").classList.remove("hidden");
     }
   };
@@ -1830,6 +1831,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("tiling-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("tiling-guide").classList.remove("hidden");
     }
   };
@@ -1842,6 +1844,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("save-load-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("save-load-guide").classList.remove("hidden");
     }
   };
@@ -1854,6 +1857,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("canvas-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("canvas-guide").classList.remove("hidden");
     }
   };
@@ -1866,6 +1870,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("rules-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("rules-guide").classList.remove("hidden");
     }
   };
@@ -1878,6 +1883,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("simulation-control-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("simulation-control-guide").classList.remove("hidden");
     }
   };
@@ -1890,6 +1896,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("disk-control-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("disk-control-guide").classList.remove("hidden");
     }
   };
@@ -1902,6 +1909,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("statusbar-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("statusbar-guide").classList.remove("hidden");
     }
   };
@@ -1914,6 +1922,7 @@
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("navigator-guide").classList.add("hidden");
     } else {
+      hideUserGuide();
       E("navigator-guide").classList.remove("hidden");
     }
   };
