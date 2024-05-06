@@ -1519,11 +1519,15 @@
 
   // ============ Bind Events =================
   E("btn-reset").addEventListener("click", function () {
-    return application.doReset();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return application.doReset();
+    }
   });
 
   E("btn-step").addEventListener("click", function () {
-    return application.doStep();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return application.doStep();
+    }
   });
 
   mouseMoveReceiver = E("canvas-container");
@@ -1639,9 +1643,17 @@
     return application.navigator.clear();
   });*/
 
-  E("btn-play-start").addEventListener("click", doTogglePlayer);
+  E("btn-play-start").addEventListener("click", () => {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      doTogglePlayer();
+    }
+  });
 
-  E("btn-play-stop").addEventListener("click", doTogglePlayer);
+  E("btn-play-stop").addEventListener("click", () => {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      doTogglePlayer();
+    }
+  });
 
   /* E("animate-set-start").addEventListener("click", function () {
     return application.animator.setStart(application.observer);
@@ -1695,7 +1707,9 @@
   });
 
   E("btn-export-svg").addEventListener("click", function (e) {
-    return application.doExportSvg();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return application.doExportSvg();
+    }
   });
 
   E("btn-svg-export-dialog-close").addEventListener("click", function (e) {
@@ -1703,11 +1717,15 @@
   });
 
   E("btn-db-save").addEventListener("click", function (e) {
-    return application.saveDialog.show();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return application.saveDialog.show();
+    }
   });
 
   E("btn-db-load").addEventListener("click", function (e) {
-    return application.openDialog.show();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return application.openDialog.show();
+    }
   });
 
   E("variant-button").addEventListener("click", function (e) {
@@ -1824,13 +1842,10 @@
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
       E("tiling").addEventListener("click", handleTilingGuide);
-      E("tiling").addEventListener("mouseover", handleTilingGuide);
 
       E("save-load").addEventListener("click", handleSaveLoad);
-      E("save-load").addEventListener("mouseover", handleSaveLoad);
 
       E("canvas-container").addEventListener("click", handleCanvas);
-      E("canvas-container").addEventListener("mouseover", handleCanvas);
     }
     // Hide all guide pop-ups, and disallow them
     else {
