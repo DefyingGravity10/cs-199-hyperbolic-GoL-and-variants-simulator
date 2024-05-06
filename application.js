@@ -7515,7 +7515,20 @@ exports.parseFieldData1 = (data) ->
     return redraw();
   });
 
-  /* Hanlders for the guides */
+  /* Handers for the guides */
+  // Hiding all the pop-ups
+  const hideUserGuide = function () {
+    E("variant-menu-guide").classList.add("hidden");
+    E("tiling-guide").classList.add("hidden");
+    E("save-load-guide").classList.add("hidden");
+    E("canvas-guide").classList.add("hidden");
+    E("rules-guide").classList.add("hidden");
+    E("simulation-control-guide").classList.add("hidden");
+    E("disk-control-guide").classList.add("hidden");
+    E("statusbar-guide").classList.add("hidden");
+    E("navigator-guide").classList.add("hidden");
+  };
+
   // Variant Menu
   const handleVariantMenu = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {
@@ -7643,31 +7656,16 @@ exports.parseFieldData1 = (data) ->
     // Hide all guide pop-ups, and disallow them
     else {
       E("variant-menu").removeEventListener("click", handleVariantMenu);
-      E("variant-menu-guide").classList.add("hidden");
-
       E("tiling").removeEventListener("click", handleTilingGuide);
-      E("tiling-guide").classList.add("hidden");
-
       E("save-load").removeEventListener("click", handleSaveLoad);
-      E("save-load-guide").classList.add("hidden");
-
       E("canvas-container").removeEventListener("click", handleCanvas);
-      E("canvas-guide").classList.add("hidden");
-
       E("rules").addEventListener("click", handleRulesGuide);
-      E("rules-guide").classList.add("hidden");
-
       E("rsg").removeEventListener("click", handleSimulationControl);
-      E("simulation-control-guide").classList.add("hidden");
-
       E("disk-control").removeEventListener("click", handleDiskControl);
-      E("disk-control-guide").classList.add("hidden");
-
       E("statusbar").removeEventListener("click", handleSimulationData);
-      E("statusbar-guide").classList.add("hidden");
-
       E("navigator").removeEventListener("click", handleClusterNavigation);
-      E("navigator-guide").classList.add("hidden");
+
+      hideUserGuide();
     }
   });
 
