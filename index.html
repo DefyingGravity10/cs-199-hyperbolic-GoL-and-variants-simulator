@@ -53,6 +53,11 @@
         </div>
         <div id="variant-name">Conway's Game of Life</div>
       </div>
+      <div id="variant-menu-guide" class="hidden">
+        <div class="guide-title">Variant Menu</div>
+        <div class="guide-content">Conway</div>
+        <div class="close-guide" id="close-variant-menu-guide">Close</div>
+      </div>
       <div id="references">
         <button id="btn-guide">User Guide</button>
       </div>
@@ -134,6 +139,14 @@
             </span>
             <!--For future clean-ups-->
             <span id="controls-rule-generic" style="display: none"> Generic rule<br /> </span>
+          </div>
+          <div id="rules-guide" class="hidden">
+            <div class="guide-title">Rule Control</div>
+            <div class="guide-content">
+              Choose the way rules are selected and how cells will be updated each after each
+              generation and to choose the rule/s themselves.
+            </div>
+            <div class="close-guide" id="close-rules">Close</div>
           </div>
 
           <div id="save-load-guide" class="hidden">
@@ -395,10 +408,22 @@
               <div id="speed-value"><span id="rangeValue"> 1 </span><span>x</span></div>
             </div>
           </div>
+          <div id="simulation-control-guide" class="hidden">
+            <div class="guide-title">Simulator Control</div>
+            <div class="guide-content">
+              Change the entries in the boxes to set the tiling {p,q} for the Poincaré Disk.
+              <br /><br />
+              Note that: <br />
+              <span style="font-weight: bold">p</span> = the number of sides of the polygons <br />
+              <span style="font-weight: bold">q</span> = the number of polygons that meet at a
+              vertex.
+            </div>
+            <div class="close-guide" id="close-simulation-control">Close</div>
+          </div>
         </div>
 
         <div id="right-sidebar">
-          <div class="button-group">
+          <div class="button-group" id="disk-control">
             <!--<button
               id="btn-mode-edit"
               title="(E) Use left button to edit, middle or left+shift to pan"
@@ -410,6 +435,19 @@
             >-->
             <button id="btn-mode-pan" title="(P) Pan through the disk">Pan</button>
             <button id="btn-nav-home" title="(H) Navigate to the origin">Origin</button>
+          </div>
+
+          <div id="disk-control-guide" class="hidden">
+            <div class="guide-title">Disk Control</div>
+            <div class="guide-content">
+              Change the entries in the boxes to set the tiling {p,q} for the Poincaré Disk.
+              <br /><br />
+              Note that: <br />
+              <span style="font-weight: bold">p</span> = the number of sides of the polygons <br />
+              <span style="font-weight: bold">q</span> = the number of polygons that meet at a
+              vertex.
+            </div>
+            <div class="close-guide" id="close-disk-control">Close</div>
           </div>
 
           <div id="statusbar">
@@ -428,6 +466,12 @@
               </div>
             </div>
           </div>
+          <div id="statusbar-guide" class="hidden">
+            <div class="guide-title">Simulation Data</div>
+            <div class="guide-content">HI</div>
+            <div class="close-guide" id="close-statusbar-guide">Close</div>
+          </div>
+
           <div id="navigator">
             <!--<button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
               Clear
@@ -436,6 +480,11 @@
               Clusters
               <div id="navigator-cluster-list"></div>
             </div>
+          </div>
+          <div id="navigator-guide" class="hidden">
+            <div class="guide-title">Cluster Navigation</div>
+            <div class="guide-content">Navigation</div>
+            <div class="close-guide" id="close-navigator-guide">Close</div>
           </div>
         </div>
       </div>

@@ -359,9 +359,15 @@ div.overlay-toolbar {
   text-decoration: underline;
 }
 
+#variant-menu-guide,
 #tiling-guide,
 #save-load-guide,
-#canvas-guide {
+#canvas-guide,
+#rules-guide,
+#simulation-control-guide,
+#disk-control-guide,
+#statusbar-guide,
+#navigator-guide {
   position: absolute;
   background-color: #d5ddf3;
   border-radius: 20px;
@@ -388,6 +394,41 @@ div.overlay-toolbar {
   left: 15%;
   width: 220px;
   height: 140px;
+}
+
+#rules-guide {
+  top: 320px;
+  left: 30%;
+  width: 200px;
+  height: 150px;
+}
+
+#simulation-control-guide {
+  top: 60px;
+  left: 50%;
+  width: 200px;
+  height: 130px;
+}
+
+#disk-control-guide {
+  top: 60px;
+  left: 50%;
+  width: 200px;
+  height: 130px;
+}
+
+#statusbar-guide {
+  top: 60px;
+  left: 50%;
+  width: 200px;
+  height: 130px;
+}
+
+#navigator-guide {
+  top: 60px;
+  left: 50%;
+  width: 200px;
+  height: 130px;
 }
 
 #rules,
@@ -798,7 +839,8 @@ input::-webkit-inner-spin-button {
 
 @media screen and (max-width: 768px) {
   #tiling-guide,
-  #save-load-guide {
+  #save-load-guide,
+  #rules-guide {
     left: 40%;
   }
 }

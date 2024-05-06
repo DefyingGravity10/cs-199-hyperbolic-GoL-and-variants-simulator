@@ -7516,6 +7516,17 @@ exports.parseFieldData1 = (data) ->
   });
 
   /* Hanlders for the guides */
+  // Variant Menu
+  const handleVariantMenu = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("variant-menu-guide").classList.add("hidden");
+    } else {
+      E("variant-menu-guide").classList.remove("hidden");
+    }
+  };
+  E("close-variant-menu-guide").addEventListener("click", () => {
+    E("variant-menu-guide").classList.add("hidden");
+  });
 
   // Tiling
   const handleTilingGuide = function () {
@@ -7529,6 +7540,7 @@ exports.parseFieldData1 = (data) ->
     E("tiling-guide").classList.add("hidden");
   });
 
+  // Save or load locally or export as SVG
   const handleSaveLoad = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("save-load-guide").classList.add("hidden");
@@ -7540,6 +7552,7 @@ exports.parseFieldData1 = (data) ->
     E("save-load-guide").classList.add("hidden");
   });
 
+  // Poincare Disk
   const handleCanvas = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {
       E("canvas-guide").classList.add("hidden");
@@ -7551,20 +7564,87 @@ exports.parseFieldData1 = (data) ->
     E("canvas-guide").classList.add("hidden");
   });
 
+  // Rules
+  const handleRulesGuide = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("rules-guide").classList.add("hidden");
+    } else {
+      E("rules-guide").classList.remove("hidden");
+    }
+  };
+  E("close-rules").addEventListener("click", () => {
+    E("rules-guide").classList.add("hidden");
+  });
+
+  // Simulation control (rsg)
+  const handleSimulationControl = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("simulation-control-guide").classList.add("hidden");
+    } else {
+      E("simulation-control-guide").classList.remove("hidden");
+    }
+  };
+  E("close-simulation-control").addEventListener("click", () => {
+    E("simulation-control-guide").classList.add("hidden");
+  });
+
+  // Disk control (rsg)
+  const handleDiskControl = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("disk-control-guide").classList.add("hidden");
+    } else {
+      E("disk-control-guide").classList.remove("hidden");
+    }
+  };
+  E("close-disk-control").addEventListener("click", () => {
+    E("disk-control-guide").classList.add("hidden");
+  });
+
+  // Simulator Data
+  const handleSimulationData = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("statusbar-guide").classList.add("hidden");
+    } else {
+      E("statusbar-guide").classList.remove("hidden");
+    }
+  };
+  E("close-statusbar-guide").addEventListener("click", () => {
+    E("statusbar-guide").classList.add("hidden");
+  });
+
+  // Navigator
+  const handleClusterNavigation = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("navigator-guide").classList.add("hidden");
+    } else {
+      E("navigator-guide").classList.remove("hidden");
+    }
+  };
+  E("close-navigator-guide").addEventListener("click", () => {
+    E("navigator-guide").classList.add("hidden");
+  });
+
   E("btn-guide").addEventListener("click", () => {
     // Toggle between guide mode and game mode
     E("btn-guide").classList.toggle("guide-mode");
 
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
+      E("variant-menu").addEventListener("click", handleVariantMenu);
       E("tiling").addEventListener("click", handleTilingGuide);
-
       E("save-load").addEventListener("click", handleSaveLoad);
-
       E("canvas-container").addEventListener("click", handleCanvas);
+      E("rules").addEventListener("click", handleRulesGuide);
+      E("rsg").addEventListener("click", handleSimulationControl);
+      E("disk-control").addEventListener("click", handleDiskControl);
+      E("statusbar").addEventListener("click", handleSimulationData);
+      E("navigator").addEventListener("click", handleClusterNavigation);
     }
     // Hide all guide pop-ups, and disallow them
     else {
+      E("variant-menu").removeEventListener("click", handleVariantMenu);
+      E("variant-menu-guide").classList.add("hidden");
+
       E("tiling").removeEventListener("click", handleTilingGuide);
       E("tiling-guide").classList.add("hidden");
 
@@ -7573,6 +7653,21 @@ exports.parseFieldData1 = (data) ->
 
       E("canvas-container").removeEventListener("click", handleCanvas);
       E("canvas-guide").classList.add("hidden");
+
+      E("rules").addEventListener("click", handleRulesGuide);
+      E("rules-guide").classList.add("hidden");
+
+      E("rsg").removeEventListener("click", handleSimulationControl);
+      E("simulation-control-guide").classList.add("hidden");
+
+      E("disk-control").removeEventListener("click", handleDiskControl);
+      E("disk-control-guide").classList.add("hidden");
+
+      E("statusbar").removeEventListener("click", handleSimulationData);
+      E("statusbar-guide").classList.add("hidden");
+
+      E("navigator").removeEventListener("click", handleClusterNavigation);
+      E("navigator-guide").classList.add("hidden");
     }
   });
 
