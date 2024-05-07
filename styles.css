@@ -77,6 +77,7 @@ div.popup {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 10px;
 }
 #variant-button {
   background-color: #fceb9e;
@@ -328,11 +329,28 @@ div.overlay-toolbar {
 #navigator {
   background-color: #fceb9e;
   border-radius: 20px;
-  margin-top: 0.15in;
+  /*margin-top: 0.15in;*/
   padding: 10px;
   font-size: 18px;
   font-weight: bolder;
   border: solid 2px black;
+}
+
+#tiling-dash,
+#statusbar-dash {
+  margin-top: 0.15in;
+  margin-bottom: 0.15in;
+}
+
+#rules-dash,
+#navigator-dash {
+  height: 100%;
+  display: flex;
+}
+
+#rules,
+#navigator {
+  width: 100%;
 }
 
 .guide-title {
@@ -358,7 +376,26 @@ div.overlay-toolbar {
 .close-guide:hover {
   text-decoration: underline;
 }
+.dim {
+  /* For Internet Explorer 
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.3);*/
 
+  /* For other browsers 
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.3);*/
+  box-shadow: 0 0 0 1000px #fcfacd8a;
+  box-shadow: 0 0 0 100vmax #fcfacd8a;
+}
+
+.unselected {
+  border-style: dashed;
+  border-color: #4364c7;
+  border-width: 3px;
+}
+.selected {
+  border-style: solid;
+  border-color: red;
+  border-width: 3px;
+}
 #variant-menu-guide,
 #tiling-guide,
 #save-load-guide,
@@ -431,11 +468,6 @@ div.overlay-toolbar {
   height: 130px;
 }
 
-#rules,
-#navigator {
-  height: 100%;
-}
-
 #navigator-cluster-list {
   margin-top: 10px;
   margin-left: 10px;
@@ -446,10 +478,6 @@ div.overlay-toolbar {
   -overflow-x: visible;
   scrollbar-color: #4364c7 #d5ddf3;
   scrollbar-width: none;
-}
-
-#rules {
-  bottom: 0.5in;
 }
 
 #rule-variants {
@@ -503,6 +531,7 @@ div.overlay-toolbar {
   border-width: 2px;
   border-color: black;
   margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 #rule-entry-1,
@@ -519,7 +548,7 @@ div.overlay-toolbar {
 
 #additional-rules-container {
   display: flex;
-  margin: 10px 10px 0 10px;
+  margin: 7px 10px 0 10px;
   justify-content: space-between;
 }
 
