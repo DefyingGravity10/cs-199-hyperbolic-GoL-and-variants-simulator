@@ -9078,7 +9078,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
     search(field) {
       //field is ChainMap
       this.clusters = allClusters(field, this.application.tiling);
-      this.sortByDistance();
+      this.sortBySize();
       this.updateClusterList();
       //this.btnClear.style.display = this.clusters ? "" : "none";
       return this.clusters.length;
@@ -9142,15 +9142,15 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
         .tag("thead")
         .tag("tr")
         .tag("th")
-        .rtag("ssort")
-        .a("href", "#sort-size")
-        .text("Cells")
+        .rtag("dsort")
+        .a("href", "#sort-dist")
+        .text("Cluster No.")
         .end()
         .end()
         .tag("th")
-        .rtag("dsort")
-        .a("href", "#sort-dist")
-        .text("Distance")
+        .rtag("ssort")
+        .a("href", "#sort-size")
+        .text("No. of Cells")
         .end()
         .end()
         .end()
@@ -9182,7 +9182,7 @@ exports.MouseToolRotate = class MouseToolRotate extends MouseTool
           .tag("td")
           .rtag("navtag1", "a")
           .a("href", `#nav-cluster${idx}`)
-          .text(`${dist}`)
+          .text(`${ref.length - idx}`)
           .end()
           .end()
           .end();
