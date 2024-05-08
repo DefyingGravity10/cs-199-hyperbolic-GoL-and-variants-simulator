@@ -410,62 +410,10 @@ div.overlay-toolbar {
   border-radius: 20px;
   border: solid 2px black;
   padding: 10px;
-}
-
-#tiling-guide {
-  top: 80px;
-  left: 30%;
-  width: 200px;
-  height: 210px;
-}
-
-#save-load-guide {
-  top: 60px;
-  left: 30%;
-  width: 220px;
-  height: 130px;
-}
-
-#canvas-guide {
-  top: 35%;
-  left: 15%;
-  width: 220px;
-  height: 140px;
-}
-
-#rules-guide {
-  top: 320px;
-  left: 30%;
-  width: 200px;
-  height: 150px;
-}
-
-#simulation-control-guide {
-  top: 60px;
+  top: 50%;
   left: 50%;
-  width: 200px;
-  height: 130px;
-}
-
-#disk-control-guide {
-  top: 60px;
-  left: 50%;
-  width: 200px;
-  height: 130px;
-}
-
-#statusbar-guide {
-  top: 60px;
-  left: 50%;
-  width: 200px;
-  height: 130px;
-}
-
-#navigator-guide {
-  top: 60px;
-  left: 50%;
-  width: 200px;
-  height: 130px;
+  transform: translate(-50%, -50%);
+  width: 50%;
 }
 
 #navigator-cluster-list {
@@ -863,13 +811,5 @@ input::-webkit-inner-spin-button {
   #canvas,
   #canvas-container {
     width: clamp(260px, 32vw, 520px);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  #tiling-guide,
-  #save-load-guide,
-  #rules-guide {
-    left: 40%;
   }
 }
