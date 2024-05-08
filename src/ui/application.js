@@ -1801,11 +1801,65 @@
 
   /* Handers for the guides */
   // Hiding all the pop-ups
+
+  const hideDash = function () {
+    let elm = document.getElementById("variant-menu");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("tiling-dash");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("save-load");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("rules-dash");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("rsg");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("disk-control");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("statusbar-dash");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+    elm = document.getElementById("navigator-dash");
+    elm.classList.remove("unselected");
+    elm.classList.remove("selected");
+  };
+
+  const makeUnselected = function () {
+    let elm = document.getElementById("variant-menu");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("tiling-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("save-load");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("rules-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("rsg");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("disk-control");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("statusbar-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+    elm = document.getElementById("navigator-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
+  };
   const hideUserGuide = function () {
     E("variant-menu-guide").classList.add("hidden");
     E("tiling-guide").classList.add("hidden");
     E("save-load-guide").classList.add("hidden");
-    E("canvas-guide").classList.add("hidden");
+    //E("canvas-guide").classList.add("hidden");
     E("rules-guide").classList.add("hidden");
     E("simulation-control-guide").classList.add("hidden");
     E("disk-control-guide").classList.add("hidden");
@@ -1820,10 +1874,19 @@
     } else {
       hideUserGuide();
       E("variant-menu-guide").classList.remove("hidden");
+      E("variant-menu-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("variant-menu");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-variant-menu-guide").addEventListener("click", () => {
     E("variant-menu-guide").classList.add("hidden");
+    E("variant-menu-guide").classList.remove("dim");
+    let elm = document.getElementById("variant-menu");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Tiling
@@ -1833,10 +1896,19 @@
     } else {
       hideUserGuide();
       E("tiling-guide").classList.remove("hidden");
+      E("tiling-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("tiling-dash");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-tiling").addEventListener("click", () => {
     E("tiling-guide").classList.add("hidden");
+    E("tiling-guide").classList.remove("dim");
+    let elm = document.getElementById("tiling-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Save or load locally or export as SVG
@@ -1846,10 +1918,19 @@
     } else {
       hideUserGuide();
       E("save-load-guide").classList.remove("hidden");
+      E("save-load-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("save-load");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-save-load").addEventListener("click", () => {
     E("save-load-guide").classList.add("hidden");
+    E("save-load-guide").classList.remove("dim");
+    let elm = document.getElementById("save-load");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Poincare Disk
@@ -1872,10 +1953,19 @@
     } else {
       hideUserGuide();
       E("rules-guide").classList.remove("hidden");
+      E("rules-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("rules-dash");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-rules").addEventListener("click", () => {
     E("rules-guide").classList.add("hidden");
+    E("rules-guide").classList.remove("dim");
+    let elm = document.getElementById("rules-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Simulation control (rsg)
@@ -1885,10 +1975,19 @@
     } else {
       hideUserGuide();
       E("simulation-control-guide").classList.remove("hidden");
+      E("simulation-control-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("rsg");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-simulation-control").addEventListener("click", () => {
     E("simulation-control-guide").classList.add("hidden");
+    E("simulation-control-guide").classList.remove("dim");
+    let elm = document.getElementById("rsg");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Disk control (rsg)
@@ -1898,10 +1997,19 @@
     } else {
       hideUserGuide();
       E("disk-control-guide").classList.remove("hidden");
+      E("disk-control-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("disk-control");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-disk-control").addEventListener("click", () => {
     E("disk-control-guide").classList.add("hidden");
+    E("disk-control-guide").classList.remove("dim");
+    let elm = document.getElementById("disk-control");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Simulator Data
@@ -1911,10 +2019,19 @@
     } else {
       hideUserGuide();
       E("statusbar-guide").classList.remove("hidden");
+      E("statusbar-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("statusbar-dash");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-statusbar-guide").addEventListener("click", () => {
     E("statusbar-guide").classList.add("hidden");
+    E("statusbar-guide").classList.remove("dim");
+    let elm = document.getElementById("statusbar-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   // Navigator
@@ -1924,10 +2041,19 @@
     } else {
       hideUserGuide();
       E("navigator-guide").classList.remove("hidden");
+      E("navigator-guide").classList.add("dim");
+      makeUnselected();
+      let elm = document.getElementById("navigator-dash");
+      elm.classList.remove("unselected");
+      elm.classList.add("selected");
     }
   };
   E("close-navigator-guide").addEventListener("click", () => {
     E("navigator-guide").classList.add("hidden");
+    E("navigator-guide").classList.remove("dim");
+    let elm = document.getElementById("navigator-dash");
+    elm.classList.remove("selected");
+    elm.classList.add("unselected");
   });
 
   E("btn-guide").addEventListener("click", () => {
@@ -1939,12 +2065,13 @@
       E("variant-menu").addEventListener("click", handleVariantMenu);
       E("tiling").addEventListener("click", handleTilingGuide);
       E("save-load").addEventListener("click", handleSaveLoad);
-      E("canvas-container").addEventListener("click", handleCanvas);
+      //E("canvas-container").addEventListener("click", handleCanvas);
       E("rules").addEventListener("click", handleRulesGuide);
       E("rsg").addEventListener("click", handleSimulationControl);
       E("disk-control").addEventListener("click", handleDiskControl);
       E("statusbar").addEventListener("click", handleSimulationData);
       E("navigator").addEventListener("click", handleClusterNavigation);
+      makeUnselected();
     }
     // Hide all guide pop-ups, and disallow them
     else {
@@ -1957,7 +2084,7 @@
       E("disk-control").removeEventListener("click", handleDiskControl);
       E("statusbar").removeEventListener("click", handleSimulationData);
       E("navigator").removeEventListener("click", handleClusterNavigation);
-
+      hideDash();
       hideUserGuide();
     }
   });
@@ -2033,6 +2160,26 @@
     }
   });
 
+  window.addEventListener("mouseup", function (event) {
+    var dropdown = document.getElementById("dropdown-content-1");
+    if (event.target != dropdown && event.target.parentNode != dropdown) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  window.addEventListener("mouseup", function (event) {
+    var dropdown = document.getElementById("dropdown-content-2");
+    if (event.target != dropdown && event.target.parentNode != dropdown) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  window.addEventListener("mouseup", function (event) {
+    var dropdown = document.getElementById("dropdown-content-3");
+    if (event.target != dropdown && event.target.parentNode != dropdown) {
+      dropdown.style.display = "none";
+    }
+  });
   //#Application startup
   application = new Application();
 

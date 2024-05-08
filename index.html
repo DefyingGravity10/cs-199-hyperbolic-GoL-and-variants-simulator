@@ -76,15 +76,17 @@
             </button>
             <button id="btn-export-svg" title="Export image as SVG">SVG</button>
           </div>
-          <div id="tiling">
-            Tiling
-            <div id="tiling-input">
-              &#123;&nbsp;
-              <input id="entry-p" type="number" class="short" placeholder="p" />
-              <input id="entry-q" type="number" class="short" placeholder="q" />
-              &nbsp;&#125;
+          <div id="tiling-dash">
+            <div id="tiling">
+              Tiling
+              <div id="tiling-input">
+                &#123;&nbsp;
+                <input id="entry-p" type="number" class="short" placeholder="p" />
+                <input id="entry-q" type="number" class="short" placeholder="q" />
+                &nbsp;&#125;
+              </div>
+              <button id="btn-set-grid" title="Apply this tiling">Set</button>
             </div>
-            <button id="btn-set-grid" title="Apply this tiling">Set</button>
           </div>
           <div id="tiling-guide" class="hidden">
             <div class="guide-title">Tiling Control</div>
@@ -98,47 +100,48 @@
             </div>
             <div class="close-guide" id="close-tiling">Close</div>
           </div>
-
-          <div id="rules">
-            <span id="controls-rule-simple">
-              Rule<br />
-              <div id="rule-variants">
-                <div id="rule-variant-labels">
-                  <div id="rule-selction-label">Rule Selection</div>
-                  <div id="updating-label">Updating</div>
-                </div>
-                <div id="rule-selection-menu">
-                  <div class="dropdown">
-                    <button id="rule-selection-button">Static</button>
-                    <div id="dropdown-content-2">
-                      <button id="btn-static" title="Use one rule only">Static</button>
-                      <button id="btn-dynamic" title="Use multiple rules">Dynamic</button>
+          <div id="rules-dash">
+            <div id="rules">
+              <span id="controls-rule-simple">
+                Rule<br />
+                <div id="rule-variants">
+                  <div id="rule-variant-labels">
+                    <div id="rule-selction-label">Rule Selection</div>
+                    <div id="updating-label">Updating</div>
+                  </div>
+                  <div id="rule-selection-menu">
+                    <div class="dropdown">
+                      <button id="rule-selection-button">Static</button>
+                      <div id="dropdown-content-2">
+                        <button id="btn-static" title="Use one rule only">Static</button>
+                        <button id="btn-dynamic" title="Use multiple rules">Dynamic</button>
+                      </div>
+                    </div>
+                    <div class="dropdown">
+                      <button id="updating-button">Synchronous</button>
+                      <div id="dropdown-content-3">
+                        <button id="btn-synch" title="Update all cells simultaneously">
+                          Synchronous
+                        </button>
+                        <button id="btn-asynch" title="Update cells individually">
+                          Asynchronous
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div class="dropdown">
-                    <button id="updating-button">Synchronous</button>
-                    <div id="dropdown-content-3">
-                      <button id="btn-synch" title="Update all cells simultaneously">
-                        Synchronous
-                      </button>
-                      <button id="btn-asynch" title="Update cells individually">
-                        Asynchronous
-                      </button>
-                    </div>
-                  </div>
                 </div>
-              </div>
 
-              <div id="rules-container"><input id="rule-entry" /></div>
-              <div id="additional-rules-container" style="display: none">
-                <input id="rule-entry-1" />
-                <input id="rule-entry-2" />
-              </div>
+                <div id="rules-container"><input id="rule-entry" /></div>
+                <div id="additional-rules-container" style="display: none">
+                  <input id="rule-entry-1" />
+                  <input id="rule-entry-2" />
+                </div>
 
-              <button id="btn-set-rule" title="Apply this rule">Set</button>
-            </span>
-            <!--For future clean-ups-->
-            <span id="controls-rule-generic" style="display: none"> Generic rule<br /> </span>
+                <button id="btn-set-rule" title="Apply this rule">Set</button>
+              </span>
+              <!--For future clean-ups-->
+              <span id="controls-rule-generic" style="display: none"> Generic rule<br /> </span>
+            </div>
           </div>
           <div id="rules-guide" class="hidden">
             <div class="guide-title">Rule Control</div>
@@ -449,20 +452,21 @@
             </div>
             <div class="close-guide" id="close-disk-control">Close</div>
           </div>
-
-          <div id="statusbar">
-            <div class="control-table">
-              <div>
-                <div>Neighbors:</div>
-                <div><span id="grid-num-neighbors" class="numdisplay"></span></div>
-              </div>
-              <div>
-                <div>Population:</div>
-                <div><span id="population" class="numdisplay"></span></div>
-              </div>
-              <div>
-                <div>Generation:</div>
-                <div><span id="generation" class="numdisplay"></span></div>
+          <div id="statusbar-dash">
+            <div id="statusbar">
+              <div class="control-table">
+                <div>
+                  <div>Neighbors:</div>
+                  <div><span id="grid-num-neighbors" class="numdisplay"></span></div>
+                </div>
+                <div>
+                  <div>Population:</div>
+                  <div><span id="population" class="numdisplay"></span></div>
+                </div>
+                <div>
+                  <div>Generation:</div>
+                  <div><span id="generation" class="numdisplay"></span></div>
+                </div>
               </div>
             </div>
           </div>
@@ -471,16 +475,18 @@
             <div class="guide-content">HI</div>
             <div class="close-guide" id="close-statusbar-guide">Close</div>
           </div>
-
-          <div id="navigator">
-            <!--<button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
+          <div id="navigator-dash">
+            <div id="navigator">
+              <!--<button id="btn-nav-clear" style="display: none" title="Clear list of cell groups">
               Clear
             </button>-->
-            <div id="navigator-wrap">
-              Clusters
-              <div id="navigator-cluster-list"></div>
+              <div id="navigator-wrap">
+                Clusters
+                <div id="navigator-cluster-list"></div>
+              </div>
             </div>
           </div>
+
           <div id="navigator-guide" class="hidden">
             <div class="guide-title">Cluster Navigation</div>
             <div class="guide-content">Navigation</div>
