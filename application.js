@@ -7275,7 +7275,11 @@ exports.parseFieldData1 = (data) ->
 
   ghostClickDetector.addListeners(canvas);
 
-  E("btn-set-grid").addEventListener("click", doSetGrid);
+  E("btn-set-grid").addEventListener("click", () => {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      doSetGrid();
+    }
+  });
 
   E("btn-export").addEventListener("click", doExport);
 
@@ -7334,7 +7338,9 @@ exports.parseFieldData1 = (data) ->
   E("btn-rainbow-run").addEventListener("click", doImport);
 
   E("btn-set-rule").addEventListener("click", function (e) {
-    return application.doSetRule();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return application.doSetRule();
+    }
   });
   //initialize
   /* E("btn-mem-set").addEventListener("click", doMemorize);
@@ -7345,7 +7351,11 @@ exports.parseFieldData1 = (data) ->
 
   E("btn-exp-visible").addEventListener("click", doExportVisible);
 
-  E("btn-nav-home").addEventListener("click", doNavigateHome);
+  E("btn-nav-home").addEventListener("click", () => {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      doNavigateHome();
+    }
+  });
 
   window.addEventListener("resize", updateCanvasSize);
 
@@ -7416,11 +7426,15 @@ exports.parseFieldData1 = (data) ->
   });*/
 
   E("btn-mode-edit").addEventListener("click", function (e) {
-    return doSetPanMode(false);
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return doSetPanMode(false);
+    }
   });
 
   E("btn-mode-pan").addEventListener("click", function (e) {
-    return doSetPanMode(true);
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return doSetPanMode(true);
+    }
   });
 
   E("btn-export-svg").addEventListener("click", function (e) {
@@ -7446,15 +7460,21 @@ exports.parseFieldData1 = (data) ->
   });
 
   E("variant-button").addEventListener("click", function (e) {
-    return doToggleMenu();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return doToggleMenu();
+    }
   });
 
   E("rule-selection-button").addEventListener("click", function (e) {
-    return doToggleRuleSelection();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return doToggleRuleSelection();
+    }
   });
 
   E("updating-button").addEventListener("click", function (e) {
-    return doToggleUpdating();
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      return doToggleUpdating();
+    }
   });
 
   // THE VARIANTS (change the ids soon)
