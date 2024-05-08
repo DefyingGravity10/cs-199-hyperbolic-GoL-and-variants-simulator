@@ -759,6 +759,7 @@
       updatePopulation();
       updateGeneration();
       this.updateRuleEditor();
+      this.doSearch();
       return redraw();
     }
 
