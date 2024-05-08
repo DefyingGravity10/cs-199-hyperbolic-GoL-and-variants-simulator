@@ -36,7 +36,8 @@
 
   ({ DomBuilder } = require("./dom_builder.js"));
 
-  //M = require "../core/matrix3.js"
+  M = require("../core/matrix3.js");
+
   VERSION = 1;
 
   //Using info from https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
@@ -88,7 +89,7 @@
     catalogStore = db.createObjectStore("catalog", {
       autoIncrement: true
     });
-    return catalogStore.createIndex(
+    catalogStore.createIndex(
       "catalogByGrid",
       [
         "gridN",
@@ -104,6 +105,103 @@
         unique: false
       }
     );
+
+    // Add all the presets into the database
+    let request;
+    request = window.indexedDB.open("SavedFields", VERSION);
+    request.onupgradeneeded = upgradeNeeded;
+    request.onerror = (e) => {
+      return console.log(`DB error: ${e.target.errorCode}`);
+    };
+    // Create a data structure with all the field data and the record catalog
+    // Then go through the entire thing
+
+    return (request.onsuccess = function (e) {
+      let db, rqStoreData, transaction;
+      db = e.target.result;
+      transaction = db.transaction(["files", "catalog"], "readwrite");
+
+      // Preset data
+      let fieldData = [
+        "|1(A2(B|1))(b|1)(a2(B|1))(a(B|1))(B|1)",
+        "|1(A2(B|1))(b|1)(A3(B|1))(a2(B|1))(a(B|1))(B|1)",
+        "|1(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a2(B|1))(a(B|1))(B|1)"
+      ];
+      // Preset record
+      let catalogRecord = [
+        {
+          gridN: 5,
+          gridM: 4,
+          name: "Flower {5,4}",
+          funcId: "B 4 S 3 5",
+          funcType: "binary",
+          base: "e",
+          size: fieldData.length,
+          time: Date.now(),
+          coloredVariant: "default",
+          updatePolicy: "synchronous",
+          ruleSelectionVariant: "static",
+          ruleEntry0: "B 4 S 3 5",
+          ruleEntry1: "N/A",
+          ruleEntry2: "N/A",
+          offset: M.eye(),
+          generation: 0
+        },
+        {
+          gridN: 6,
+          gridM: 4,
+          name: "Flower {6, 4}",
+          funcId: "B 4 S 3 6",
+          funcType: "binary",
+          base: "e",
+          size: fieldData.length,
+          time: Date.now(),
+          coloredVariant: "default",
+          updatePolicy: "synchronous",
+          ruleSelectionVariant: "static",
+          ruleEntry0: "B 4 S 3 6",
+          ruleEntry1: "N/A",
+          ruleEntry2: "N/A",
+          offset: M.eye(),
+          generation: 0
+        },
+        {
+          gridN: 7,
+          gridM: 4,
+          name: "Flower {7, 4}",
+          funcId: "B 4 S 3 7",
+          funcType: "binary",
+          base: "e",
+          size: fieldData.length,
+          time: Date.now(),
+          coloredVariant: "default",
+          updatePolicy: "synchronous",
+          ruleSelectionVariant: "static",
+          ruleEntry0: "B 4 S 3 7",
+          ruleEntry1: "N/A",
+          ruleEntry2: "N/A",
+          offset: M.eye(),
+          generation: 0
+        }
+      ];
+      const numberOfPresets = fieldData.length;
+
+      for (let i = 0; i < numberOfPresets; i++) {
+        rqStoreData = transaction.objectStore("files").add(fieldData[i]);
+        rqStoreData.onerror = (e) => {
+          return console.log(`Error storing data ${e.target.error}`);
+        };
+        rqStoreData.onsuccess = (e) => {
+          var key, rqStoreCatalog;
+          key = e.target.result;
+          catalogRecord[i].field = key;
+          rqStoreCatalog = transaction.objectStore("catalog").add(catalogRecord[i]);
+          rqStoreCatalog.onerror = (e) => {
+            return console.log(`Error storing catalog record ${e.target.error}`);
+          };
+        };
+      }
+    });
   };
 
   exports.OpenDialog = OpenDialog = class OpenDialog {
