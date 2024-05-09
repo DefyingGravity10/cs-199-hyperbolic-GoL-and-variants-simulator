@@ -153,18 +153,7 @@
           gridM: 4,
           name: "Light bulb {5, 4}",
           funcId: "B 4 S 1 4",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 4 S 1 4",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 4 S 1 4"
         },
         {
           gridN: 7,
@@ -172,35 +161,14 @@
           name: "Light bulb {7, 4}",
           funcId: "B 4 S 1 4",
           funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 4 S 1 4",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 4 S 1 4"
         },
         {
           gridN: 9,
           gridM: 4,
           name: "Light bulb {9, 4}",
           funcId: "B 4 S 1 4",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 4 S 1 4",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 4 S 1 4"
         },
         {
           gridN: 5,
@@ -208,341 +176,133 @@
           name: "Flower {5,4}",
           funcId: "B 4 S 3 5",
           funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 4 S 3 5",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 4 S 3 5"
         },
         {
           gridN: 6,
           gridM: 4,
           name: "Flower {6, 4}",
           funcId: "B 4 S 3 6",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 4 S 3 6",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 4 S 3 6"
         },
         {
           gridN: 7,
           gridM: 4,
           name: "Flower {7, 4}",
           funcId: "B 4 S 3 7",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 4 S 3 7",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 4 S 3 7"
         },
         {
           gridN: 4,
           gridM: 5,
           name: "Lace {4, 5}",
           funcId: "B 3 S 2",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 2",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 2"
         },
         {
           gridN: 4,
           gridM: 6,
           name: "Lace {4, 6}",
           funcId: "B 3 S 2",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 2",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 2"
         },
         {
           gridN: 4,
           gridM: 7,
           name: "Lace {4, 7}",
           funcId: "B 3 S 2",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 2",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 2"
         },
         {
           gridN: 4,
           gridM: 8,
           name: "Lace {4, 8}",
           funcId: "B 3 S 2",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 2",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 2"
         },
         {
           gridN: 5,
           gridM: 4,
           name: "Pinwheel {5, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 6,
           gridM: 4,
           name: "Pinwheel {6, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 7,
           gridM: 4,
           name: "Pinwheel {7, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 5,
           gridM: 4,
           name: "Tree {5, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 6,
           gridM: 4,
           name: "Tree {6, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 7,
           gridM: 4,
           name: "Tree {7, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 7,
           gridM: 4,
           name: "Loading Spinner {7, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 9,
           gridM: 4,
           name: "Loading Spinner {9, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 11,
           gridM: 4,
           name: "Loading Spinner {11, 4}",
           funcId: "B 2 S 3",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 2 S 3",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 2 S 3"
         },
         {
           gridN: 5,
           gridM: 4,
           name: "Firework-flower {5, 4}",
           funcId: "B 3 S 5",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 5",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 5"
         },
         {
           gridN: 6,
           gridM: 4,
           name: "Firework-flower {6, 4}",
           funcId: "B 3 S 6",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 6",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 6"
         },
         {
           gridN: 7,
           gridM: 4,
           name: "Firework-flower {7, 4}",
           funcId: "B 3 S 7",
-          funcType: "binary",
-          base: "e",
-          size: fieldData.length,
-          time: Date.now(),
-          coloredVariant: "default",
-          updatePolicy: "synchronous",
-          ruleSelectionVariant: "static",
-          ruleEntry0: "B 3 S 7",
-          ruleEntry1: "N/A",
-          ruleEntry2: "N/A",
-          offset: M.eye(),
-          generation: 0
+          ruleEntry0: "B 3 S 7"
         }
       ];
       const numberOfPresets = fieldData.length;
@@ -554,9 +314,23 @@
         };
         rqStoreData.onsuccess = (e) => {
           var key, rqStoreCatalog;
+
+          // Add other indices of catalogRecord that occur in all presets
           key = e.target.result;
           catalogRecord[i].field = key;
+          catalogRecord[i].funcType = "binary";
+          catalogRecord[i].base = "e";
+          catalogRecord[i].size = fieldData.length;
+          catalogRecord[i].time = Date.now();
+          catalogRecord[i].coloredVariant = "default";
+          catalogRecord[i].updatePolicy = "synchronous";
+          catalogRecord[i].ruleSelectionVariant = "static";
+          catalogRecord[i].ruleEntry1 = "N/A";
+          catalogRecord[i].ruleEntry2 = "N/A";
+          catalogRecord[i].offset = M.eye();
+          catalogRecord[i].generation = 0;
           catalogRecord[i].entryType = "preset";
+
           rqStoreCatalog = transaction.objectStore("catalog").add(catalogRecord[i]);
           rqStoreCatalog.onerror = (e) => {
             return console.log(`Error storing catalog record ${e.target.error}`);
@@ -796,12 +570,9 @@
       return (request.onsuccess = (e) => {
         this.db = e.target.result;
         console.log("Success");
-        if (this.presetStatus === "preset" && this.grid === null) {
-          console.log("Returning all presets");
-          return this.loadPresets();
-        } else if (this.grid === null) {
+        if (this.grid === null) {
           console.log("Loading whole list");
-          return this.loadData();
+          return this.loadData(this.presetStatus);
         } else {
           console.log(`Loading data: {${this.grid[0]};${this.grid[1]}}, rule='${this.rule}'`);
           return this.loadDataFor(this.grid[0], this.grid[1], this.rule, this.presetStatus);
@@ -1126,14 +897,14 @@
       });
     }
 
-    loadData() {
+    loadData(presetStatus) {
       var cursor, filesStore, transaction;
       console.log("Loaddata");
       transaction = this.db.transaction(["catalog"], "readonly");
       filesStore = transaction.objectStore("catalog");
       cursor = filesStore.index("catalogByGrid").openCursor();
       return this.loadFromCursor(cursor, function (rec) {
-        return rec.entryType === "entry";
+        return rec.entryType === presetStatus;
       });
     }
 
@@ -1150,17 +921,6 @@
           (funcId === null || rec.funcId === funcId) &&
           rec.entryType === presetStatus
         );
-      });
-    }
-
-    loadPresets() {
-      var cursor, filesStore, transaction;
-      console.log("Load presets");
-      transaction = this.db.transaction(["catalog"], "readonly");
-      filesStore = transaction.objectStore("catalog");
-      cursor = filesStore.index("catalogByGrid").openCursor();
-      return this.loadFromCursor(cursor, function (rec) {
-        return rec.entryType === "preset";
       });
     }
   };
