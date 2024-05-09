@@ -1581,6 +1581,8 @@
     myContainer.removeAttribute("style");
     document.getElementById("rule-entry-1").removeAttribute("style");
     myContainer.style.display = "none";
+    const rulestring = document.getElementById("rule-entry");
+    rulestring.placeholder = "Rulestring";
 
     const ruleSelectionButton = document.getElementById("rule-selection-button");
     ruleSelectionButton.innerHTML = "Static";
@@ -1592,6 +1594,8 @@
     ruleMenu.removeAttribute("style");
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.style.display = "";
+    const rulestring = document.getElementById("rule-entry");
+    rulestring.placeholder = "Rulestring 1";
 
     const ruleSelectionButton = document.getElementById("rule-selection-button");
     ruleSelectionButton.innerHTML = "Dynamic";
@@ -2084,6 +2088,7 @@
 
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.add("button-active");
       E("variant-menu").addEventListener("click", handleVariantMenu);
       E("tiling").addEventListener("click", handleTilingGuide);
       E("save-load").addEventListener("click", handleSaveLoad);
@@ -2097,6 +2102,7 @@
     }
     // Hide all guide pop-ups, and disallow them
     else {
+      E("btn-guide").classList.remove("button-active");
       E("variant-menu").removeEventListener("click", handleVariantMenu);
       E("tiling").removeEventListener("click", handleTilingGuide);
       E("save-load").removeEventListener("click", handleSaveLoad);

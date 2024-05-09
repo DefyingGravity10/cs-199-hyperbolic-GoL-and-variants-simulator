@@ -7297,6 +7297,8 @@ exports.parseFieldData1 = (data) ->
     myContainer.removeAttribute("style");
     document.getElementById("rule-entry-1").removeAttribute("style");
     myContainer.style.display = "none";
+    const rulestring = document.getElementById("rule-entry");
+    rulestring.placeholder = "Rulestring";
 
     const ruleSelectionButton = document.getElementById("rule-selection-button");
     ruleSelectionButton.innerHTML = "Static";
@@ -7308,6 +7310,8 @@ exports.parseFieldData1 = (data) ->
     ruleMenu.removeAttribute("style");
     const myContainer = document.getElementById("additional-rules-container");
     myContainer.style.display = "";
+    const rulestring = document.getElementById("rule-entry");
+    rulestring.placeholder = "Rulestring 1";
 
     const ruleSelectionButton = document.getElementById("rule-selection-button");
     ruleSelectionButton.innerHTML = "Dynamic";
@@ -7800,6 +7804,7 @@ exports.parseFieldData1 = (data) ->
 
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.add("button-active");
       E("variant-menu").addEventListener("click", handleVariantMenu);
       E("tiling").addEventListener("click", handleTilingGuide);
       E("save-load").addEventListener("click", handleSaveLoad);
@@ -7813,6 +7818,7 @@ exports.parseFieldData1 = (data) ->
     }
     // Hide all guide pop-ups, and disallow them
     else {
+      E("btn-guide").classList.remove("button-active");
       E("variant-menu").removeEventListener("click", handleVariantMenu);
       E("tiling").removeEventListener("click", handleTilingGuide);
       E("save-load").removeEventListener("click", handleSaveLoad);
@@ -8875,14 +8881,29 @@ exports.parseFieldData1 = (data) ->
     //Update state of the used interface.
     _updateUI() {
       //WHen all grids are enabled, enable all ruels automaticelly.
-      this.btnAllRules.disabled = this.allGridsEnabled;
-      removeClass(this.btnAllGrids, "button-active");
-      removeClass(this.btnAllRules, "button-active");
-      if (this.allGridsEnabled) {
-        addClass(this.btnAllGrids, "button-active");
-      }
-      if (this.allRulesEnabled || this.allGridsEnabled) {
-        return addClass(this.btnAllRules, "button-active");
+      if (this.presetsEnabled) {
+        addClass(this.btnPresetsEnabled, "button-active");
+        this.btnAllRules.disabled = this.presetsEnabled;
+        this.btnAllGrids.disabled = this.presetsEnabled;
+        addClass(this.btnAllRules, "button-disabled");
+        addClass(this.btnAllGrids, "button-disabled");
+      } else {
+        removeClass(this.btnPresetsEnabled, "button-active");
+        this.btnAllRules.disabled = this.presetsEnabled;
+        this.btnAllGrids.disabled = this.presetsEnabled;
+        removeClass(this.btnAllRules, "button-disabled");
+        removeClass(this.btnAllGrids, "button-disabled");
+
+        this.btnAllRules.disabled = this.allGridsEnabled;
+        removeClass(this.btnAllGrids, "button-active");
+        removeClass(this.btnAllRules, "button-active");
+        if (this.allGridsEnabled) {
+          addClass(this.btnAllGrids, "button-active");
+          addClass(this.btnAllRules, "button-disabled");
+        }
+        if (this.allRulesEnabled || this.allGridsEnabled) {
+          return addClass(this.btnAllRules, "button-active");
+        }
       }
     }
 
@@ -9126,24 +9147,24 @@ exports.parseFieldData1 = (data) ->
       dom = new DomBuilder();
       dom
         .tag("div")
-        .CLASS("toolbar")
+        .ID("select-group")
         .tag("span")
         .CLASS("button-group")
         .text("Select:")
         .rtag("btnSelectAll", "button")
-        .CLASS("button-small")
+        .ID("select-button")
         .text("All")
         .end()
         .text("/")
         .rtag("btnSelectNone", "button")
-        .CLASS("button-small")
+        .ID("select-button")
         .text("None")
         .end()
         .end()
         .tag("span")
         .CLASS("button-group")
         .rtag("btnDeleteAll", "button")
-        .CLASS("dangerous button-small")
+        .ID("delete-button")
         .a("title", "Delete selected files")
         .text("Delete")
         .end()
@@ -9172,19 +9193,19 @@ exports.parseFieldData1 = (data) ->
         .text("Time")
         .end()
         .tag("th")
-        .text("Grid")
+        .text("Tiling")
         .end()
         .tag("th")
         .text("Rule Selection")
-        .end()
-        .tag("th")
-        .text("RS0")
         .end()
         .tag("th")
         .text("RS1")
         .end()
         .tag("th")
         .text("RS2")
+        .end()
+        .tag("th")
+        .text("RS3")
         .end()
         .tag("th")
         .text("Colored Variant")
@@ -9201,7 +9222,7 @@ exports.parseFieldData1 = (data) ->
           .CLASS("files-grid-row")
           .tag("td")
           .a("colspan", "10")
-          .text(`Grid: ${gridName}`)
+          .text(`Tiling: ${gridName}`)
           .end()
           .end();
       };

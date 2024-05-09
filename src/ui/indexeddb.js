@@ -485,14 +485,29 @@
     //Update state of the used interface.
     _updateUI() {
       //WHen all grids are enabled, enable all ruels automaticelly.
-      this.btnAllRules.disabled = this.allGridsEnabled;
-      removeClass(this.btnAllGrids, "button-active");
-      removeClass(this.btnAllRules, "button-active");
-      if (this.allGridsEnabled) {
-        addClass(this.btnAllGrids, "button-active");
-      }
-      if (this.allRulesEnabled || this.allGridsEnabled) {
-        return addClass(this.btnAllRules, "button-active");
+      if (this.presetsEnabled) {
+        addClass(this.btnPresetsEnabled, "button-active");
+        this.btnAllRules.disabled = this.presetsEnabled;
+        this.btnAllGrids.disabled = this.presetsEnabled;
+        addClass(this.btnAllRules, "button-disabled");
+        addClass(this.btnAllGrids, "button-disabled");
+      } else {
+        removeClass(this.btnPresetsEnabled, "button-active");
+        this.btnAllRules.disabled = this.presetsEnabled;
+        this.btnAllGrids.disabled = this.presetsEnabled;
+        removeClass(this.btnAllRules, "button-disabled");
+        removeClass(this.btnAllGrids, "button-disabled");
+
+        this.btnAllRules.disabled = this.allGridsEnabled;
+        removeClass(this.btnAllGrids, "button-active");
+        removeClass(this.btnAllRules, "button-active");
+        if (this.allGridsEnabled) {
+          addClass(this.btnAllGrids, "button-active");
+          addClass(this.btnAllRules, "button-disabled");
+        }
+        if (this.allRulesEnabled || this.allGridsEnabled) {
+          return addClass(this.btnAllRules, "button-active");
+        }
       }
     }
 
@@ -736,24 +751,24 @@
       dom = new DomBuilder();
       dom
         .tag("div")
-        .CLASS("toolbar")
+        .ID("select-group")
         .tag("span")
         .CLASS("button-group")
         .text("Select:")
         .rtag("btnSelectAll", "button")
-        .CLASS("button-small")
+        .ID("select-button")
         .text("All")
         .end()
         .text("/")
         .rtag("btnSelectNone", "button")
-        .CLASS("button-small")
+        .ID("select-button")
         .text("None")
         .end()
         .end()
         .tag("span")
         .CLASS("button-group")
         .rtag("btnDeleteAll", "button")
-        .CLASS("dangerous button-small")
+        .ID("delete-button")
         .a("title", "Delete selected files")
         .text("Delete")
         .end()
@@ -782,19 +797,19 @@
         .text("Time")
         .end()
         .tag("th")
-        .text("Grid")
+        .text("Tiling")
         .end()
         .tag("th")
         .text("Rule Selection")
-        .end()
-        .tag("th")
-        .text("RS0")
         .end()
         .tag("th")
         .text("RS1")
         .end()
         .tag("th")
         .text("RS2")
+        .end()
+        .tag("th")
+        .text("RS3")
         .end()
         .tag("th")
         .text("Colored Variant")
@@ -811,7 +826,7 @@
           .CLASS("files-grid-row")
           .tag("td")
           .a("colspan", "10")
-          .text(`Grid: ${gridName}`)
+          .text(`Tiling: ${gridName}`)
           .end()
           .end();
       };

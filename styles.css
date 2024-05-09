@@ -19,7 +19,7 @@ div.popup-shadow {
   width: 100%;
   height: 100%;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   z-index: 1;
 }
 
@@ -29,25 +29,120 @@ div.popup {
   width: 70%;
   margin: 2em auto 0 auto;
   overflow: auto;
-  background-color: white;
+  background-color: #fceb9e;
   padding: 0 1em 1em 1em;
   border-radius: 0.5em;
   z-index: 2;
+  color: black;
+  border: solid;
+  border-width: 2px;
+  border-color: black;
 }
 .toolbar {
   margin-left: auto;
   margin-right: auto;
 }
+#save-cancel {
+  margin-left: 1em;
+}
+
+#file-dialog-save-btn,
+#btn-files-save-cancel,
+#btn-files-cancel {
+  border-radius: 50px;
+  font-family: "Dosis";
+  font-weight: bold;
+  font-size: 12px;
+  width: 10%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  margin-right: 10px;
+}
+#file-dialog-save-btn {
+  background-color: #4364c7;
+  color: white;
+}
+
+#select-button {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 14px;
+  font-family: "Dosis";
+  background-color: #fcfacd;
+  padding: 2px 5px;
+}
+
+#delete-button {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 14px;
+  font-family: "Dosis";
+  background-color: #fcfacd;
+  padding: 2px 5px;
+  right: 1em;
+  position: absolute;
+}
+#btn-files-save-cancel,
+#btn-files-cancel {
+  background-color: #d5ddf3;
+  color: black;
+}
+
+#btn-files-cancel {
+  margin-top: 16px;
+}
 .popup-container h1 {
-  margin: 0 0 0.3em 0;
+  margin: 0.3em 0 0.3em 0;
   text-align: center;
-  color: #888;
+  color: #4364c7;
+}
+
+#file-dialog-save-as {
+  background-color: #fcfacd;
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  font-family: "Dosis";
+}
+
+::placeholder {
+  font-family: "Dosis";
 }
 
 .dialog-content {
-  margin: 1em 2em 2em 1em;
+  margin: 1em 1em 1em 1em;
 }
 
+#toggle-presets,
+#toggle-all-grids,
+#toggle-all-rules {
+  border-radius: 50px;
+  background-color: #d5ddf3;
+  font-family: "Dosis";
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+#toggle-presets.button-active,
+#toggle-all-grids.button-active,
+#toggle-all-rules.button-active {
+  color: #ffffff;
+  background-color: #4364c7;
+}
+
+#toggle-all-grids.button-disabled,
+#toggle-all-rules.button-disabled {
+  background-color: #f0f0f0;
+  color: #c0c0c0;
+  border-color: #c0c0c0;
+}
 /*Main layout*/
 
 #main {
@@ -126,6 +221,7 @@ div.popup {
   background-color: #4364c7;
 }
 
+#btn-guide:hover,
 #btn-db-save:hover,
 #btn-db-load:hover,
 #btn-mode-edit:hover,
@@ -247,7 +343,8 @@ div.overlay-toolbar {
 #btn-export-svg,
 #btn-mode-edit,
 #btn-mode-pan,
-#btn-nav-home {
+#btn-nav-home,
+#btn-guide {
   border-radius: 50px;
   background-color: #d5ddf3;
   font-family: "Dosis";
@@ -529,10 +626,11 @@ div.overlay-toolbar {
   border-width: 2px;
   border-color: black;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: bold;
   text-align: center;
   margin-left: 2.5px;
   margin-right: 2.5px;
+  font-family: "Dosis";
 }
 
 #btn-set-grid,
@@ -580,6 +678,11 @@ div.overlay-toolbar {
   display: none;
 }
 
+hr {
+  border-color: black;
+  border-width: 1.4px;
+}
+
 table.files-table {
   margin-left: auto;
   margin-right: auto;
@@ -591,32 +694,32 @@ table.files-table th {
   text-align: left;
 }
 tr.files-file-row {
-  border: solid 1px silver;
+  border: solid 2px black;
 }
 
 tr.files-file-row:hover {
-  background-color: silver;
+  background-color: #fcfacd;
 }
 
 tr.files-grid-row,
 tr.files-func-row {
-  border: none;
+  border: solid 2px black;
 }
 
 tr.files-grid-row {
-  color: #03a;
-  background-color: #ddd;
+  background-color: #4364c7;
+  color: white;
 }
 tr.files-grid-row td {
-  padding: 0.1em 0 0.1em 1em;
+  padding: 0.1em 0 0.1em 0.5em;
 }
 
 tr.files-func-row {
-  color: #040;
-  background-color: #eee;
+  color: black;
+  background-color: #d5ddf3;
 }
 tr.files-func-row td {
-  padding: 0.1em 0 0.1em 3em;
+  padding: 0.1em 0 0.1em 1em;
 }
 
 /*Dialog: SVG export*/
@@ -706,7 +809,8 @@ button:active {
 }
 
 #btn-mode-edit.button-active,
-#btn-mode-pan.button-active {
+#btn-mode-pan.button-active,
+#btn-guide.button-active {
   color: #ffffff;
   background-color: #4364c7;
 }

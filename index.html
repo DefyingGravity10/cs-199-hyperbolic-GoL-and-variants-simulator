@@ -131,10 +131,10 @@
                   </div>
                 </div>
 
-                <div id="rules-container"><input id="rule-entry" /></div>
+                <div id="rules-container"><input id="rule-entry" placeholder="Rulestring" /></div>
                 <div id="additional-rules-container" style="display: none">
-                  <input id="rule-entry-1" />
-                  <input id="rule-entry-2" />
+                  <input id="rule-entry-1" placeholder="Rulestring 2" />
+                  <input id="rule-entry-2" placeholder="Rulestring 3" />
                 </div>
 
                 <button id="btn-set-rule" title="Apply this rule">Set</button>
@@ -543,9 +543,10 @@
       <div class="popup">
         <h1>Load from local database</h1>
         <div class="toolbar">
-          Showing: <button id="toggle-all-grids">All grids</button>
+          Show Preset Catalogue: <button id="toggle-presets">Presets</button>
+          Show My Catalogue:
+          <button id="toggle-all-grids">All grids</button>
           <button id="toggle-all-rules">All rules</button>
-          <button id="toggle-presets">Presets</button>
         </div>
         <div id="file-dialog-files"></div>
         <div class="toolbar">
@@ -560,10 +561,11 @@
       <div class="popup">
         <h1>Save to local database</h1>
         <div class="dialog-content">
-          Save as: <input id="file-dialog-save-as" class="wide" value="" />
+          Save as:
+          <input id="file-dialog-save-as" class="wide" value="" placeholder="Pattern Name" />
         </div>
 
-        <div class="toolbar">
+        <div id="save-cancel">
           <button id="file-dialog-save-btn">Save</button>
           <button id="btn-files-save-cancel">Cancel</button>
         </div>
