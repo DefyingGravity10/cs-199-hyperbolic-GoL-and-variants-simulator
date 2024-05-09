@@ -8541,7 +8541,9 @@ exports.parseFieldData1 = (data) ->
         "|1(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
         "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
         "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(A4(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))"
+        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(A4(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
+        "(A2(B|1))(A3(B|1))",
+        "(b|1)(A4(B|1))(A2(B(a(B|1))))"
       ];
       // Preset record
       let catalogRecord = [
@@ -8749,6 +8751,20 @@ exports.parseFieldData1 = (data) ->
           name: "Fireworks {8, 4}",
           funcId: "B 2 S 1 8",
           ruleEntry0: "B 2 S 1 8"
+        },
+        {
+          gridN: 8,
+          gridM: 3,
+          name: "Blinker {8, 3}",
+          funcId: "B 2 S 3",
+          ruleEntry0: "B 2 S 3"
+        },
+        {
+          gridN: 8,
+          gridM: 3,
+          name: "Spinner {8, 3}",
+          funcId: "B 2 S 3",
+          ruleEntry0: "B 2 S 3"
         }
       ];
       const numberOfPresets = fieldData.length;
