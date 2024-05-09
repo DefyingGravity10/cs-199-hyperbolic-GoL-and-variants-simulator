@@ -144,7 +144,10 @@
         "(A2(B|1))(b|1)(A3(B|1))(A4(B|1))(A5(B|1))(a5(B|1))(a4(B|1))(a2(B(A2(B|1))))(B|1)(a(B(A2(B|1))))",
         "|1(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
         "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))"
+        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
+        "|1(A2(B|1))(A4(B|1))(a2(B|1))(B|1)",
+        "|1(b|1)(A3(B|1))(A5(B|1))(a3(B|1))(a(B|1))",
+        "|1(A2(B|1))(A4(B|1))(A6(B|1))(a4(B|1))(a2(B|1))(B|1)"
       ];
       // Preset record
       let catalogRecord = [
@@ -303,6 +306,27 @@
           name: "Firework-flower {7, 4}",
           funcId: "B 3 S 7",
           ruleEntry0: "B 3 S 7"
+        },
+        {
+          gridN: 8,
+          gridM: 3,
+          name: "Star {8, 3}",
+          funcId: "B 2 S 1 4",
+          ruleEntry0: "B 2 S 1 4"
+        },
+        {
+          gridN: 10,
+          gridM: 3,
+          name: "Star {10, 3}",
+          funcId: "B 2 S 1 5",
+          ruleEntry0: "B 2 S 1 5"
+        },
+        {
+          gridN: 12,
+          gridM: 3,
+          name: "Star {12, 3}",
+          funcId: "B 2 S 1 6",
+          ruleEntry0: "B 2 S 1 6"
         }
       ];
       const numberOfPresets = fieldData.length;

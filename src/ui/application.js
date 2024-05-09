@@ -732,7 +732,7 @@
             case "static":
               ruleSelectionButton.innerHTML = "Static";
               currentVariant.changeCurrentRuleSelection("static");
-              this.ruleEntry.setValue(record.funcId);
+              this.ruleEntry.setValue(this.transitionFunc);
               myContainer.style.display = "none";
               break;
             case "dynamic":
