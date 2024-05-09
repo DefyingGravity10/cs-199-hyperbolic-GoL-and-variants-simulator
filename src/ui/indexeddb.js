@@ -556,6 +556,7 @@
           var key, rqStoreCatalog;
           key = e.target.result;
           catalogRecord[i].field = key;
+          catalogRecord[i].entryType = "preset";
           rqStoreCatalog = transaction.objectStore("catalog").add(catalogRecord[i]);
           rqStoreCatalog.onerror = (e) => {
             return console.log(`Error storing catalog record ${e.target.error}`);
@@ -573,8 +574,10 @@
       this.filelistElement = E("file-dialog-files");
       this.btnAllGrids = E("toggle-all-grids");
       this.btnAllRules = E("toggle-all-rules");
+      this.btnPresetsEnabled = E("toggle-presets");
       this.allGridsEnabled = false;
-      this.allRuelsEnabled = false;
+      this.allRulesEnabled = false;
+      this.presetsEnabled = false;
       this.fileList = null;
       //Bind events
       this.btnAllRules.addEventListener("click", (e) => {
@@ -582,6 +585,9 @@
       });
       this.btnAllGrids.addEventListener("click", (e) => {
         return this._toggleAllGrids();
+      });
+      this.btnPresetsEnabled.addEventListener("click", (e) => {
+        return this._togglePresets();
       });
       this.btnCancel.addEventListener("click", (e) => {
         return this.close();
@@ -595,16 +601,18 @@
     }
 
     _generateFileList() {
-      var grid, rule;
+      var grid, rule, presetStatus;
       this.filelistElement.innerHTML = '<img src="media/hrz-spinner.gif"/>';
       grid = this.allGridsEnabled ? null : [this.application.tiling.n, this.application.tiling.m];
       rule =
-        this.allGridsEnabled || this.allRuelsEnabled
+        this.allGridsEnabled || this.allRulesEnabled
           ? null
           : "" + this.application.getTransitionFunc();
+      presetStatus = this.presetsEnabled ? "preset" : "entry";
       return (this.fileList = new GenerateFileList(
         grid,
         rule,
+        presetStatus,
         this.filelistElement,
         (fileRecord, fileData) => {
           return this._loadFile(fileRecord, fileData);
@@ -637,7 +645,7 @@
       if (this.allGridsEnabled) {
         addClass(this.btnAllGrids, "button-active");
       }
-      if (this.allRuelsEnabled || this.allGridsEnabled) {
+      if (this.allRulesEnabled || this.allGridsEnabled) {
         return addClass(this.btnAllRules, "button-active");
       }
     }
@@ -649,7 +657,13 @@
     }
 
     _toggleAllRules() {
-      this.allRuelsEnabled = !this.allRuelsEnabled;
+      this.allRulesEnabled = !this.allRulesEnabled;
+      this._updateUI();
+      return this._generateFileList();
+    }
+
+    _togglePresets() {
+      this.presetsEnabled = !this.presetsEnabled;
       this._updateUI();
       return this._generateFileList();
     }
@@ -664,7 +678,7 @@
       this.fldName = E("file-dialog-save-as");
       this.filelistElement = E("file-dialog-save-files");
       this.allGridsEnabled = false;
-      this.allRuelsEnabled = false;
+      this.allRulesEnabled = false;
       //Bind events
       this.btnCancel.addEventListener("click", (e) => {
         return this.close();
@@ -688,13 +702,21 @@
     _updateUI() {}
 
     _generateFileList() {
-      var fileListGen, grid, rule;
+      var fileListGen, grid, rule, presetStatus;
       this.filelistElement.innerHTML = '<img src="media/hrz-spinner.gif"/>';
       grid = [this.application.tiling.n, this.application.tiling.m];
       rule = "" + this.application.getTransitionFunc();
-      return (fileListGen = new GenerateFileList(grid, rule, this.filelistElement, null, () => {
-        return this._fileListReady();
-      }));
+      presetStatus = "entry";
+      return (fileListGen = new GenerateFileList(
+        grid,
+        rule,
+        presetStatus,
+        this.filelistElement,
+        null,
+        () => {
+          return this._fileListReady();
+        }
+      ));
     }
 
     _fileListReady() {
@@ -750,9 +772,10 @@
 
   GenerateFileList = class GenerateFileList {
     // fileCallback = load
-    constructor(grid1, rule1, container, fileCallback, readyCallback) {
+    constructor(grid1, rule1, presetStatus, container, fileCallback, readyCallback) {
       this.grid = grid1;
       this.rule = rule1;
+      this.presetStatus = presetStatus;
       this.container = container;
       this.fileCallback = fileCallback;
       this.readyCallback = readyCallback;
@@ -773,12 +796,15 @@
       return (request.onsuccess = (e) => {
         this.db = e.target.result;
         console.log("Success");
-        if (this.grid === null) {
+        if (this.presetStatus === "preset" && this.grid === null) {
+          console.log("Returning all presets");
+          return this.loadPresets();
+        } else if (this.grid === null) {
           console.log("Loading whole list");
           return this.loadData();
         } else {
           console.log(`Loading data: {${this.grid[0]};${this.grid[1]}}, rule='${this.rule}'`);
-          return this.loadDataFor(this.grid[0], this.grid[1], this.rule);
+          return this.loadDataFor(this.grid[0], this.grid[1], this.rule, this.presetStatus);
         }
       });
     }
@@ -1107,11 +1133,11 @@
       filesStore = transaction.objectStore("catalog");
       cursor = filesStore.index("catalogByGrid").openCursor();
       return this.loadFromCursor(cursor, function (rec) {
-        return true;
+        return rec.entryType === "entry";
       });
     }
 
-    loadDataFor(gridN, gridM, funcId) {
+    loadDataFor(gridN, gridM, funcId, presetStatus) {
       var catalog, catalogIndex, cursor, transaction;
       transaction = this.db.transaction(["catalog"], "readonly");
       catalog = transaction.objectStore("catalog");
@@ -1119,8 +1145,22 @@
       cursor = catalogIndex.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return (
-          rec.gridN === gridN && rec.gridM === gridM && (funcId === null || rec.funcId === funcId)
+          rec.gridN === gridN &&
+          rec.gridM === gridM &&
+          (funcId === null || rec.funcId === funcId) &&
+          rec.entryType === presetStatus
         );
+      });
+    }
+
+    loadPresets() {
+      var cursor, filesStore, transaction;
+      console.log("Load presets");
+      transaction = this.db.transaction(["catalog"], "readonly");
+      filesStore = transaction.objectStore("catalog");
+      cursor = filesStore.index("catalogByGrid").openCursor();
+      return this.loadFromCursor(cursor, function (rec) {
+        return rec.entryType === "preset";
       });
     }
   };
