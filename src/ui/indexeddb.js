@@ -105,311 +105,6 @@
         unique: false
       }
     );
-
-    // Add all the presets into the database
-    let request;
-    request = window.indexedDB.open("SavedFields", VERSION);
-    request.onupgradeneeded = upgradeNeeded;
-    request.onerror = (e) => {
-      return console.log(`DB error: ${e.target.errorCode}`);
-    };
-    // Create a data structure with all the field data and the record catalog
-    // Then go through the entire thing
-
-    return (request.onsuccess = function (e) {
-      let db, rqStoreData, transaction;
-      db = e.target.result;
-      transaction = db.transaction(["files", "catalog"], "readwrite");
-
-      // Preset data
-      let fieldData = [
-        "|1(A2(B2|1))(B2|1)(a(B|1))(A(B2|1))",
-        "|1(A2(B2|1))(A3(B2|1))(a(B|1))(A(B2|1))",
-        "|1(A2(B2|1))(A3(B2|1))(a2(B|1))(A(B2|1))",
-        "|1(A2(B|1))(b|1)(a2(B|1))(a(B|1))(B|1)",
-        "|1(A2(B|1))(b|1)(A3(B|1))(a2(B|1))(a(B|1))(B|1)",
-        "|1(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a2(B|1))(a(B|1))(B|1)",
-        "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
-        "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
-        "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
-        "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
-        "(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
-        "(A2(B|1))(b|1)(a2(B|1))(B|1)",
-        "(A2(B|1))(b|1)(A3(B|1))(a2(B|1))(B|1)",
-        "(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a2(B|1))(B|1)",
-        "(B(A2(B|1)))(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a(B(A2(B|1))))",
-        "(B(A2(B|1)))(A2(B|1))(b|1)(A3(B|1))(A4(B|1))(a4(B|1))(a3(B|1))(a(B(A2(B|1))))",
-        "(A2(B|1))(b|1)(A3(B|1))(A4(B|1))(A5(B|1))(a5(B|1))(a4(B|1))(a2(B(A2(B|1))))(B|1)(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B|1))(A4(B|1))(a2(B|1))(B|1)",
-        "|1(b|1)(A3(B|1))(A5(B|1))(a3(B|1))(a(B|1))",
-        "|1(A2(B|1))(A4(B|1))(A6(B|1))(a4(B|1))(a2(B|1))(B|1)",
-        "|1(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
-        "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(A4(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
-        "(A2(B|1))(A3(B|1))",
-        "(b|1)(A4(B|1))(A2(B(a(B|1))))"
-      ];
-      // Preset record
-      let catalogRecord = [
-        {
-          gridN: 5,
-          gridM: 4,
-          name: "Light bulb {5, 4}",
-          funcId: "B 4 S 1 4",
-          ruleEntry0: "B 4 S 1 4"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Light bulb {7, 4}",
-          funcId: "B 4 S 1 4",
-          funcType: "binary",
-          ruleEntry0: "B 4 S 1 4"
-        },
-        {
-          gridN: 9,
-          gridM: 4,
-          name: "Light bulb {9, 4}",
-          funcId: "B 4 S 1 4",
-          ruleEntry0: "B 4 S 1 4"
-        },
-        {
-          gridN: 5,
-          gridM: 4,
-          name: "Flower {5,4}",
-          funcId: "B 4 S 3 5",
-          funcType: "binary",
-          ruleEntry0: "B 4 S 3 5"
-        },
-        {
-          gridN: 6,
-          gridM: 4,
-          name: "Flower {6, 4}",
-          funcId: "B 4 S 3 6",
-          ruleEntry0: "B 4 S 3 6"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Flower {7, 4}",
-          funcId: "B 4 S 3 7",
-          ruleEntry0: "B 4 S 3 7"
-        },
-        {
-          gridN: 4,
-          gridM: 5,
-          name: "Lace {4, 5}",
-          funcId: "B 3 S 2",
-          ruleEntry0: "B 3 S 2"
-        },
-        {
-          gridN: 4,
-          gridM: 6,
-          name: "Lace {4, 6}",
-          funcId: "B 3 S 2",
-          ruleEntry0: "B 3 S 2"
-        },
-        {
-          gridN: 4,
-          gridM: 7,
-          name: "Lace {4, 7}",
-          funcId: "B 3 S 2",
-          ruleEntry0: "B 3 S 2"
-        },
-        {
-          gridN: 4,
-          gridM: 8,
-          name: "Lace {4, 8}",
-          funcId: "B 3 S 2",
-          ruleEntry0: "B 3 S 2"
-        },
-        {
-          gridN: 5,
-          gridM: 4,
-          name: "Pinwheel {5, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 6,
-          gridM: 4,
-          name: "Pinwheel {6, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Pinwheel {7, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 5,
-          gridM: 4,
-          name: "Tree {5, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 6,
-          gridM: 4,
-          name: "Tree {6, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Tree {7, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Loading Spinner {7, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 9,
-          gridM: 4,
-          name: "Loading Spinner {9, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 11,
-          gridM: 4,
-          name: "Loading Spinner {11, 4}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 5,
-          gridM: 4,
-          name: "Firework-flower {5, 4}",
-          funcId: "B 3 S 5",
-          ruleEntry0: "B 3 S 5"
-        },
-        {
-          gridN: 6,
-          gridM: 4,
-          name: "Firework-flower {6, 4}",
-          funcId: "B 3 S 6",
-          ruleEntry0: "B 3 S 6"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Firework-flower {7, 4}",
-          funcId: "B 3 S 7",
-          ruleEntry0: "B 3 S 7"
-        },
-        {
-          gridN: 8,
-          gridM: 3,
-          name: "Star {8, 3}",
-          funcId: "B 2 S 1 4",
-          ruleEntry0: "B 2 S 1 4"
-        },
-        {
-          gridN: 10,
-          gridM: 3,
-          name: "Star {10, 3}",
-          funcId: "B 2 S 1 5",
-          ruleEntry0: "B 2 S 1 5"
-        },
-        {
-          gridN: 12,
-          gridM: 3,
-          name: "Star {12, 3}",
-          funcId: "B 2 S 1 6",
-          ruleEntry0: "B 2 S 1 6"
-        },
-        {
-          gridN: 5,
-          gridM: 4,
-          name: "Fireworks {5, 4}",
-          funcId: "B 2 S 1 5",
-          ruleEntry0: "B 2 S 1 5"
-        },
-        {
-          gridN: 6,
-          gridM: 4,
-          name: "Fireworks {6, 4}",
-          funcId: "B 2 S 1 6",
-          ruleEntry0: "B 2 S 1 6"
-        },
-        {
-          gridN: 7,
-          gridM: 4,
-          name: "Fireworks {7, 4}",
-          funcId: "B 2 S 1 7",
-          ruleEntry0: "B 2 S 1 7"
-        },
-        {
-          gridN: 8,
-          gridM: 4,
-          name: "Fireworks {8, 4}",
-          funcId: "B 2 S 1 8",
-          ruleEntry0: "B 2 S 1 8"
-        },
-        {
-          gridN: 8,
-          gridM: 3,
-          name: "Blinker {8, 3}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        },
-        {
-          gridN: 8,
-          gridM: 3,
-          name: "Spinner {8, 3}",
-          funcId: "B 2 S 3",
-          ruleEntry0: "B 2 S 3"
-        }
-      ];
-      const numberOfPresets = fieldData.length;
-
-      for (let i = 0; i < numberOfPresets; i++) {
-        rqStoreData = transaction.objectStore("files").add(fieldData[i]);
-        rqStoreData.onerror = (e) => {
-          return console.log(`Error storing data ${e.target.error}`);
-        };
-        rqStoreData.onsuccess = (e) => {
-          var key, rqStoreCatalog;
-
-          // Add other indices of catalogRecord that occur in all presets
-          key = e.target.result;
-          catalogRecord[i].field = key;
-          catalogRecord[i].funcType = "binary";
-          catalogRecord[i].base = "e";
-          catalogRecord[i].size = fieldData.length;
-          catalogRecord[i].time = Date.now();
-          catalogRecord[i].coloredVariant = "default";
-          catalogRecord[i].updatePolicy = "synchronous";
-          catalogRecord[i].ruleSelectionVariant = "static";
-          catalogRecord[i].ruleEntry1 = "N/A";
-          catalogRecord[i].ruleEntry2 = "N/A";
-          catalogRecord[i].offset = M.eye();
-          catalogRecord[i].generation = 0;
-          catalogRecord[i].entryType = "preset";
-
-          rqStoreCatalog = transaction.objectStore("catalog").add(catalogRecord[i]);
-          rqStoreCatalog.onerror = (e) => {
-            return console.log(`Error storing catalog record ${e.target.error}`);
-          };
-        };
-      }
-    });
   };
 
   exports.OpenDialog = OpenDialog = class OpenDialog {
@@ -657,6 +352,318 @@
       return (request.onsuccess = (e) => {
         this.db = e.target.result;
         console.log("Success");
+        // Check if presets are available
+        let transaction = this.db.transaction(["catalog"], "readonly");
+        let objectStore = transaction.objectStore("catalog");
+        var cursorRequest = objectStore.openCursor();
+        var count = 0;
+        cursorRequest.onsuccess = function (event) {
+          var cursor = event.target.result;
+          if (cursor) {
+            // Check if the column value matches the specific value
+            if (cursor.value.entryType === "preset") {
+              count++;
+            }
+            cursor.continue();
+          } else {
+            // Only save the presets if they are not available
+            if (count < 1) {
+              let db, rqStoreData, transaction;
+              db = e.target.result;
+              transaction = db.transaction(["files", "catalog"], "readwrite");
+              // Preset data
+              let fieldData = [
+                "|1(A2(B2|1))(B2|1)(a(B|1))(A(B2|1))",
+                "|1(A2(B2|1))(A3(B2|1))(a(B|1))(A(B2|1))",
+                "|1(A2(B2|1))(A3(B2|1))(a2(B|1))(A(B2|1))",
+                "|1(A2(B|1))(b|1)(a2(B|1))(a(B|1))(B|1)",
+                "|1(A2(B|1))(b|1)(A3(B|1))(a2(B|1))(a(B|1))(B|1)",
+                "|1(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a2(B|1))(a(B|1))(B|1)",
+                "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
+                "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
+                "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
+                "(A2(B2|1)(b2|1)(B(a(B|1))))(B(A2(B|1))(a(B|1)))(b2|1)(A(b2|1)(B2|1))(b(A(b|1)))(a(B(a(B|1)))(B2|1))(B2|1)",
+                "(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
+                "(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
+                "(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
+                "(A2(B|1))(b|1)(a2(B|1))(B|1)",
+                "(A2(B|1))(b|1)(A3(B|1))(a2(B|1))(B|1)",
+                "(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a2(B|1))(B|1)",
+                "(B(A2(B|1)))(A2(B|1))(b|1)(A3(B|1))(a3(B|1))(a(B(A2(B|1))))",
+                "(B(A2(B|1)))(A2(B|1))(b|1)(A3(B|1))(A4(B|1))(a4(B|1))(a3(B|1))(a(B(A2(B|1))))",
+                "(A2(B|1))(b|1)(A3(B|1))(A4(B|1))(A5(B|1))(a5(B|1))(a4(B|1))(a2(B(A2(B|1))))(B|1)(a(B(A2(B|1))))",
+                "|1(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
+                "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
+                "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
+                "|1(A2(B|1))(A4(B|1))(a2(B|1))(B|1)",
+                "|1(b|1)(A3(B|1))(A5(B|1))(a3(B|1))(a(B|1))",
+                "|1(A2(B|1))(A4(B|1))(A6(B|1))(a4(B|1))(a2(B|1))(B|1)",
+                "|1(A2(B2|1))(B(A2(B|1)))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
+                "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(A(B2|1))(a(B(A2(B|1))))",
+                "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
+                "|1(A2(B2|1))(B(A2(B|1)))(A3(B2|1))(A4(B2|1))(B2|1)(a2(B(A2(B|1))))(A(B2|1))(a(B(A2(B|1))))",
+                "(A2(B|1))(A3(B|1))",
+                "(b|1)(A4(B|1))(A2(B(a(B|1))))"
+              ];
+              // Preset record
+              let catalogRecord = [
+                {
+                  gridN: 5,
+                  gridM: 4,
+                  name: "Light bulb {5, 4}",
+                  funcId: "B 4 S 1 4",
+                  ruleEntry0: "B 4 S 1 4"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Light bulb {7, 4}",
+                  funcId: "B 4 S 1 4",
+                  funcType: "binary",
+                  ruleEntry0: "B 4 S 1 4"
+                },
+                {
+                  gridN: 9,
+                  gridM: 4,
+                  name: "Light bulb {9, 4}",
+                  funcId: "B 4 S 1 4",
+                  ruleEntry0: "B 4 S 1 4"
+                },
+                {
+                  gridN: 5,
+                  gridM: 4,
+                  name: "Flower {5,4}",
+                  funcId: "B 4 S 3 5",
+                  funcType: "binary",
+                  ruleEntry0: "B 4 S 3 5"
+                },
+                {
+                  gridN: 6,
+                  gridM: 4,
+                  name: "Flower {6, 4}",
+                  funcId: "B 4 S 3 6",
+                  ruleEntry0: "B 4 S 3 6"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Flower {7, 4}",
+                  funcId: "B 4 S 3 7",
+                  ruleEntry0: "B 4 S 3 7"
+                },
+                {
+                  gridN: 4,
+                  gridM: 5,
+                  name: "Lace {4, 5}",
+                  funcId: "B 3 S 2",
+                  ruleEntry0: "B 3 S 2"
+                },
+                {
+                  gridN: 4,
+                  gridM: 6,
+                  name: "Lace {4, 6}",
+                  funcId: "B 3 S 2",
+                  ruleEntry0: "B 3 S 2"
+                },
+                {
+                  gridN: 4,
+                  gridM: 7,
+                  name: "Lace {4, 7}",
+                  funcId: "B 3 S 2",
+                  ruleEntry0: "B 3 S 2"
+                },
+                {
+                  gridN: 4,
+                  gridM: 8,
+                  name: "Lace {4, 8}",
+                  funcId: "B 3 S 2",
+                  ruleEntry0: "B 3 S 2"
+                },
+                {
+                  gridN: 5,
+                  gridM: 4,
+                  name: "Pinwheel {5, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 6,
+                  gridM: 4,
+                  name: "Pinwheel {6, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Pinwheel {7, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 5,
+                  gridM: 4,
+                  name: "Tree {5, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 6,
+                  gridM: 4,
+                  name: "Tree {6, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Tree {7, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Loading Spinner {7, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 9,
+                  gridM: 4,
+                  name: "Loading Spinner {9, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 11,
+                  gridM: 4,
+                  name: "Loading Spinner {11, 4}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 5,
+                  gridM: 4,
+                  name: "Firework-flower {5, 4}",
+                  funcId: "B 3 S 5",
+                  ruleEntry0: "B 3 S 5"
+                },
+                {
+                  gridN: 6,
+                  gridM: 4,
+                  name: "Firework-flower {6, 4}",
+                  funcId: "B 3 S 6",
+                  ruleEntry0: "B 3 S 6"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Firework-flower {7, 4}",
+                  funcId: "B 3 S 7",
+                  ruleEntry0: "B 3 S 7"
+                },
+                {
+                  gridN: 8,
+                  gridM: 3,
+                  name: "Star {8, 3}",
+                  funcId: "B 2 S 1 4",
+                  ruleEntry0: "B 2 S 1 4"
+                },
+                {
+                  gridN: 10,
+                  gridM: 3,
+                  name: "Star {10, 3}",
+                  funcId: "B 2 S 1 5",
+                  ruleEntry0: "B 2 S 1 5"
+                },
+                {
+                  gridN: 12,
+                  gridM: 3,
+                  name: "Star {12, 3}",
+                  funcId: "B 2 S 1 6",
+                  ruleEntry0: "B 2 S 1 6"
+                },
+                {
+                  gridN: 5,
+                  gridM: 4,
+                  name: "Fireworks {5, 4}",
+                  funcId: "B 2 S 1 5",
+                  ruleEntry0: "B 2 S 1 5"
+                },
+                {
+                  gridN: 6,
+                  gridM: 4,
+                  name: "Fireworks {6, 4}",
+                  funcId: "B 2 S 1 6",
+                  ruleEntry0: "B 2 S 1 6"
+                },
+                {
+                  gridN: 7,
+                  gridM: 4,
+                  name: "Fireworks {7, 4}",
+                  funcId: "B 2 S 1 7",
+                  ruleEntry0: "B 2 S 1 7"
+                },
+                {
+                  gridN: 8,
+                  gridM: 4,
+                  name: "Fireworks {8, 4}",
+                  funcId: "B 2 S 1 8",
+                  ruleEntry0: "B 2 S 1 8"
+                },
+                {
+                  gridN: 8,
+                  gridM: 3,
+                  name: "Blinker {8, 3}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                },
+                {
+                  gridN: 8,
+                  gridM: 3,
+                  name: "Spinner {8, 3}",
+                  funcId: "B 2 S 3",
+                  ruleEntry0: "B 2 S 3"
+                }
+              ];
+              const numberOfPresets = fieldData.length;
+
+              for (let i = 0; i < numberOfPresets; i++) {
+                rqStoreData = transaction.objectStore("files").add(fieldData[i]);
+                rqStoreData.onerror = (e) => {
+                  return console.log(`Error storing data ${e.target.error}`);
+                };
+                rqStoreData.onsuccess = (e) => {
+                  var key, rqStoreCatalog;
+
+                  // Add other indices of catalogRecord that occur in all presets
+                  key = e.target.result;
+                  catalogRecord[i].field = key;
+                  catalogRecord[i].funcType = "binary";
+                  catalogRecord[i].base = "e";
+                  catalogRecord[i].size = fieldData.length;
+                  catalogRecord[i].time = Date.now();
+                  catalogRecord[i].coloredVariant = "default";
+                  catalogRecord[i].updatePolicy = "synchronous";
+                  catalogRecord[i].ruleSelectionVariant = "static";
+                  catalogRecord[i].ruleEntry1 = "N/A";
+                  catalogRecord[i].ruleEntry2 = "N/A";
+                  catalogRecord[i].offset = M.eye();
+                  catalogRecord[i].generation = 0;
+                  catalogRecord[i].entryType = "preset";
+
+                  rqStoreCatalog = transaction.objectStore("catalog").add(catalogRecord[i]);
+                  rqStoreCatalog.onerror = (e) => {
+                    return console.log(`Error storing catalog record ${e.target.error}`);
+                  };
+                };
+              }
+            }
+          }
+        };
+
+        // Proceed to load the data
         if (this.grid === null) {
           console.log("Loading whole list");
           return this.loadData(this.presetStatus);
