@@ -70,11 +70,21 @@
         <div id="left-sidebar">
           <!-- misc status information -->
           <div id="save-load">
-            <button id="btn-db-save" title="(Ctrl+S) Save state to the local database">Save</button>
-            <button id="btn-db-load" title="(Ctrl+O) Load state from the local database">
+            <button
+              id="btn-db-save"
+              class="hover"
+              title="(Ctrl+S) Save state to the local database"
+            >
+              Save
+            </button>
+            <button
+              id="btn-db-load"
+              class="hover"
+              title="(Ctrl+O) Load state from the local database"
+            >
               Open
             </button>
-            <button id="btn-export-svg" title="Export image as SVG">SVG</button>
+            <button id="btn-export-svg" class="hover" title="Export image as SVG">SVG</button>
           </div>
           <div id="tiling-dash">
             <div id="tiling">
@@ -85,7 +95,7 @@
                 <input id="entry-q" type="number" class="short" placeholder="q" />
                 &nbsp;&#125;
               </div>
-              <button id="btn-set-grid" title="Apply this tiling">Set</button>
+              <button id="btn-set-grid" class="hover" title="Apply this tiling">Set</button>
             </div>
           </div>
           <div id="tiling-guide" class="hidden">
@@ -137,7 +147,7 @@
                   <input id="rule-entry-2" placeholder="Rulestring 3" />
                 </div>
 
-                <button id="btn-set-rule" title="Apply this rule">Set</button>
+                <button id="btn-set-rule" class="hover" title="Apply this rule">Set</button>
               </span>
               <!--For future clean-ups-->
               <span id="controls-rule-generic" style="display: none"> Generic rule<br /> </span>
@@ -291,7 +301,7 @@
           </div>
 
           <div class="button-group" id="rsg">
-            <button id="btn-reset" class="dangerous" title="(C) Clear plane and reset view">
+            <button id="btn-reset" class="hover-svg" title="(C) Clear plane and reset view">
               <svg
                 version="1.1"
                 id="svg2"
@@ -367,7 +377,7 @@
                 </g>
               </svg>
             </button>
-            <button id="btn-step" title="(N) Evolve cells for one generation">
+            <button id="btn-step" class="hover-svg" title="(N) Evolve cells for one generation">
               <svg
                 version="1.1"
                 id="svg2"
@@ -431,13 +441,17 @@
               id="btn-mode-edit"
               title="(E) Use left button to edit, middle or left+shift to pan"
             >-->
-            <button id="btn-mode-edit" title="(E) Toggle initial population of cells">Edit</button>
+            <button id="btn-mode-edit" class="hover" title="(E) Toggle initial population of cells">
+              Edit
+            </button>
             <!--<button
               id="btn-mode-pan"
               title="(P) Use left button to pan, middle or left+shift to edit"
             >-->
-            <button id="btn-mode-pan" title="(P) Pan through the disk">Pan</button>
-            <button id="btn-nav-home" title="(H) Navigate to the origin">Origin</button>
+            <button id="btn-mode-pan" class="hover" title="(P) Pan through the disk">Pan</button>
+            <button id="btn-nav-home" class="hover" title="(H) Navigate to the origin">
+              Origin
+            </button>
           </div>
 
           <div id="disk-control-guide" class="hidden">
@@ -543,10 +557,14 @@
       <div class="popup">
         <h1>Load from local database</h1>
         <div class="toolbar">
-          Show Preset Catalogue: <button id="toggle-presets">Presets</button>
-          Show My Catalogue:
-          <button id="toggle-all-grids">All grids</button>
-          <button id="toggle-all-rules">All rules</button>
+          <span id="my-catalogue"
+            >Show My Catalogue:
+            <button id="toggle-all-grids">All grids</button>
+            <button id="toggle-all-rules" class="hover">All rules</button></span
+          >
+          <span id="preset-catalogue" class="hidden"
+            >Show Preset Catalogue: <button id="toggle-presets">Presets</button></span
+          >
         </div>
         <div id="file-dialog-files"></div>
         <div class="toolbar">
@@ -563,14 +581,12 @@
         <div class="dialog-content">
           Save as:
           <input id="file-dialog-save-as" class="wide" value="" placeholder="Pattern Name" />
-        </div>
-
-        <div id="save-cancel">
           <button id="file-dialog-save-btn">Save</button>
+        </div>
+        <div id="file-dialog-save-files"></div>
+        <div class="toolbar">
           <button id="btn-files-save-cancel">Cancel</button>
         </div>
-        <hr />
-        <div id="file-dialog-save-files"></div>
       </div>
     </div>
 

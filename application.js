@@ -7801,7 +7801,6 @@ exports.parseFieldData1 = (data) ->
   E("btn-guide").addEventListener("click", () => {
     // Toggle between guide mode and game mode
     E("btn-guide").classList.toggle("guide-mode");
-
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
       E("btn-guide").classList.add("button-active");
@@ -7814,6 +7813,29 @@ exports.parseFieldData1 = (data) ->
       E("disk-control").addEventListener("click", handleDiskControl);
       E("statusbar").addEventListener("click", handleSimulationData);
       E("navigator").addEventListener("click", handleClusterNavigation);
+      E("btn-db-save").classList.remove("hover");
+      E("btn-db-load").classList.remove("hover");
+      E("btn-mode-edit").classList.remove("hover");
+      E("btn-mode-pan").classList.remove("hover");
+      E("btn-nav-home").classList.remove("hover");
+      E("btn-export-svg").classList.remove("hover");
+      E("btn-set-grid").classList.remove("hover");
+      E("btn-set-rule").classList.remove("hover");
+      E("btn-reset").classList.remove("hover-svg");
+      E("btn-step").classList.remove("hover-svg");
+      E("variant-menu").classList.add("hover-dash");
+      E("save-load").classList.add("hover-dash");
+      E("tiling-dash").classList.add("hover-dash");
+      E("rules-dash").classList.add("hover-dash");
+      E("rsg").classList.add("hover-dash");
+      E("disk-control").classList.add("hover-dash");
+      E("statusbar-dash").classList.add("hover-dash");
+      E("navigator-dash").classList.add("hover-dash");
+      E("entry-p").readOnly = true;
+      E("entry-q").readOnly = true;
+      E("rule-entry").readOnly = true;
+      E("rule-entry-1").readOnly = true;
+      E("rule-entry-2").readOnly = true;
       makeUnselected();
     }
     // Hide all guide pop-ups, and disallow them
@@ -7828,6 +7850,29 @@ exports.parseFieldData1 = (data) ->
       E("disk-control").removeEventListener("click", handleDiskControl);
       E("statusbar").removeEventListener("click", handleSimulationData);
       E("navigator").removeEventListener("click", handleClusterNavigation);
+      E("btn-db-save").classList.add("hover");
+      E("btn-db-load").classList.add("hover");
+      E("btn-mode-edit").classList.add("hover");
+      E("btn-mode-pan").classList.add("hover");
+      E("btn-nav-home").classList.add("hover");
+      E("btn-export-svg").classList.add("hover");
+      E("btn-set-grid").classList.add("hover");
+      E("btn-set-rule").classList.add("hover");
+      E("btn-reset").classList.add("hover-svg");
+      E("btn-step").classList.add("hover-svg");
+      E("variant-menu").classList.remove("hover-dash");
+      E("save-load").classList.remove("hover-dash");
+      E("tiling-dash").classList.remove("hover-dash");
+      E("rules-dash").classList.remove("hover-dash");
+      E("rsg").classList.remove("hover-dash");
+      E("disk-control").classList.remove("hover-dash");
+      E("statusbar-dash").classList.remove("hover-dash");
+      E("navigator-dash").classList.remove("hover-dash");
+      E("entry-p").readOnly = false;
+      E("entry-q").readOnly = false;
+      E("rule-entry").readOnly = false;
+      E("rule-entry-1").readOnly = false;
+      E("rule-entry-2").readOnly = false;
       hideDash();
       hideUserGuide();
     }
@@ -8578,10 +8623,10 @@ exports.parseFieldData1 = (data) ->
       //WHen all grids are enabled, enable all ruels automaticelly.
       if (this.presetsEnabled) {
         addClass(this.btnPresetsEnabled, "button-active");
-        this.btnAllRules.disabled = this.presetsEnabled;
-        this.btnAllGrids.disabled = this.presetsEnabled;
-        addClass(this.btnAllRules, "button-disabled");
-        addClass(this.btnAllGrids, "button-disabled");
+        //this.btnAllRules.disabled = this.presetsEnabled;
+        //this.btnAllGrids.disabled = this.presetsEnabled;
+        // addClass(this.btnAllRules, "button-disabled");
+        //addClass(this.btnAllGrids, "button-disabled");
       } else {
         removeClass(this.btnPresetsEnabled, "button-active");
         this.btnAllRules.disabled = this.presetsEnabled;
@@ -8604,19 +8649,56 @@ exports.parseFieldData1 = (data) ->
 
     _toggleAllGrids() {
       this.allGridsEnabled = !this.allGridsEnabled;
-      this._updateUI();
+      if (this.presetsEnabled) {
+        this.allGridsEnabled = !this.allGridsEnabled;
+        this.presetsEnabled = !this.presetsEnabled;
+        removeClass(this.btnPresetsEnabled, "button-active");
+      }
+      this.btnAllRules.disabled = this.allGridsEnabled;
+      //this._updateUI();
+      if (this.allGridsEnabled) {
+        addClass(this.btnAllRules, "button-disabled");
+        removeClass(this.btnAllRules, "hover");
+        addClass(this.btnAllGrids, "button-active");
+        const presets = document.getElementById("preset-catalogue");
+        removeClass(presets, "hidden");
+      } else {
+        removeClass(this.btnAllRules, "button-disabled");
+        addClass(this.btnAllRules, "hover");
+        console.log(this.btnAllRules.classList);
+        removeClass(this.btnAllGrids, "button-active");
+        const presets = document.getElementById("preset-catalogue");
+        addClass(presets, "hidden");
+      }
+
       return this._generateFileList();
     }
 
     _toggleAllRules() {
       this.allRulesEnabled = !this.allRulesEnabled;
-      this._updateUI();
+      //this._updateUI();
+      if (this.allRulesEnabled) {
+        addClass(this.btnAllRules, "button-active");
+      } else {
+        removeClass(this.btnAllRules, "button-active");
+      }
       return this._generateFileList();
     }
 
     _togglePresets() {
       this.presetsEnabled = !this.presetsEnabled;
-      this._updateUI();
+      if (this.presetsEnabled) {
+        addClass(this.btnPresetsEnabled, "button-active");
+        removeClass(this.btnAllGrids, "button-active");
+      } else {
+        removeClass(this.btnPresetsEnabled, "button-active");
+        if (this.allGridsEnabled) {
+          addClass(this.btnAllGrids, "button-active");
+        }
+      }
+
+      //this.allGridsEnabled = !this.presetsEnabled;
+      //this._updateUI();
       return this._generateFileList();
     }
   };
@@ -9187,6 +9269,8 @@ exports.parseFieldData1 = (data) ->
         return this.selectAll(true);
       });
       dom
+        .tag("div")
+        .ID("files-table-container")
         .tag("table")
         .CLASS("files-table")
         .tag("thead")

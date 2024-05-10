@@ -2085,7 +2085,6 @@
   E("btn-guide").addEventListener("click", () => {
     // Toggle between guide mode and game mode
     E("btn-guide").classList.toggle("guide-mode");
-
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
       E("btn-guide").classList.add("button-active");
@@ -2098,6 +2097,29 @@
       E("disk-control").addEventListener("click", handleDiskControl);
       E("statusbar").addEventListener("click", handleSimulationData);
       E("navigator").addEventListener("click", handleClusterNavigation);
+      E("btn-db-save").classList.remove("hover");
+      E("btn-db-load").classList.remove("hover");
+      E("btn-mode-edit").classList.remove("hover");
+      E("btn-mode-pan").classList.remove("hover");
+      E("btn-nav-home").classList.remove("hover");
+      E("btn-export-svg").classList.remove("hover");
+      E("btn-set-grid").classList.remove("hover");
+      E("btn-set-rule").classList.remove("hover");
+      E("btn-reset").classList.remove("hover-svg");
+      E("btn-step").classList.remove("hover-svg");
+      E("variant-menu").classList.add("hover-dash");
+      E("save-load").classList.add("hover-dash");
+      E("tiling-dash").classList.add("hover-dash");
+      E("rules-dash").classList.add("hover-dash");
+      E("rsg").classList.add("hover-dash");
+      E("disk-control").classList.add("hover-dash");
+      E("statusbar-dash").classList.add("hover-dash");
+      E("navigator-dash").classList.add("hover-dash");
+      E("entry-p").readOnly = true;
+      E("entry-q").readOnly = true;
+      E("rule-entry").readOnly = true;
+      E("rule-entry-1").readOnly = true;
+      E("rule-entry-2").readOnly = true;
       makeUnselected();
     }
     // Hide all guide pop-ups, and disallow them
@@ -2112,6 +2134,29 @@
       E("disk-control").removeEventListener("click", handleDiskControl);
       E("statusbar").removeEventListener("click", handleSimulationData);
       E("navigator").removeEventListener("click", handleClusterNavigation);
+      E("btn-db-save").classList.add("hover");
+      E("btn-db-load").classList.add("hover");
+      E("btn-mode-edit").classList.add("hover");
+      E("btn-mode-pan").classList.add("hover");
+      E("btn-nav-home").classList.add("hover");
+      E("btn-export-svg").classList.add("hover");
+      E("btn-set-grid").classList.add("hover");
+      E("btn-set-rule").classList.add("hover");
+      E("btn-reset").classList.add("hover-svg");
+      E("btn-step").classList.add("hover-svg");
+      E("variant-menu").classList.remove("hover-dash");
+      E("save-load").classList.remove("hover-dash");
+      E("tiling-dash").classList.remove("hover-dash");
+      E("rules-dash").classList.remove("hover-dash");
+      E("rsg").classList.remove("hover-dash");
+      E("disk-control").classList.remove("hover-dash");
+      E("statusbar-dash").classList.remove("hover-dash");
+      E("navigator-dash").classList.remove("hover-dash");
+      E("entry-p").readOnly = false;
+      E("entry-q").readOnly = false;
+      E("rule-entry").readOnly = false;
+      E("rule-entry-1").readOnly = false;
+      E("rule-entry-2").readOnly = false;
       hideDash();
       hideUserGuide();
     }

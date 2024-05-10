@@ -25,10 +25,9 @@ div.popup-shadow {
 
 div.popup {
   position: relative; /*to make zindex work*/
-  height: 100%;
+  height: 86vh;
   width: 70%;
   margin: 2em auto 0 auto;
-  overflow: auto;
   background-color: #fceb9e;
   padding: 0 1em 1em 1em;
   border-radius: 0.5em;
@@ -39,8 +38,13 @@ div.popup {
   border-color: black;
 }
 .toolbar {
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.toolbar > span {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 #save-cancel {
   margin-left: 1em;
@@ -48,7 +52,8 @@ div.popup {
 
 #file-dialog-save-btn,
 #btn-files-save-cancel,
-#btn-files-cancel {
+#btn-files-cancel,
+#btn-svg-export-dialog-close {
   border-radius: 50px;
   font-family: "Dosis";
   font-weight: bold;
@@ -57,11 +62,14 @@ div.popup {
   border-style: solid;
   border-width: 2px;
   border-color: black;
-  margin-right: 10px;
 }
 #file-dialog-save-btn {
   background-color: #4364c7;
   color: white;
+}
+
+#file-dialog-save-btn:hover {
+  box-shadow: 0 0 5px 2px #4364c7;
 }
 
 #select-button {
@@ -84,12 +92,14 @@ div.popup {
   position: absolute;
 }
 #btn-files-save-cancel,
-#btn-files-cancel {
+#btn-files-cancel,
+#btn-svg-export-dialog-close {
   background-color: #d5ddf3;
   color: black;
 }
 
-#btn-files-cancel {
+#btn-files-cancel,
+#btn-files-save-cancel {
   margin-top: 16px;
 }
 .popup-container h1 {
@@ -104,6 +114,9 @@ div.popup {
   border-color: black;
   border-width: 2px;
   font-family: "Dosis";
+  width: 80%;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 ::placeholder {
@@ -111,7 +124,10 @@ div.popup {
 }
 
 .dialog-content {
-  margin: 1em 1em 1em 1em;
+  margin: 1em 1em 10px 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #toggle-presets,
@@ -143,6 +159,7 @@ div.popup {
   color: #c0c0c0;
   border-color: #c0c0c0;
 }
+
 /*Main layout*/
 
 #main {
@@ -222,16 +239,28 @@ div.popup {
 }
 
 #btn-guide:hover,
-#btn-db-save:hover,
-#btn-db-load:hover,
-#btn-mode-edit:hover,
-#btn-mode-pan:hover,
-#btn-nav-home:hover,
-#btn-export-svg:hover,
-#btn-set-grid:hover,
-#btn-set-rule:hover {
-  color: #ffffff;
-  background-color: #4364c7;
+#btn-svg-export-dialog-close:hover,
+#toggle-presets:hover,
+#toggle-all-grids:hover,
+#btn-files-save-cancel:hover,
+#btn-files-cancel:hover {
+  /*color: #ffffff;
+  background-color: #4364c7;*/
+  box-shadow: 0 0 5px 2px #4364c7;
+}
+
+#toggle-all-rules.hover:hover,
+#btn-db-save.hover:hover,
+#btn-db-load.hover:hover,
+#btn-mode-edit.hover:hover,
+#btn-mode-pan.hover:hover,
+#btn-nav-home.hover:hover,
+#btn-export-svg.hover:hover,
+#btn-set-grid.hover:hover,
+#btn-set-rule.hover:hover {
+  /*color: #ffffff;
+  background-color: #4364c7;*/
+  box-shadow: 0 0 5px 2px #4364c7;
 }
 
 #references {
@@ -357,6 +386,11 @@ div.overlay-toolbar {
   margin-left: 2px;
   margin-right: 2px;
 }
+
+#btn-guide {
+  z-index: 10;
+  position: relative;
+}
 #btn-db-save,
 #btn-db-load,
 #btn-export-svg,
@@ -412,12 +446,13 @@ div.overlay-toolbar {
   fill: black;
 }
 
-#btn-reset:hover,
-#btn-step:hover {
-  background-color: #4364c7;
+#btn-reset.hover-svg:hover,
+#btn-step.hover-svg:hover {
+  /*background-color: #4364c7;
   & svg {
     fill: white;
-  }
+  }*/
+  box-shadow: 0 0 5px 2px #4364c7;
 }
 
 #tiling,
@@ -450,6 +485,9 @@ div.overlay-toolbar {
   width: 100%;
 }
 
+#navigator-dash {
+  overflow: hidden;
+}
 .guide-title {
   font-size: 18px;
   font-weight: bolder;
@@ -493,6 +531,12 @@ div.overlay-toolbar {
   border-color: red;
   border-width: 3px;
 }
+
+.hover-dash:hover {
+  border-style: solid;
+  border-color: red;
+  border-width: 3px;
+}
 #variant-menu-guide,
 #tiling-guide,
 #save-load-guide,
@@ -518,12 +562,11 @@ div.overlay-toolbar {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  margin-bottom: 5px;
-  max-height: 90%;
+  margin-bottom: 10px;
+  max-height: 85%;
   overflow-y: auto;
-  -overflow-x: visible;
-  scrollbar-color: #4364c7 #d5ddf3;
-  scrollbar-width: none;
+  scrollbar-color: #fcfacd #fceb9e;
+  scrollbar-width: thin;
 }
 
 #rule-variants {
@@ -671,8 +714,12 @@ div.overlay-toolbar {
   display: flex;
   width: clamp(240px, 32vw, 520px);
 }
-#file-dialog-files {
-  overflow: auto;
+
+#files-table-container {
+  max-height: 60%;
+  overflow-y: auto;
+  scrollbar-color: #fcfacd #fceb9e;
+  scrollbar-width: thin;
 }
 .hidden {
   display: none;
@@ -688,6 +735,7 @@ table.files-table {
   margin-right: auto;
   width: 100%;
   border-collapse: collapse;
+  overflow: auto;
 }
 
 table.files-table th {
@@ -729,6 +777,7 @@ tr.files-func-row td {
 }
 #svg-image-container img {
   border: solid 1px silver;
+  height: 65vh;
 }
 
 /* Tweak controls */
@@ -815,6 +864,15 @@ button:active {
   background-color: #4364c7;
 }
 
+#btn-guide.button-active:hover {
+  box-shadow: 0 0 5px 2px #4364c7;
+}
+
+#btn-play-start:hover,
+#btn-play-stop:hover {
+  box-shadow: 0 0 5px 2px #4364c7;
+}
+
 button.dangerous:hover {
   background-color: #e0c0c0;
 }
@@ -853,9 +911,6 @@ input.wide {
   width: 100%;
 }
 
-#navigator-wrap {
-  max-height: 100%;
-}
 #navigator table {
   border-collapse: collapse;
   margin: 0 auto;
@@ -864,7 +919,7 @@ input.wide {
 }
 /* Navigator styles */
 #navigator tr:hover {
-  background-color: silver;
+  background-color: #fcfacd;
 }
 #navigator td {
   text-align: center;

@@ -182,10 +182,10 @@
       //WHen all grids are enabled, enable all ruels automaticelly.
       if (this.presetsEnabled) {
         addClass(this.btnPresetsEnabled, "button-active");
-        this.btnAllRules.disabled = this.presetsEnabled;
-        this.btnAllGrids.disabled = this.presetsEnabled;
-        addClass(this.btnAllRules, "button-disabled");
-        addClass(this.btnAllGrids, "button-disabled");
+        //this.btnAllRules.disabled = this.presetsEnabled;
+        //this.btnAllGrids.disabled = this.presetsEnabled;
+        // addClass(this.btnAllRules, "button-disabled");
+        //addClass(this.btnAllGrids, "button-disabled");
       } else {
         removeClass(this.btnPresetsEnabled, "button-active");
         this.btnAllRules.disabled = this.presetsEnabled;
@@ -208,19 +208,56 @@
 
     _toggleAllGrids() {
       this.allGridsEnabled = !this.allGridsEnabled;
-      this._updateUI();
+      if (this.presetsEnabled) {
+        this.allGridsEnabled = !this.allGridsEnabled;
+        this.presetsEnabled = !this.presetsEnabled;
+        removeClass(this.btnPresetsEnabled, "button-active");
+      }
+      this.btnAllRules.disabled = this.allGridsEnabled;
+      //this._updateUI();
+      if (this.allGridsEnabled) {
+        addClass(this.btnAllRules, "button-disabled");
+        removeClass(this.btnAllRules, "hover");
+        addClass(this.btnAllGrids, "button-active");
+        const presets = document.getElementById("preset-catalogue");
+        removeClass(presets, "hidden");
+      } else {
+        removeClass(this.btnAllRules, "button-disabled");
+        addClass(this.btnAllRules, "hover");
+        console.log(this.btnAllRules.classList);
+        removeClass(this.btnAllGrids, "button-active");
+        const presets = document.getElementById("preset-catalogue");
+        addClass(presets, "hidden");
+      }
+
       return this._generateFileList();
     }
 
     _toggleAllRules() {
       this.allRulesEnabled = !this.allRulesEnabled;
-      this._updateUI();
+      //this._updateUI();
+      if (this.allRulesEnabled) {
+        addClass(this.btnAllRules, "button-active");
+      } else {
+        removeClass(this.btnAllRules, "button-active");
+      }
       return this._generateFileList();
     }
 
     _togglePresets() {
       this.presetsEnabled = !this.presetsEnabled;
-      this._updateUI();
+      if (this.presetsEnabled) {
+        addClass(this.btnPresetsEnabled, "button-active");
+        removeClass(this.btnAllGrids, "button-active");
+      } else {
+        removeClass(this.btnPresetsEnabled, "button-active");
+        if (this.allGridsEnabled) {
+          addClass(this.btnAllGrids, "button-active");
+        }
+      }
+
+      //this.allGridsEnabled = !this.presetsEnabled;
+      //this._updateUI();
       return this._generateFileList();
     }
   };
@@ -791,6 +828,8 @@
         return this.selectAll(true);
       });
       dom
+        .tag("div")
+        .ID("files-table-container")
         .tag("table")
         .CLASS("files-table")
         .tag("thead")
