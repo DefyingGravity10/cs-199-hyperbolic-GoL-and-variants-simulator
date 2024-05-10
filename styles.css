@@ -317,6 +317,10 @@ div.popup {
   display: table-cell;
 }
 
+.add-emp {
+  font-weight: 600;
+}
+
 /*To position floating toolbars*/
 #floating-wrapper {
   position: relative;
@@ -503,6 +507,7 @@ div.overlay-toolbar {
 #statusbar-guide,
 #navigator-guide {
   position: absolute;
+  text-align: center;
   background-color: #d5ddf3;
   border-radius: 20px;
   border: solid 2px black;
