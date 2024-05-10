@@ -53,14 +53,18 @@
         </div>
         <div id="variant-name">Conway's Game of Life</div>
       </div>
-      <div id="variant-menu-guide" class="hidden">
-        <div class="guide-title">Variant Menu</div>
-        <div class="guide-content">Conway</div>
-        <div class="close-guide" id="close-variant-menu-guide">Close</div>
-      </div>
       <div id="references">
         <button id="btn-guide">User Guide</button>
       </div>
+    </div>
+    <div id="variant-menu-guide" class="hidden">
+      <div class="guide-title">Variant Menu</div>
+      <div class="guide-content">
+        Choose to either play <span class="add-emp">Conway's Game of Life</span> or its variants,
+        the <span class="add-emp">Immigration Game</span> or the
+        <span class="add-emp">Rainbow Game of Life</span>.
+      </div>
+      <div class="close-guide" id="close-variant-menu-guide">Close</div>
     </div>
 
     <div id="main">
@@ -103,10 +107,12 @@
             <div class="guide-content">
               Change the entries in the boxes to set the tiling {p,q} for the Poincaré Disk.
               <br /><br />
-              Note that: <br />
-              <span style="font-weight: bold">p</span> = the number of sides of the polygons <br />
-              <span style="font-weight: bold">q</span> = the number of polygons that meet at a
-              vertex.
+              In this context: <br />
+              <span class="add-emp">p</span> = the number of sides of the polygons <br />
+              <span class="add-emp">q</span> = the number of polygons that meet at a vertex
+              <br /><br />
+              Note that Changing the values of p and q may affect the number of
+              <span class="add-emp">neighbors</span> that cell has.
             </div>
             <div class="close-guide" id="close-tiling">Close</div>
           </div>
@@ -156,8 +162,22 @@
           <div id="rules-guide" class="hidden">
             <div class="guide-title">Rule Control</div>
             <div class="guide-content">
-              Choose the way rules are selected and how cells will be updated each after each
-              generation and to choose the rule/s themselves.
+              This panel allows you to choose the <span class="add-emp">Rule Selection</span> and
+              <span class="add-emp">Updating Policy</span> that the simulator will follow.
+              <br /><br />
+              For the Rule Selection, we have two options:<br />
+              <span class="add-emp">Static</span> = Only one rule is used for the entire run <br />
+              <span class="add-emp">Dynamic</span> = The rule selected for each generation cycles
+              between three rules <br /><br />
+              For the Updating Policy, we also two options:<br />
+              <span class="add-emp">Synchronous</span> = All cells update simulataneously every
+              generation
+              <br />
+              <span class="add-emp">Asynchronous</span> = Each cell updates independently with a
+              probability of 0.5 (50%) <br /><br />
+
+              The rule (or rules) itself can be configured by editing the
+              <span class="add-emp">rulestring</span> in the input box.
             </div>
             <div class="close-guide" id="close-rules">Close</div>
           </div>
@@ -165,8 +185,11 @@
           <div id="save-load-guide" class="hidden">
             <div class="guide-title">Saving and Loading Patterns</div>
             <div class="guide-content">
-              Save and access your generated patterns in a local database, and export the current
-              state of the Poincaré Disk as an SVG file.
+              Save and access patterns in a local database, and export the current state of the
+              Poincaré Disk as an SVG file. <br /><br />
+
+              Please note that the saved patterns as well as a set of presets may be accessible when
+              you press the <span class="add-emp">Open</span> button.
             </div>
             <div class="close-guide" id="close-save-load">Close</div>
           </div>
@@ -424,12 +447,12 @@
           <div id="simulation-control-guide" class="hidden">
             <div class="guide-title">Simulator Control</div>
             <div class="guide-content">
-              Change the entries in the boxes to set the tiling {p,q} for the Poincaré Disk.
-              <br /><br />
-              Note that: <br />
-              <span style="font-weight: bold">p</span> = the number of sides of the polygons <br />
-              <span style="font-weight: bold">q</span> = the number of polygons that meet at a
-              vertex.
+              This set of buttons can be used to control the simulator itself. You can opt to
+              <span class="add-emp">reset</span>, <span class="add-emp">play</span> (continuously or
+              by step), or <span class="add-emp">pause</span> the simulation, and
+              <span class="add-emp">change the speed of evolution</span>. Note that playback speed
+              will only take effect after replaying the simulator. That is, you would have to pause
+              and play the simulator, or only move by one timestep.
             </div>
             <div class="close-guide" id="close-simulation-control">Close</div>
           </div>
@@ -457,12 +480,9 @@
           <div id="disk-control-guide" class="hidden">
             <div class="guide-title">Disk Control</div>
             <div class="guide-content">
-              Change the entries in the boxes to set the tiling {p,q} for the Poincaré Disk.
-              <br /><br />
-              Note that: <br />
-              <span style="font-weight: bold">p</span> = the number of sides of the polygons <br />
-              <span style="font-weight: bold">q</span> = the number of polygons that meet at a
-              vertex.
+              This set of buttons allows you to <span class="add-emp">edit</span> the state of the
+              cells, <span class="add-emp">pan</span> the Poincaré disk, and recenter the disk at
+              the <span class="add-emp">origin</span>.
             </div>
             <div class="close-guide" id="close-disk-control">Close</div>
           </div>
@@ -486,7 +506,10 @@
           </div>
           <div id="statusbar-guide" class="hidden">
             <div class="guide-title">Simulation Data</div>
-            <div class="guide-content">HI</div>
+            <div class="guide-content">
+              This section displays the number of neighbors of each cell, the current number of live
+              cells, and how many generations have elapsed.
+            </div>
             <div class="close-guide" id="close-statusbar-guide">Close</div>
           </div>
           <div id="navigator-dash">
@@ -503,7 +526,17 @@
 
           <div id="navigator-guide" class="hidden">
             <div class="guide-title">Cluster Navigation</div>
-            <div class="guide-content">Navigation</div>
+            <div class="guide-content">
+              This portion displays the cell clusters present on the Poincaré disk. Each cluster is
+              represented by two properties. In here,
+              <span class="add-emp">Cluster No.</span> serves as an ID to differentiate between
+              clusters, while <span class="add-emp">No. of Cells</span> represents the number of
+              live cells present in a cluster. <br /><br />
+
+              You may select a cell cluster to center the Poincaré disk on it. This feature may be
+              useful if you wish to observe a specific group of cells that may be far off from the
+              center.
+            </div>
             <div class="close-guide" id="close-navigator-guide">Close</div>
           </div>
         </div>
