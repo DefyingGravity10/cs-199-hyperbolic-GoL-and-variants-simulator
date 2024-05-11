@@ -7546,57 +7546,43 @@ exports.parseFieldData1 = (data) ->
   // Hiding all the pop-ups
 
   const hideDash = function () {
-    let elm = document.getElementById("variant-menu");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("tiling-dash");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("save-load");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("rules-dash");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("rsg");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("disk-control");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("statusbar-dash");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
-    elm = document.getElementById("navigator-dash");
-    elm.classList.remove("unselected");
-    elm.classList.remove("selected");
+    E("variant-menu").classList.remove("unselected");
+    E("variant-menu").classList.remove("selected");
+    E("tiling-dash").classList.remove("unselected");
+    E("tiling-dash").classList.remove("selected");
+    E("save-load").classList.remove("unselected");
+    E("save-load").classList.remove("selected");
+    E("rules-dash").classList.remove("unselected");
+    E("rules-dash").classList.remove("selected");
+    E("rsg").classList.remove("unselected");
+    E("rsg").classList.remove("selected");
+    E("disk-control").classList.remove("unselected");
+    E("disk-control").classList.remove("selected");
+    E("statusbar-dash").classList.remove("unselected");
+    E("statusbar-dash").classList.remove("selected");
+    E("navigator-dash").classList.remove("unselected");
+    E("navigator-dash").classList.remove("selected");
+    E("btn-examples").classList.remove("button-active");
   };
 
   const makeUnselected = function () {
-    let elm = document.getElementById("variant-menu");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("tiling-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("save-load");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("rules-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("rsg");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("disk-control");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("statusbar-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
-    elm = document.getElementById("navigator-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("variant-menu").classList.remove("selected");
+    E("variant-menu").classList.add("unselected");
+    E("tiling-dash").classList.remove("selected");
+    E("tiling-dash").classList.add("unselected");
+    E("save-load").classList.remove("selected");
+    E("save-load").classList.add("unselected");
+    E("rules-dash").classList.remove("selected");
+    E("rules-dash").classList.add("unselected");
+    E("rsg").classList.remove("selected");
+    E("rsg").classList.add("unselected");
+    E("disk-control").classList.remove("selected");
+    E("disk-control").classList.add("unselected");
+    E("statusbar-dash").classList.remove("selected");
+    E("statusbar-dash").classList.add("unselected");
+    E("navigator-dash").classList.remove("selected");
+    E("navigator-dash").classList.add("unselected");
+    E("btn-examples").classList.remove("button-active");
   };
   const hideUserGuide = function () {
     E("variant-menu-guide").classList.add("hidden");
@@ -7608,7 +7594,30 @@ exports.parseFieldData1 = (data) ->
     E("disk-control-guide").classList.add("hidden");
     E("statusbar-guide").classList.add("hidden");
     E("navigator-guide").classList.add("hidden");
+    E("examples-guide").classList.add("hidden");
+    E("guide-intro").classList.add("hidden");
   };
+  //Examples
+
+  const handleExamples = function () {
+    if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("examples-guide").classList.add("hidden");
+      E("btn-examples").classList.remove("button-active");
+    } else {
+      hideUserGuide();
+      E("examples-guide").classList.remove("hidden");
+      E("examples-guide").classList.add("dim");
+      makeUnselected();
+      E("btn-examples").classList.add("button-active");
+    }
+  };
+
+  E("close-examples").addEventListener("click", () => {
+    E("examples-guide").classList.add("hidden");
+    E("examples-guide").classList.remove("dim");
+    E("btn-examples").classList.remove("button-active");
+    E("guide-intro").classList.remove("hidden");
+  });
 
   // Variant Menu
   const handleVariantMenu = function () {
@@ -7619,17 +7628,16 @@ exports.parseFieldData1 = (data) ->
       E("variant-menu-guide").classList.remove("hidden");
       E("variant-menu-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("variant-menu");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("variant-menu").classList.remove("unselected");
+      E("variant-menu").classList.add("selected");
     }
   };
   E("close-variant-menu-guide").addEventListener("click", () => {
     E("variant-menu-guide").classList.add("hidden");
     E("variant-menu-guide").classList.remove("dim");
-    let elm = document.getElementById("variant-menu");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("variant-menu").classList.remove("selected");
+    E("variant-menu").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Tiling
@@ -7641,17 +7649,16 @@ exports.parseFieldData1 = (data) ->
       E("tiling-guide").classList.remove("hidden");
       E("tiling-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("tiling-dash");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("tiling-dash").classList.remove("unselected");
+      E("tiling-dash").classList.add("selected");
     }
   };
   E("close-tiling").addEventListener("click", () => {
     E("tiling-guide").classList.add("hidden");
     E("tiling-guide").classList.remove("dim");
-    let elm = document.getElementById("tiling-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("tiling-dash").classList.remove("selected");
+    E("tiling-dash").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Save or load locally or export as SVG
@@ -7663,17 +7670,16 @@ exports.parseFieldData1 = (data) ->
       E("save-load-guide").classList.remove("hidden");
       E("save-load-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("save-load");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("save-load").classList.remove("unselected");
+      E("save-load").classList.add("selected");
     }
   };
   E("close-save-load").addEventListener("click", () => {
     E("save-load-guide").classList.add("hidden");
     E("save-load-guide").classList.remove("dim");
-    let elm = document.getElementById("save-load");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("save-load").classList.remove("selected");
+    E("save-load").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Poincare Disk
@@ -7698,17 +7704,16 @@ exports.parseFieldData1 = (data) ->
       E("rules-guide").classList.remove("hidden");
       E("rules-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("rules-dash");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("rules-dash").classList.remove("unselected");
+      E("rules-dash").classList.add("selected");
     }
   };
   E("close-rules").addEventListener("click", () => {
     E("rules-guide").classList.add("hidden");
     E("rules-guide").classList.remove("dim");
-    let elm = document.getElementById("rules-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("rules-dash").classList.remove("selected");
+    E("rules-dash").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Simulation control (rsg)
@@ -7720,17 +7725,16 @@ exports.parseFieldData1 = (data) ->
       E("simulation-control-guide").classList.remove("hidden");
       E("simulation-control-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("rsg");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("rsg").classList.remove("unselected");
+      E("rsg").classList.add("selected");
     }
   };
   E("close-simulation-control").addEventListener("click", () => {
     E("simulation-control-guide").classList.add("hidden");
     E("simulation-control-guide").classList.remove("dim");
-    let elm = document.getElementById("rsg");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("rsg").classList.remove("selected");
+    E("rsg").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Disk control (rsg)
@@ -7742,17 +7746,16 @@ exports.parseFieldData1 = (data) ->
       E("disk-control-guide").classList.remove("hidden");
       E("disk-control-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("disk-control");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("disk-control").classList.remove("unselected");
+      E("disk-control").classList.add("selected");
     }
   };
   E("close-disk-control").addEventListener("click", () => {
     E("disk-control-guide").classList.add("hidden");
     E("disk-control-guide").classList.remove("dim");
-    let elm = document.getElementById("disk-control");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("disk-control").classList.remove("selected");
+    E("disk-control").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Simulator Data
@@ -7764,17 +7767,16 @@ exports.parseFieldData1 = (data) ->
       E("statusbar-guide").classList.remove("hidden");
       E("statusbar-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("statusbar-dash");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("statusbar-dash").classList.remove("unselected");
+      E("statusbar-dash").classList.add("selected");
     }
   };
   E("close-statusbar-guide").addEventListener("click", () => {
     E("statusbar-guide").classList.add("hidden");
     E("statusbar-guide").classList.remove("dim");
-    let elm = document.getElementById("statusbar-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("statusbar-dash").classList.remove("selected");
+    E("statusbar-dash").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   // Navigator
@@ -7786,17 +7788,16 @@ exports.parseFieldData1 = (data) ->
       E("navigator-guide").classList.remove("hidden");
       E("navigator-guide").classList.add("dim");
       makeUnselected();
-      let elm = document.getElementById("navigator-dash");
-      elm.classList.remove("unselected");
-      elm.classList.add("selected");
+      E("navigator-dash").classList.remove("unselected");
+      E("navigator-dash").classList.add("selected");
     }
   };
   E("close-navigator-guide").addEventListener("click", () => {
     E("navigator-guide").classList.add("hidden");
     E("navigator-guide").classList.remove("dim");
-    let elm = document.getElementById("navigator-dash");
-    elm.classList.remove("selected");
-    elm.classList.add("unselected");
+    E("navigator-dash").classList.remove("selected");
+    E("navigator-dash").classList.add("unselected");
+    E("guide-intro").classList.remove("hidden");
   });
 
   E("btn-guide").addEventListener("click", () => {
@@ -7805,6 +7806,10 @@ exports.parseFieldData1 = (data) ->
     // Allow pop-ups to appear
     if (E("btn-guide").classList.contains("guide-mode")) {
       E("btn-guide").classList.add("button-active");
+      E("btn-examples").classList.remove("hidden");
+      E("guide-intro").classList.remove("hidden");
+      E("guide-intro").classList.add("dim");
+      E("btn-examples").addEventListener("click", handleExamples);
       E("variant-menu").addEventListener("click", handleVariantMenu);
       E("tiling").addEventListener("click", handleTilingGuide);
       E("save-load").addEventListener("click", handleSaveLoad);
@@ -7824,6 +7829,8 @@ exports.parseFieldData1 = (data) ->
       E("btn-set-rule").classList.remove("hover");
       E("btn-reset").classList.remove("hover-svg");
       E("btn-step").classList.remove("hover-svg");
+      E("btn-play-start").classList.remove("hover-svg");
+      E("btn-play-stop").classList.remove("hover-svg");
       E("variant-menu").classList.add("hover-dash");
       E("save-load").classList.add("hover-dash");
       E("tiling-dash").classList.add("hover-dash");
@@ -7842,6 +7849,10 @@ exports.parseFieldData1 = (data) ->
     // Hide all guide pop-ups, and disallow them
     else {
       E("btn-guide").classList.remove("button-active");
+      E("btn-examples").classList.add("hidden");
+      E("guide-intro").classList.add("hidden");
+      E("guide-intro").classList.remove("dim");
+      E("btn-examples").removeEventListener("click", handleExamples);
       E("variant-menu").removeEventListener("click", handleVariantMenu);
       E("tiling").removeEventListener("click", handleTilingGuide);
       E("save-load").removeEventListener("click", handleSaveLoad);
@@ -7861,6 +7872,8 @@ exports.parseFieldData1 = (data) ->
       E("btn-set-rule").classList.add("hover");
       E("btn-reset").classList.add("hover-svg");
       E("btn-step").classList.add("hover-svg");
+      E("btn-play-start").classList.add("hover-svg");
+      E("btn-play-stop").classList.add("hover-svg");
       E("variant-menu").classList.remove("hover-dash");
       E("save-load").classList.remove("hover-dash");
       E("tiling-dash").classList.remove("hover-dash");

@@ -54,15 +54,53 @@
         <div id="variant-name">Conway's Game of Life</div>
       </div>
       <div id="references">
+        <button id="btn-examples" class="hidden">Sample Simulations</button>
         <button id="btn-guide">User Guide</button>
       </div>
+    </div>
+    <div id="guide-intro" class="hidden">
+      <div class="guide-title">Welcome to the User Guide!</div>
+      <div class="guide-content">
+        Select the areas contained in <span class="add-emp">dashed lines</span> to understand how
+        each component works. Alternatively, select
+        <span class="add-emp">Sample Simulations</span> button to view examples of how the Game of
+        Life and its variants are played. <br /><br />
+
+        To return to the simulator, click on the <span class="add-emp">User Guide</span> button to
+        switch off User Guide Mode.
+      </div>
+    </div>
+    <div id="examples-guide" class="hidden">
+      <div class="guide-title">Sample Simulations</div>
+      <div class="guide-content"></div>
+      <div class="close-guide" id="close-examples">Close</div>
     </div>
     <div id="variant-menu-guide" class="hidden">
       <div class="guide-title">Variant Menu</div>
       <div class="guide-content">
-        Choose to either play <span class="add-emp">Conway's Game of Life</span> or its variants,
-        the <span class="add-emp">Immigration Game</span> or the
-        <span class="add-emp">Rainbow Game of Life</span>.
+        Choose to either play Conway's Game of Life or its variants.
+        <p>
+          <span class="add-emp">Conway's Game of Life</span> <br />Each cell has two states: a dead
+          state (uncolored) and a live state (black). Cells evolve following only Birthability and
+          Survivability rules.
+        </p>
+        <p>
+          <span class="add-emp">Immigration Game</span> <br />Each cell has three states: a dead
+          state (uncolored) and two live states (red and blue). Cells evolve following Birthability
+          and Survivability rules and an extra coloring rule where a dead cell that is birthed takes
+          on the color of the majority of its live neighbors.
+        </p>
+        <p>
+          <span class="add-emp">Rainbow Game of Life</span> <br />Each cell has eleven states: a
+          dead state (uncolored) and ten live states (refer to greyscale chart). Cells evolve
+          following Birthability and Survivability rules and an extra coloring rule where a dead
+          cell that is birthed takes on the color corresponding to the ceiling of the arithmetic
+          mean of the colors of its live neighbors.
+        </p>
+        <div class="img-container" id="greyscale">
+          <img src="/media/greyscale.jpg" alt="Greyscale Chart" />
+          <div class="caption">Greyscale Chart</div>
+        </div>
       </div>
       <div class="close-guide" id="close-variant-menu-guide">Close</div>
     </div>
@@ -105,14 +143,15 @@
           <div id="tiling-guide" class="hidden">
             <div class="guide-title">Tiling Control</div>
             <div class="guide-content">
-              Change the entries in the boxes to set the tiling {p,q} for the Poincaré Disk.
+              Change the entries in the input boxes to set the tiling {p,q} for the Poincaré Disk.
               <br /><br />
               In this context: <br />
               <span class="add-emp">p</span> = the number of sides of the polygons <br />
               <span class="add-emp">q</span> = the number of polygons that meet at a vertex
               <br /><br />
-              Note that changing the values of p and q may affect the number of
-              <span class="add-emp">neighbors</span> that cell has.
+              Note that changing the values of p and q affects the number of
+              <span class="add-emp">neighbors</span> that cell has. The number of neighbors can be
+              found in the Simulation Data.
             </div>
             <div class="close-guide" id="close-tiling">Close</div>
           </div>
@@ -162,22 +201,36 @@
           <div id="rules-guide" class="hidden">
             <div class="guide-title">Rule Control</div>
             <div class="guide-content">
-              This panel allows you to choose the <span class="add-emp">Rule Selection</span> and
-              <span class="add-emp">Updating Policy</span> that the simulator will follow.
+              Choose the Rule Selection and Updating policies that the simulator will follow.
               <br /><br />
-              For the Rule Selection, we have two options:<br />
-              <span class="add-emp">Static</span> = Only one rule is used for the entire run <br />
-              <span class="add-emp">Dynamic</span> = The rule selected for each generation cycles
-              between three rules <br /><br />
-              For the Updating Policy, we also two options:<br />
-              <span class="add-emp">Synchronous</span> = All cells update simulataneously every
-              generation
-              <br />
-              <span class="add-emp">Asynchronous</span> = Each cell updates independently with a
-              probability of 0.5 (50%) <br /><br />
+              <span class="add-emp">Rule Selection</span> dictates which rule is chosen per
+              generation. For the Rule Selection Policy, we have two options:<br />
+              <ol>
+                <li>
+                  <span class="add-emp">Static</span> = Only one rule is used for the entire run
+                </li>
+                <li>
+                  <span class="add-emp">Dynamic</span> = The rule selected for each generation
+                  cycles between three rules
+                </li>
+              </ol>
 
-              The rule (or rules) itself can be configured by editing the
-              <span class="add-emp">rulestring</span> in the input box.
+              <span class="add-emp">Updating</span> dictates how cells are updated each generation.
+              For the Updating Policy, we also two options:<br />
+
+              <ol>
+                <li>
+                  <span class="add-emp">Synchronous</span> = All cells update simulataneously every
+                  generation
+                </li>
+
+                <li>
+                  <span class="add-emp">Asynchronous</span> = Each cell updates independently with a
+                  probability of 0.5 (50%)
+                </li>
+              </ol>
+              The rule/s can be configured by editing the
+              <span class="add-emp">rulestring/s</span> in the input box/es.
             </div>
             <div class="close-guide" id="close-rules">Close</div>
           </div>
@@ -447,12 +500,20 @@
           <div id="simulation-control-guide" class="hidden">
             <div class="guide-title">Simulator Control</div>
             <div class="guide-content">
-              This set of buttons can be used to control the simulator itself. You can opt to
-              <span class="add-emp">reset</span>, <span class="add-emp">play</span> (continuously or
-              by step), or <span class="add-emp">pause</span> the simulation, and
-              <span class="add-emp">change the speed of evolution</span>. Note that playback speed
-              will only take effect after replaying the simulator. That is, you would have to pause
-              and play the simulator, or only move by one timestep.
+              This set of buttons can be used to control the simulator itself. The following are the
+              component functionalities in order:
+              <ol>
+                <li><span class="add-emp">reset</span> the simulator</li>
+                <li>
+                  <span class="add-emp">play</span> the simulation continuously or
+                  <span class="add-emp">pause</span> the simulation
+                </li>
+                <li>move through the simulation by <span class="add-emp">step</span></li>
+                <li>change the <span class="add-emp">speed</span> of the simulation</li>
+              </ol>
+              Note that changes to the playback speed during a continous simulation will only take
+              effect after replaying the simulator. That is, you would first have to pause the
+              simulator then play it again to reflect the new speed.
             </div>
             <div class="close-guide" id="close-simulation-control">Close</div>
           </div>
@@ -480,9 +541,19 @@
           <div id="disk-control-guide" class="hidden">
             <div class="guide-title">Disk Control</div>
             <div class="guide-content">
-              This set of buttons allows you to <span class="add-emp">edit</span> the state of the
-              cells, <span class="add-emp">pan</span> the Poincaré disk, and recenter the disk at
-              the <span class="add-emp">origin</span>.
+              The following are the button functionalities in order:
+              <ol>
+                <li><span class="add-emp">edit</span> the state of the cells</li>
+                <li><span class="add-emp">pan</span> the Poincaré disk</li>
+                <li>recenter the disk at the <span class="add-emp">origin</span></li>
+              </ol>
+
+              Note that the variants of the Game of Life have additional states. The Immigration
+              Game allows users to edit the state of a cell to follow the coloring of any (red or
+              blue) of its two live states. However, the Rainbow Game of Life allows users to edit
+              the state of a cell to follow the coloring of only two (black or white) of its ten
+              live states. The other eight live states can be viewed only during the simulation
+              proper.
             </div>
             <div class="close-guide" id="close-disk-control">Close</div>
           </div>
@@ -507,8 +578,10 @@
           <div id="statusbar-guide" class="hidden">
             <div class="guide-title">Simulation Data</div>
             <div class="guide-content">
-              This section displays the number of neighbors of each cell, the current number of live
-              cells, and how many generations have elapsed.
+              This section displays the number of <span class="add-emp">neighbors</span> of each
+              cell (based on the tiling), the current number of live cells in the
+              <span class="add-emp">population</span>, and how many
+              <span class="add-emp">generations</span> or timesteps have elapsed.
             </div>
             <div class="close-guide" id="close-statusbar-guide">Close</div>
           </div>
@@ -528,14 +601,20 @@
             <div class="guide-title">Cluster Navigation</div>
             <div class="guide-content">
               This portion displays the cell clusters present on the Poincaré disk. Each cluster is
-              represented by two properties. In here,
-              <span class="add-emp">Cluster No.</span> serves as an ID to differentiate between
-              clusters, while <span class="add-emp">No. of Cells</span> represents the number of
-              live cells present in a cluster. <br /><br />
+              represented by two properties:
+              <ol>
+                <li>
+                  <span class="add-emp">Cluster No.</span> = an ID to differentiate it from other
+                  clusters
+                </li>
+                <li>
+                  <span class="add-emp">No. of Cells</span> = the number of live cells present in
+                  the cluster
+                </li>
+              </ol>
 
-              You may select a cell cluster to center the Poincaré disk on it. This feature may be
-              useful if you wish to observe a specific group of cells that may be far off from the
-              center.
+              To observe a specific specific group of cells, select a cell cluster to center the
+              simulator on it.
             </div>
             <div class="close-guide" id="close-navigator-guide">Close</div>
           </div>

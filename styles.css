@@ -243,7 +243,8 @@ div.popup {
 #toggle-presets:hover,
 #toggle-all-grids:hover,
 #btn-files-save-cancel:hover,
-#btn-files-cancel:hover {
+#btn-files-cancel:hover,
+#btn-examples:hover {
   /*color: #ffffff;
   background-color: #4364c7;*/
   box-shadow: 0 0 5px 2px #4364c7;
@@ -350,6 +351,16 @@ div.popup {
   font-weight: 600;
 }
 
+.caption {
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+ol {
+  padding-inline-start: 15px;
+}
 /*To position floating toolbars*/
 #floating-wrapper {
   position: relative;
@@ -377,7 +388,8 @@ div.overlay-toolbar {
 #btn-mode-edit,
 #btn-mode-pan,
 #btn-nav-home,
-#btn-guide {
+#btn-guide,
+#btn-examples {
   border-radius: 50px;
   background-color: #d5ddf3;
   font-family: "Dosis";
@@ -391,7 +403,8 @@ div.overlay-toolbar {
   margin-right: 2px;
 }
 
-#btn-guide {
+#btn-guide,
+#btn-examples {
   z-index: 10;
   position: relative;
 }
@@ -541,6 +554,9 @@ div.overlay-toolbar {
   border-color: red;
   border-width: 3px;
 }
+
+#guide-intro,
+#examples-guide,
 #variant-menu-guide,
 #tiling-guide,
 #save-load-guide,
@@ -864,17 +880,19 @@ button:active {
 
 #btn-mode-edit.button-active,
 #btn-mode-pan.button-active,
-#btn-guide.button-active {
+#btn-guide.button-active,
+#btn-examples.button-active {
   color: #ffffff;
   background-color: #4364c7;
 }
 
-#btn-guide.button-active:hover {
+#btn-guide.button-active:hover,
+#btn-examples.button-active:hover {
   box-shadow: 0 0 5px 2px #4364c7;
 }
 
-#btn-play-start:hover,
-#btn-play-stop:hover {
+#btn-play-start.hover-svg:hover,
+#btn-play-stop.hover-svg:hover {
   box-shadow: 0 0 5px 2px #4364c7;
 }
 
@@ -956,6 +974,16 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/*Images*/
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#greyscale img {
+  height: 8vh;
 }
 
 /*Media queries*/
