@@ -792,7 +792,8 @@
           currentVariant.getCurrentRuleSelection() === "dynamic" ? "" + this.ruleList[2] : "N/A",
         field: null,
         generation: this.generation,
-        entryType: "entry"
+        entryType: "entry",
+        presetType: null
       };
       return [fieldData, catalogRecord];
     }

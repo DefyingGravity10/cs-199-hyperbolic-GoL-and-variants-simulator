@@ -99,7 +99,9 @@
         "time",
         "coloredVariant",
         "updatePolicy",
-        "ruleSelectionVariant"
+        "ruleSelectionVariant",
+        "entryType",
+        "presetType"
       ],
       {
         unique: false
@@ -390,7 +392,7 @@
         this.db = e.target.result;
         console.log("Success");
         // Check if presets are available
-        let transaction = this.db.transaction(["catalog"], "readonly");
+        let transaction = this.db.transaction(["catalog"], "readwrite");
         let objectStore = transaction.objectStore("catalog");
         var cursorRequest = objectStore.openCursor();
         var count = 0;
@@ -400,6 +402,7 @@
             // Check if the column value matches the specific value
             if (cursor.value.entryType === "preset") {
               count++;
+              // objectStore.delete(cursor.primaryKey);
             }
             cursor.continue();
           } else {
@@ -449,7 +452,8 @@
                   gridM: 4,
                   name: "Light bulb {5, 4}",
                   funcId: "B 4 S 1 4",
-                  ruleEntry0: "B 4 S 1 4"
+                  ruleEntry0: "B 4 S 1 4",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 7,
@@ -457,14 +461,16 @@
                   name: "Light bulb {7, 4}",
                   funcId: "B 4 S 1 4",
                   funcType: "binary",
-                  ruleEntry0: "B 4 S 1 4"
+                  ruleEntry0: "B 4 S 1 4",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 9,
                   gridM: 4,
                   name: "Light bulb {9, 4}",
                   funcId: "B 4 S 1 4",
-                  ruleEntry0: "B 4 S 1 4"
+                  ruleEntry0: "B 4 S 1 4",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 5,
@@ -472,196 +478,224 @@
                   name: "Flower {5,4}",
                   funcId: "B 4 S 3 5",
                   funcType: "binary",
-                  ruleEntry0: "B 4 S 3 5"
+                  ruleEntry0: "B 4 S 3 5",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 6,
                   gridM: 4,
                   name: "Flower {6, 4}",
                   funcId: "B 4 S 3 6",
-                  ruleEntry0: "B 4 S 3 6"
+                  ruleEntry0: "B 4 S 3 6",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 7,
                   gridM: 4,
                   name: "Flower {7, 4}",
                   funcId: "B 4 S 3 7",
-                  ruleEntry0: "B 4 S 3 7"
+                  ruleEntry0: "B 4 S 3 7",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 4,
                   gridM: 5,
                   name: "Lace {4, 5}",
                   funcId: "B 3 S 2",
-                  ruleEntry0: "B 3 S 2"
+                  ruleEntry0: "B 3 S 2",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 4,
                   gridM: 6,
                   name: "Lace {4, 6}",
                   funcId: "B 3 S 2",
-                  ruleEntry0: "B 3 S 2"
+                  ruleEntry0: "B 3 S 2",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 4,
                   gridM: 7,
                   name: "Lace {4, 7}",
                   funcId: "B 3 S 2",
-                  ruleEntry0: "B 3 S 2"
+                  ruleEntry0: "B 3 S 2",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 4,
                   gridM: 8,
                   name: "Lace {4, 8}",
                   funcId: "B 3 S 2",
-                  ruleEntry0: "B 3 S 2"
+                  ruleEntry0: "B 3 S 2",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 5,
                   gridM: 4,
                   name: "Pinwheel {5, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 6,
                   gridM: 4,
                   name: "Pinwheel {6, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 7,
                   gridM: 4,
                   name: "Pinwheel {7, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 5,
                   gridM: 4,
                   name: "Tree {5, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 6,
                   gridM: 4,
                   name: "Tree {6, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 7,
                   gridM: 4,
                   name: "Tree {7, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 7,
                   gridM: 4,
                   name: "Loading Spinner {7, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 9,
                   gridM: 4,
                   name: "Loading Spinner {9, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 11,
                   gridM: 4,
                   name: "Loading Spinner {11, 4}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 5,
                   gridM: 4,
                   name: "Firework-flower {5, 4}",
                   funcId: "B 3 S 5",
-                  ruleEntry0: "B 3 S 5"
+                  ruleEntry0: "B 3 S 5",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 6,
                   gridM: 4,
                   name: "Firework-flower {6, 4}",
                   funcId: "B 3 S 6",
-                  ruleEntry0: "B 3 S 6"
+                  ruleEntry0: "B 3 S 6",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 7,
                   gridM: 4,
                   name: "Firework-flower {7, 4}",
                   funcId: "B 3 S 7",
-                  ruleEntry0: "B 3 S 7"
+                  ruleEntry0: "B 3 S 7",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 8,
                   gridM: 3,
                   name: "Star {8, 3}",
                   funcId: "B 2 S 1 4",
-                  ruleEntry0: "B 2 S 1 4"
+                  ruleEntry0: "B 2 S 1 4",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 10,
                   gridM: 3,
                   name: "Star {10, 3}",
                   funcId: "B 2 S 1 5",
-                  ruleEntry0: "B 2 S 1 5"
+                  ruleEntry0: "B 2 S 1 5",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 12,
                   gridM: 3,
                   name: "Star {12, 3}",
                   funcId: "B 2 S 1 6",
-                  ruleEntry0: "B 2 S 1 6"
+                  ruleEntry0: "B 2 S 1 6",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 5,
                   gridM: 4,
                   name: "Fireworks {5, 4}",
                   funcId: "B 2 S 1 5",
-                  ruleEntry0: "B 2 S 1 5"
+                  ruleEntry0: "B 2 S 1 5",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 6,
                   gridM: 4,
                   name: "Fireworks {6, 4}",
                   funcId: "B 2 S 1 6",
-                  ruleEntry0: "B 2 S 1 6"
+                  ruleEntry0: "B 2 S 1 6",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 7,
                   gridM: 4,
                   name: "Fireworks {7, 4}",
                   funcId: "B 2 S 1 7",
-                  ruleEntry0: "B 2 S 1 7"
+                  ruleEntry0: "B 2 S 1 7",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 8,
                   gridM: 4,
                   name: "Fireworks {8, 4}",
                   funcId: "B 2 S 1 8",
-                  ruleEntry0: "B 2 S 1 8"
+                  ruleEntry0: "B 2 S 1 8",
+                  presetType: "Still Life"
                 },
                 {
                   gridN: 8,
                   gridM: 3,
                   name: "Blinker {8, 3}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 },
                 {
                   gridN: 8,
                   gridM: 3,
                   name: "Spinner {8, 3}",
                   funcId: "B 2 S 3",
-                  ruleEntry0: "B 2 S 3"
+                  ruleEntry0: "B 2 S 3",
+                  presetType: "Oscillator"
                 }
               ];
               const numberOfPresets = fieldData.length;
@@ -827,6 +861,8 @@
       dom.vars.btnSelectAll.addEventListener("click", (e) => {
         return this.selectAll(true);
       });
+
+      const numberOfCols = this.presetStatus === "entry" ? "10" : "10";
       dom
         .tag("div")
         .ID("files-table-container")
@@ -835,13 +871,14 @@
         .tag("thead")
         .tag("tr")
         .tag("th")
-        .end()
-        .tag("th")
-        .text("Name")
-        .end()
-        .tag("th")
-        .text("Time")
-        .end()
+        .end();
+      dom.tag("th").text("Name").end();
+      if (this.presetStatus == "entry") {
+        dom.tag("th").text("Time").end();
+      } else {
+        dom.tag("th").text("Type").end();
+      }
+      dom
         .tag("th")
         .text("Tiling")
         .end()
@@ -871,7 +908,7 @@
           .tag("tr")
           .CLASS("files-grid-row")
           .tag("td")
-          .a("colspan", "10")
+          .a("colspan", `${numberOfCols}`)
           .text(`Tiling: ${gridName}`)
           .end()
           .end();
@@ -897,7 +934,7 @@
           .tag("tr")
           .CLASS("files-func-row")
           .tag("td")
-          .a("colspan", "10")
+          .a("colspan", `${numberOfCols}`)
           .text(`Rule: ${funcName}`)
           .end()
           .end();
@@ -948,7 +985,11 @@
         } else {
           dom.tag("td").text(res.value.name).end();
         }
-        dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
+        if (this.presetStatus === "entry") {
+          dom.tag("td").text(new Date(res.value.time).toLocaleString()).end();
+        } else {
+          dom.tag("td").text(`${res.value.presetType}`).end();
+        }
         dom.tag("td").text(`{${res.value.gridN}, ${res.value.gridM}}`).end();
         dom
           .tag("td")
