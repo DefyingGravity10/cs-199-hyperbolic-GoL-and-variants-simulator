@@ -154,7 +154,8 @@ div.popup {
 }
 
 #toggle-all-grids.button-disabled,
-#toggle-all-rules.button-disabled {
+#toggle-all-rules.button-disabled,
+#toggle-presets.button-disabled {
   background-color: #f0f0f0;
   color: #c0c0c0;
   border-color: #c0c0c0;
@@ -358,8 +359,13 @@ div.popup {
   margin-left: 10px;
 }
 
-ol {
+ol,
+ul {
   padding-inline-start: 15px;
+}
+
+ul {
+  margin-top: 0;
 }
 /*To position floating toolbars*/
 #floating-wrapper {
@@ -403,8 +409,8 @@ div.overlay-toolbar {
   margin-right: 2px;
 }
 
-#btn-guide,
-#btn-examples {
+#btn-guide.enabled,
+#btn-examples.enabled {
   z-index: 10;
   position: relative;
 }

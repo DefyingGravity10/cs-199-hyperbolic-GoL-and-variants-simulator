@@ -54,8 +54,8 @@
         <div id="variant-name">Conway's Game of Life</div>
       </div>
       <div id="references">
-        <button id="btn-examples" class="hidden">Sample Simulations</button>
-        <button id="btn-guide">User Guide</button>
+        <button id="btn-examples" class="hidden enabled">Sample Simulations</button>
+        <button id="btn-guide" class="enabled">User Guide</button>
       </div>
     </div>
     <div id="guide-intro" class="hidden">
@@ -238,11 +238,35 @@
           <div id="save-load-guide" class="hidden">
             <div class="guide-title">Saving and Loading Patterns</div>
             <div class="guide-content">
-              Save and access patterns in a local database, and export the current state of the
-              Poincaré Disk as an SVG file. <br /><br />
+              Save your own patterns and access them, as well as pattern presets, in a local
+              database. Additionally, export the current state of the simulator as an SVG file.<br /><br />
 
-              Please note that the saved patterns as well as a set of presets may be accessible when
-              you press the <span class="add-emp">Open</span> button.
+              <span class="add-emp">Save Button</span><br />
+              Give your pattern a file name and click <span class="add-emp">Save</span>.<br /><br />
+
+              <span class="add-emp">Open Button</span><br />
+              The databse will first display your saved patterns under the current tiling and
+              rulestring of the simulator.<br />
+
+              <ul>
+                <li>
+                  To show other saved patterns under the same tiling with a different rulestring,
+                  select <span class="add-emp">All Rules</span>.
+                </li>
+                <li>
+                  To show other saved patterns under different tilings, select
+                  <span class="add-emp">All Tilings</span>. This will also enable access to the
+                  preset catalogue.
+                </li>
+                <li>
+                  To show pattern presets, make sure to select
+                  <span class="add-emp">All Tilings</span> then, select Presets.
+                </li>
+              </ul>
+
+              <span class="add-emp">SVG Button</span><br />
+              Save your current pattern configuration as an SVG file by right clicking on the image
+              and choosing <span class="add-emp">Save image as...</span>
             </div>
             <div class="close-guide" id="close-save-load">Close</div>
           </div>
@@ -671,11 +695,12 @@
         <div class="toolbar">
           <span id="my-catalogue"
             >Show My Catalogue:
-            <button id="toggle-all-grids">All grids</button>
-            <button id="toggle-all-rules" class="hover">All rules</button></span
+            <button id="toggle-all-grids">All Tilings</button>
+            <button id="toggle-all-rules" class="hover">All Rules</button></span
           >
-          <span id="preset-catalogue" class="hidden"
-            >Show Preset Catalogue: <button id="toggle-presets">Presets</button></span
+          <span id="preset-catalogue"
+            >Show Preset Catalogue:
+            <button id="toggle-presets" class="button-disabled">Presets</button></span
           >
         </div>
         <div id="file-dialog-files"></div>
@@ -706,7 +731,7 @@
     <div id="svg-export-dialog" style="display: none" class="popup-container">
       <div class="popup-shadow"></div>
       <div class="popup">
-        <h1>Export to SVG</h1>
+        <h1>Use Right Click to Save As SVG</h1>
         <div class="dialog-content">
           <div id="svg-image-container">[Image]</div>
         </div>
