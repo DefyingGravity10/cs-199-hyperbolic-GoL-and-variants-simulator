@@ -1734,22 +1734,26 @@
 
   E("btn-export-svg").addEventListener("click", function (e) {
     if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.remove("enabled");
       return application.doExportSvg();
     }
   });
 
   E("btn-svg-export-dialog-close").addEventListener("click", function (e) {
+    E("btn-guide").classList.add("enabled");
     return application.svgDialog.close();
   });
 
   E("btn-db-save").addEventListener("click", function (e) {
     if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.remove("enabled");
       return application.saveDialog.show();
     }
   });
 
   E("btn-db-load").addEventListener("click", function (e) {
     if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.remove("enabled");
       return application.openDialog.show();
     }
   });

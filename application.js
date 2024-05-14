@@ -6530,10 +6530,12 @@ exports.parseFieldData1 = (data) ->
         } else {
           this.cells.put(cell, this.paintStateSelector.state);
         }
-
         this.generation = 0;
         updateGeneration();
       }
+      //console.log(`xp: ${xp} yp: ${yp}`);
+
+      //console.log(`${x} ${y}`);
       return redraw();
     }
 
@@ -7448,22 +7450,26 @@ exports.parseFieldData1 = (data) ->
 
   E("btn-export-svg").addEventListener("click", function (e) {
     if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.remove("enabled");
       return application.doExportSvg();
     }
   });
 
   E("btn-svg-export-dialog-close").addEventListener("click", function (e) {
+    E("btn-guide").classList.add("enabled");
     return application.svgDialog.close();
   });
 
   E("btn-db-save").addEventListener("click", function (e) {
     if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.remove("enabled");
       return application.saveDialog.show();
     }
   });
 
   E("btn-db-load").addEventListener("click", function (e) {
     if (!E("btn-guide").classList.contains("guide-mode")) {
+      E("btn-guide").classList.remove("enabled");
       return application.openDialog.show();
     }
   });
@@ -8591,6 +8597,7 @@ exports.parseFieldData1 = (data) ->
         return this._togglePresets();
       });
       this.btnCancel.addEventListener("click", (e) => {
+        E("btn-guide").classList.add("enabled");
         return this.close();
       });
     }
@@ -8679,15 +8686,13 @@ exports.parseFieldData1 = (data) ->
         addClass(this.btnAllRules, "button-disabled");
         removeClass(this.btnAllRules, "hover");
         addClass(this.btnAllGrids, "button-active");
-        const presets = document.getElementById("preset-catalogue");
-        removeClass(presets, "hidden");
+        removeClass(this.btnPresetsEnabled, "button-disabled");
       } else {
         removeClass(this.btnAllRules, "button-disabled");
         addClass(this.btnAllRules, "hover");
         console.log(this.btnAllRules.classList);
         removeClass(this.btnAllGrids, "button-active");
-        const presets = document.getElementById("preset-catalogue");
-        addClass(presets, "hidden");
+        addClass(this.btnPresetsEnabled, "button-disabled");
       }
 
       return this._generateFileList();
@@ -8734,6 +8739,7 @@ exports.parseFieldData1 = (data) ->
       this.allRulesEnabled = false;
       //Bind events
       this.btnCancel.addEventListener("click", (e) => {
+        E("btn-guide").classList.add("enabled");
         return this.close();
       });
       this.btnSave.addEventListener("click", (e) => {
