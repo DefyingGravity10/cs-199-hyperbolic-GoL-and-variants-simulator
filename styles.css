@@ -742,8 +742,17 @@ div.overlay-toolbar {
   scrollbar-color: #fcfacd #fceb9e;
   scrollbar-width: thin;
 }
+
+.replace-checkbox {
+  width: 24px;
+}
+
 .hidden {
   display: none;
+}
+
+.cover {
+  visibility: hidden;
 }
 
 hr {

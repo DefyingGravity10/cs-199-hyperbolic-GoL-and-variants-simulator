@@ -827,9 +827,11 @@
         startFuncGroup,
         startGridGroup;
       dom = new DomBuilder();
+      dom.tag("div").ID("select-group");
+      if (this.presetStatus === "preset") {
+        dom.CLASS("cover");
+      }
       dom
-        .tag("div")
-        .ID("select-group")
         .tag("span")
         .CLASS("button-group")
         .text("Select:")
@@ -852,6 +854,7 @@
         .end()
         .end()
         .end();
+
       dom.vars.btnDeleteAll.addEventListener("click", (e) => {
         return this.deleteSelected();
       });
@@ -966,14 +969,13 @@
           startFuncGroup(record.funcType, record.funcId);
           lastFunc = record.funcId;
         }
-        dom
-          .tag("tr")
-          .CLASS("files-file-row")
-          .tag("td")
-          .rtag("filesel", "input")
-          .a("type", "checkbox")
-          .end()
-          .end();
+        dom.tag("tr").CLASS("files-file-row").tag("td");
+        if (this.presetStatus === "entry") {
+          dom.rtag("filesel", "input").a("type", "checkbox").end();
+        } else {
+          dom.CLASS("replace-checkbox");
+        }
+        dom.end();
         if (this.fileCallback != null) {
           dom
             .tag("td")
