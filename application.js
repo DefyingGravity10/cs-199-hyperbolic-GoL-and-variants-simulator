@@ -6523,14 +6523,17 @@ exports.parseFieldData1 = (data) ->
         e = error;
         return;
       }
-      if (this.cells.get(cell) === this.paintStateSelector.state) {
-        this.cells.remove(cell);
-      } else {
-        this.cells.put(cell, this.paintStateSelector.state);
-      }
-      //console.log(`xp: ${xp} yp: ${yp}`);
 
-      //console.log(`${x} ${y}`);
+      if (player === null) {
+        if (this.cells.get(cell) === this.paintStateSelector.state) {
+          this.cells.remove(cell);
+        } else {
+          this.cells.put(cell, this.paintStateSelector.state);
+        }
+
+        this.generation = 0;
+        updateGeneration();
+      }
       return redraw();
     }
 

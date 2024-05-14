@@ -807,10 +807,15 @@
         e = error;
         return;
       }
-      if (this.cells.get(cell) === this.paintStateSelector.state) {
-        this.cells.remove(cell);
-      } else {
-        this.cells.put(cell, this.paintStateSelector.state);
+
+      if (player === null) {
+        if (this.cells.get(cell) === this.paintStateSelector.state) {
+          this.cells.remove(cell);
+        } else {
+          this.cells.put(cell, this.paintStateSelector.state);
+        }
+        this.generation = 0;
+        updateGeneration();
       }
       //console.log(`xp: ${xp} yp: ${yp}`);
 
