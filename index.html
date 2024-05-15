@@ -72,7 +72,141 @@
     </div>
     <div id="examples-guide" class="hidden">
       <div class="guide-title">Sample Simulations</div>
-      <div class="guide-content"></div>
+      <div class="guide-content">
+        Understand the Game of Life and its Variants with examples on rulestring
+        <span class="add-emp">B 3 S 2 3</span>.
+        <div id="variant-examples-buttons">
+          <button
+            id="btn-conway-examples"
+            title="Show an example of Conway's Game of Life"
+            class="button-active"
+          >
+            Conway's Game of Life
+          </button>
+          <button id="btn-immigration-examples" title="Show an example of the Immigration Game">
+            Immigration Game
+          </button>
+          <button id="btn-rainbow-examples" title="Show an example of the Rainbow Game of Life">
+            Rainbow Game of Life
+          </button>
+        </div>
+        <div id="conway-example">
+          <div class="flex-container">
+            <div id="disk-container">
+              <div class="flex-container">
+                <div>
+                  <div class="caption">Generation 0</div>
+                  <img
+                    src="media/conwayGen0.png"
+                    alt="An Example of an Inital Configuration of Cells (Generation 0) in Conway's Game of Life"
+                  />
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <div class="caption">Generation 1</div>
+                  <img
+                    src="media/conwayGen1.png"
+                    alt="An Example of Generation 1 in Conway's Game of Life"
+                  />
+                </div>
+              </div>
+            </div>
+            <div id="explanation-container">
+              For <span class="add-emp">Birthability</span>, focus on the dead (pink) cells. Given B
+              3, a dead cell will be born in the next generation only if it has 3 live neighbors.
+              Among the dead cells, only Cell 4 has 3 live neighbors &#8212; Cell 1, Cell 2, and
+              Cell 3. Thus,
+              <span class="add-emp">Cell 4 will be born (black) in Generation 1</span>.<br /><br />
+              For <span class="add-emp">Survivability</span>, focus on the live (black) cells. Given
+              S 2 3, a live cell will survive in the next generation only if it has 2 or 3 live
+              neighbors. Among the live cells, only Cell 2 has 2 live neighbors &#8212; Cell 1 and
+              Cell 3. Thus,
+              <span class="add-emp">only Cell 2 will survive (black) in Generation 1</span>.
+            </div>
+          </div>
+        </div>
+        <div id="immigration-example" class="hidden">
+          <div class="flex-container">
+            <div id="disk-container">
+              <div class="flex-container">
+                <div>
+                  <div class="caption">Generation 0</div>
+                  <img
+                    src="media/immigrationGen0.png"
+                    alt="An Example of an Inital Configuration of Cells (Generation 0) in the Immigration Game"
+                  />
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <div class="caption">Generation 1</div>
+                  <img
+                    src="media/immigrationGen1.png"
+                    alt="An Example of Generation 1 in the Immigration Game"
+                  />
+                </div>
+              </div>
+            </div>
+            <div id="explanation-container">
+              For <span class="add-emp">Birthability</span>, focus on the dead (pink) cells. Given B
+              3, a dead cell will be born in the next generation only if it has 3 live neighbors.
+              Among the dead cells, only Cell 4 has 3 live neighbors &#8212; Cell 1, Cell 2, and
+              Cell 3. Additionally, red is color of the majority of its live neighbors. Thus,
+              <span class="add-emp">Cell 4 will be born (red) in Generation 1</span>.<br /><br />
+              For <span class="add-emp">Survivability</span>, focus on the live (red and blue)
+              cells. Given S 2 3, a live cell will survive in the next generation only if it has 2
+              or 3 live neighbors. Among the live cells, only Cell 2 has 2 live neighbors &#8212;
+              Cell 1 and Cell 3. Thus,
+              <span class="add-emp">only Cell 2 will survive (blue) in Generation 1</span>.
+            </div>
+          </div>
+        </div>
+        <div id="rainbow-example" class="hidden">
+          <div class="flex-container">
+            <div id="disk-container">
+              <div class="flex-container">
+                <div>
+                  <div class="caption">Generation 0</div>
+                  <img
+                    src="media/rainbowGen0.png"
+                    alt="An Example of an Inital Configuration of Cells (Generation 0) in the Rainbow Game of Life"
+                  />
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <div class="caption">Generation 1</div>
+                  <img
+                    src="media/rainbowGen1.png"
+                    alt="An Example of Generation 1 in the Rainbow Game of Life"
+                  />
+                </div>
+              </div>
+            </div>
+            <div id="explanation-container">
+              <div id="greyscale">
+                <img src="media/greyscale.jpg" alt="Greyscale Chart" />
+                <div class="caption">Greyscale Chart</div>
+              </div>
+              <br />
+              For <span class="add-emp">Birthability</span>, focus on the dead (pink) cells. Given B
+              3, a dead cell will be born in the next generation only if it has 3 live neighbors.
+              Among the dead cells, only Cell 4 has 3 live neighbors &#8212; Cell 1, Cell 2, and
+              Cell 3. According to the greyscale chart, black and white have values 10 and 1,
+              respectively. The mean color of Cell 4's live neighbors is (10+10+1)/3 = 7. Thus,
+              <span class="add-emp"
+                >Cell 4 will be born (color 7 on greyscale chart) in Generation 1</span
+              >.<br /><br />
+              For <span class="add-emp">Survivability</span>, focus on the live (black and white)
+              cells. Given S 2 3, a live cell will survive in the next generation only if it has 2
+              or 3 live neighbors. Among the live cells, only Cell 2 has 2 live neighbors &#8212;
+              Cell 1 and Cell 3. Thus,
+              <span class="add-emp">only Cell 2 will survive (white) in Generation 1</span>.
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="close-guide" id="close-examples">Close</div>
     </div>
     <div id="variant-menu-guide" class="hidden">
@@ -97,7 +231,7 @@
           cell that is birthed takes on the color corresponding to the ceiling of the arithmetic
           mean of the colors of its live neighbors.
         </p>
-        <div class="img-container" id="greyscale">
+        <div id="greyscale">
           <img src="media/greyscale.jpg" alt="Greyscale Chart" />
           <div class="caption">Greyscale Chart</div>
         </div>
@@ -230,7 +364,22 @@
                 </li>
               </ol>
               The rule/s can be configured by editing the
-              <span class="add-emp">rulestring/s</span> in the input box/es.
+              <span class="add-emp">rulestring/s</span> in the input box/es. Rules must follow
+              format <span class="add-emp">B</span> x <span class="add-emp">S</span> y.<br />
+
+              <ol>
+                <li>
+                  <span class="add-emp">Birthability</span> = A dead cell is born in the next
+                  generation if it has x live neighbors
+                </li>
+
+                <li>
+                  <span class="add-emp">Survivability</span> = A live cell survives in the next
+                  generation if it has y live neighbors
+                </li>
+              </ol>
+
+              Note that x and y are subsets of digits from 0 to the number of neighbors a cell has.
             </div>
             <div class="close-guide" id="close-rules">Close</div>
           </div>

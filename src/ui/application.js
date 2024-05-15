@@ -1912,6 +1912,32 @@
     E("guide-intro").classList.remove("hidden");
   });
 
+  E("btn-conway-examples").addEventListener("click", () => {
+    E("btn-conway-examples").classList.add("button-active");
+    E("btn-immigration-examples").classList.remove("button-active");
+    E("btn-rainbow-examples").classList.remove("button-active");
+    E("conway-example").classList.remove("hidden");
+    E("immigration-example").classList.add("hidden");
+    E("rainbow-example").classList.add("hidden");
+  });
+
+  E("btn-immigration-examples").addEventListener("click", () => {
+    E("btn-conway-examples").classList.remove("button-active");
+    E("btn-immigration-examples").classList.add("button-active");
+    E("btn-rainbow-examples").classList.remove("button-active");
+    E("conway-example").classList.add("hidden");
+    E("immigration-example").classList.remove("hidden");
+    E("rainbow-example").classList.add("hidden");
+  });
+
+  E("btn-rainbow-examples").addEventListener("click", () => {
+    E("btn-conway-examples").classList.remove("button-active");
+    E("btn-immigration-examples").classList.remove("button-active");
+    E("btn-rainbow-examples").classList.add("button-active");
+    E("conway-example").classList.add("hidden");
+    E("immigration-example").classList.add("hidden");
+    E("rainbow-example").classList.remove("hidden");
+  });
   // Variant Menu
   const handleVariantMenu = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {

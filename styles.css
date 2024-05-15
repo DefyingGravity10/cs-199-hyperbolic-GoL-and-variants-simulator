@@ -241,16 +241,18 @@ div.popup {
 
 #btn-guide:hover,
 #btn-svg-export-dialog-close:hover,
-#toggle-presets:hover,
 #toggle-all-grids:hover,
 #btn-files-save-cancel:hover,
 #btn-files-cancel:hover,
-#btn-examples:hover {
+#btn-examples:hover,
+#btn-conway-examples:hover,
+#btn-immigration-examples:hover,
+#btn-rainbow-examples:hover {
   /*color: #ffffff;
   background-color: #4364c7;*/
   box-shadow: 0 0 5px 2px #4364c7;
 }
-
+#toggle-presets.hover:hover,
 #toggle-all-rules.hover:hover,
 #btn-db-save.hover:hover,
 #btn-db-load.hover:hover,
@@ -582,9 +584,30 @@ div.overlay-toolbar {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  max-width: 420px;
+  max-width: 480px;
 }
 
+#btn-conway-examples,
+#btn-immigration-examples,
+#btn-rainbow-examples {
+  border-radius: 50px;
+  background-color: #fcfacd;
+  font-family: "Dosis";
+  font-weight: bold;
+  font-size: 12px;
+  color: black;
+  width: 30%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+}
+
+#variant-examples-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 #navigator-cluster-list {
   margin-top: 10px;
   margin-left: 10px;
@@ -743,7 +766,7 @@ div.overlay-toolbar {
 }
 
 #files-table-container {
-  max-height: 305px;
+  max-height: 290px;
   overflow-y: scroll;
   scrollbar-color: #fcfacd #fceb9e;
   scrollbar-width: thin;
@@ -896,7 +919,10 @@ button:active {
 #btn-mode-edit.button-active,
 #btn-mode-pan.button-active,
 #btn-guide.button-active,
-#btn-examples.button-active {
+#btn-examples.button-active,
+#btn-conway-examples.button-active,
+#btn-immigration-examples.button-active,
+#btn-rainbow-examples.button-active {
   color: #ffffff;
   background-color: #4364c7;
 }
@@ -992,7 +1018,13 @@ input::-webkit-inner-spin-button {
 }
 
 /*Images*/
-.img-container {
+
+#disk-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#greyscale {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1001,6 +1033,16 @@ input::-webkit-inner-spin-button {
   height: 8vh;
 }
 
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+.flex-container img {
+  height: 25vh;
+}
+#explanation-container {
+  margin-left: 10px;
+}
 /*Media queries*/
 @media screen and (min-width: 1150px) {
   #left-sidebar {

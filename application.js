@@ -7628,6 +7628,32 @@ exports.parseFieldData1 = (data) ->
     E("guide-intro").classList.remove("hidden");
   });
 
+  E("btn-conway-examples").addEventListener("click", () => {
+    E("btn-conway-examples").classList.add("button-active");
+    E("btn-immigration-examples").classList.remove("button-active");
+    E("btn-rainbow-examples").classList.remove("button-active");
+    E("conway-example").classList.remove("hidden");
+    E("immigration-example").classList.add("hidden");
+    E("rainbow-example").classList.add("hidden");
+  });
+
+  E("btn-immigration-examples").addEventListener("click", () => {
+    E("btn-conway-examples").classList.remove("button-active");
+    E("btn-immigration-examples").classList.add("button-active");
+    E("btn-rainbow-examples").classList.remove("button-active");
+    E("conway-example").classList.add("hidden");
+    E("immigration-example").classList.remove("hidden");
+    E("rainbow-example").classList.add("hidden");
+  });
+
+  E("btn-rainbow-examples").addEventListener("click", () => {
+    E("btn-conway-examples").classList.remove("button-active");
+    E("btn-immigration-examples").classList.remove("button-active");
+    E("btn-rainbow-examples").classList.add("button-active");
+    E("conway-example").classList.add("hidden");
+    E("immigration-example").classList.add("hidden");
+    E("rainbow-example").classList.remove("hidden");
+  });
   // Variant Menu
   const handleVariantMenu = function () {
     if (!E("btn-guide").classList.contains("guide-mode")) {
@@ -8646,35 +8672,28 @@ exports.parseFieldData1 = (data) ->
 
     //Update state of the used interface.
     _updateUI() {
+      this.btnPresetsEnabled.disabled = true;
       //WHen all grids are enabled, enable all ruels automaticelly.
-      if (this.presetsEnabled) {
-        addClass(this.btnPresetsEnabled, "button-active");
+      /*if (this.presetsEnabled) {
+        //addClass(this.btnPresetsEnabled, "button-active");
         //this.btnAllRules.disabled = this.presetsEnabled;
         //this.btnAllGrids.disabled = this.presetsEnabled;
         // addClass(this.btnAllRules, "button-disabled");
         //addClass(this.btnAllGrids, "button-disabled");
       } else {
-        removeClass(this.btnPresetsEnabled, "button-active");
-        this.btnAllRules.disabled = this.presetsEnabled;
-        this.btnAllGrids.disabled = this.presetsEnabled;
-        removeClass(this.btnAllRules, "button-disabled");
-        removeClass(this.btnAllGrids, "button-disabled");
 
-        this.btnAllRules.disabled = this.allGridsEnabled;
-        removeClass(this.btnAllGrids, "button-active");
-        removeClass(this.btnAllRules, "button-active");
-        if (this.allGridsEnabled) {
-          addClass(this.btnAllGrids, "button-active");
-          addClass(this.btnAllRules, "button-disabled");
-        }
-        if (this.allRulesEnabled || this.allGridsEnabled) {
-          return addClass(this.btnAllRules, "button-active");
-        }
+      if (this.allGridsEnabled) {
+        addClass(this.btnAllGrids, "button-active");
+        addClass(this.btnAllRules, "button-disabled");
       }
+      if (this.allRulesEnabled || this.allGridsEnabled) {
+        return addClass(this.btnAllRules, "button-active");
+      }*/
     }
 
     _toggleAllGrids() {
       this.allGridsEnabled = !this.allGridsEnabled;
+
       if (this.presetsEnabled) {
         this.allGridsEnabled = !this.allGridsEnabled;
         this.presetsEnabled = !this.presetsEnabled;
@@ -8683,11 +8702,15 @@ exports.parseFieldData1 = (data) ->
       this.btnAllRules.disabled = this.allGridsEnabled;
       //this._updateUI();
       if (this.allGridsEnabled) {
+        this.btnPresetsEnabled.disabled = false;
+        addClass(this.btnPresetsEnabled, "hover");
         addClass(this.btnAllRules, "button-disabled");
         removeClass(this.btnAllRules, "hover");
         addClass(this.btnAllGrids, "button-active");
         removeClass(this.btnPresetsEnabled, "button-disabled");
       } else {
+        this.btnPresetsEnabled.disabled = true;
+        removeClass(this.btnPresetsEnabled, "hover");
         removeClass(this.btnAllRules, "button-disabled");
         addClass(this.btnAllRules, "hover");
         console.log(this.btnAllRules.classList);

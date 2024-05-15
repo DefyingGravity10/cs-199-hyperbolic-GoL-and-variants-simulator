@@ -182,35 +182,28 @@
 
     //Update state of the used interface.
     _updateUI() {
+      this.btnPresetsEnabled.disabled = true;
       //WHen all grids are enabled, enable all ruels automaticelly.
-      if (this.presetsEnabled) {
-        addClass(this.btnPresetsEnabled, "button-active");
+      /*if (this.presetsEnabled) {
+        //addClass(this.btnPresetsEnabled, "button-active");
         //this.btnAllRules.disabled = this.presetsEnabled;
         //this.btnAllGrids.disabled = this.presetsEnabled;
         // addClass(this.btnAllRules, "button-disabled");
         //addClass(this.btnAllGrids, "button-disabled");
       } else {
-        removeClass(this.btnPresetsEnabled, "button-active");
-        this.btnAllRules.disabled = this.presetsEnabled;
-        this.btnAllGrids.disabled = this.presetsEnabled;
-        removeClass(this.btnAllRules, "button-disabled");
-        removeClass(this.btnAllGrids, "button-disabled");
 
-        this.btnAllRules.disabled = this.allGridsEnabled;
-        removeClass(this.btnAllGrids, "button-active");
-        removeClass(this.btnAllRules, "button-active");
-        if (this.allGridsEnabled) {
-          addClass(this.btnAllGrids, "button-active");
-          addClass(this.btnAllRules, "button-disabled");
-        }
-        if (this.allRulesEnabled || this.allGridsEnabled) {
-          return addClass(this.btnAllRules, "button-active");
-        }
+      if (this.allGridsEnabled) {
+        addClass(this.btnAllGrids, "button-active");
+        addClass(this.btnAllRules, "button-disabled");
       }
+      if (this.allRulesEnabled || this.allGridsEnabled) {
+        return addClass(this.btnAllRules, "button-active");
+      }*/
     }
 
     _toggleAllGrids() {
       this.allGridsEnabled = !this.allGridsEnabled;
+
       if (this.presetsEnabled) {
         this.allGridsEnabled = !this.allGridsEnabled;
         this.presetsEnabled = !this.presetsEnabled;
@@ -219,11 +212,15 @@
       this.btnAllRules.disabled = this.allGridsEnabled;
       //this._updateUI();
       if (this.allGridsEnabled) {
+        this.btnPresetsEnabled.disabled = false;
+        addClass(this.btnPresetsEnabled, "hover");
         addClass(this.btnAllRules, "button-disabled");
         removeClass(this.btnAllRules, "hover");
         addClass(this.btnAllGrids, "button-active");
         removeClass(this.btnPresetsEnabled, "button-disabled");
       } else {
+        this.btnPresetsEnabled.disabled = true;
+        removeClass(this.btnPresetsEnabled, "hover");
         removeClass(this.btnAllRules, "button-disabled");
         addClass(this.btnAllRules, "hover");
         console.log(this.btnAllRules.classList);
