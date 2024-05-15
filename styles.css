@@ -590,8 +590,8 @@ div.overlay-toolbar {
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  max-height: 85%;
-  overflow-y: auto;
+  max-height: 230px;
+  overflow-y: scroll;
   scrollbar-color: #fcfacd #fceb9e;
   scrollbar-width: thin;
 }
@@ -743,8 +743,8 @@ div.overlay-toolbar {
 }
 
 #files-table-container {
-  max-height: 60%;
-  overflow-y: auto;
+  max-height: 305px;
+  overflow-y: scroll;
   scrollbar-color: #fcfacd #fceb9e;
   scrollbar-width: thin;
 }
