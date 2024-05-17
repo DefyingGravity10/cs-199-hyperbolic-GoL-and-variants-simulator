@@ -2212,34 +2212,23 @@
   });
 
   shortcuts = {
-    N: function () {
+    S: function () {
       return application.doStep();
     },
-    C: function () {
+    R: function () {
       return application.doReset();
-    },
-    S: function () {
-      return application.doSearch();
     },
     1: function (e) {
       return application.paintStateSelector.setState(1);
     },
     2: function (e) {
+      if (currentVariant.getCurrentStateVariant() === "rainbow") {
+        return application.paintStateSelector.setState(10);
+      }
       return application.paintStateSelector.setState(2);
     },
-    3: function (e) {
-      return application.paintStateSelector.setState(3);
-    },
-    4: function (e) {
-      return application.paintStateSelector.setState(4);
-    },
-    5: function (e) {
-      return application.paintStateSelector.setState(5);
-    },
-    M: doMemorize,
     U: doRemember,
-    UA: doClearMemory,
-    H: doNavigateHome,
+    O: doNavigateHome,
     G: doTogglePlayer,
     SA: function (e) {
       return application.observer.straightenView();
@@ -2256,6 +2245,9 @@
     },
     OC: function (e) {
       return application.openDialog.show();
+    },
+    EC: function (e) {
+      return application.doExportSvg();
     }
   };
 
