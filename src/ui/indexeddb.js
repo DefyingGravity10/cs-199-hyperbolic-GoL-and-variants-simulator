@@ -1035,8 +1035,6 @@
         if (res) {
           filesEnumerated += 1;
           record = res.value;
-          console.log(`(${filesEnumerated})`);
-          console.log(record);
           if (predicate(record)) {
             onRecord(res, record);
           }
