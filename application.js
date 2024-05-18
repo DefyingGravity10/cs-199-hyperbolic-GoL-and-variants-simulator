@@ -7943,9 +7943,7 @@ exports.parseFieldData1 = (data) ->
       }
       return application.paintStateSelector.setState(2);
     },
-    M: doMemorize,
     U: doRemember,
-    UA: doClearMemory,
     O: doNavigateHome,
     G: doTogglePlayer,
     SA: function (e) {
@@ -8883,6 +8881,7 @@ exports.parseFieldData1 = (data) ->
             // Check if the column value matches the specific value
             if (cursor.value.entryType === "preset") {
               count++;
+              // Don't remove, for debugging
               // objectStore.delete(cursor.primaryKey);
             }
             cursor.continue();

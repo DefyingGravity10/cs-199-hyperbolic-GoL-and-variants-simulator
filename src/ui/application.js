@@ -2224,8 +2224,9 @@
     2: function (e) {
       if (currentVariant.getCurrentStateVariant() === "rainbow") {
         return application.paintStateSelector.setState(10);
+      } else {
+        return application.paintStateSelector.setState(2);
       }
-      return application.paintStateSelector.setState(2);
     },
     U: doRemember,
     O: doNavigateHome,
