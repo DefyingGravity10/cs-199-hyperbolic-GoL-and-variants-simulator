@@ -873,7 +873,7 @@
         .tag("th")
         .end();
       dom.tag("th").text("Name").end();
-      if (this.presetStatus == "entry") {
+      if (this.presetStatus === "entry") {
         dom.tag("th").text("Time").end();
       } else {
         dom.tag("th").text("Type").end();
@@ -1035,11 +1035,14 @@
         if (res) {
           filesEnumerated += 1;
           record = res.value;
+          console.log(`(${filesEnumerated})`);
+          console.log(record);
           if (predicate(record)) {
             onRecord(res, record);
           }
           return res.continue();
         } else {
+          console.log("no");
           if (lastFunc !== null) {
             closeFuncGroup();
           }
@@ -1075,7 +1078,7 @@
       console.log("Loaddata");
       transaction = this.db.transaction(["catalog"], "readonly");
       filesStore = transaction.objectStore("catalog");
-      cursor = filesStore.index("catalogByGrid").openCursor();
+      cursor = filesStore.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return rec.entryType === presetStatus;
       });
@@ -1085,8 +1088,8 @@
       var catalog, catalogIndex, cursor, transaction;
       transaction = this.db.transaction(["catalog"], "readonly");
       catalog = transaction.objectStore("catalog");
-      catalogIndex = catalog.index("catalogByGrid");
-      cursor = catalogIndex.openCursor();
+      // catalogIndex = catalog.index("catalogByGrid");
+      cursor = catalog.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return (
           rec.gridN === gridN &&
