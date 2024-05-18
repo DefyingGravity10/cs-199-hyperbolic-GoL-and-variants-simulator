@@ -7940,8 +7940,9 @@ exports.parseFieldData1 = (data) ->
     2: function (e) {
       if (currentVariant.getCurrentStateVariant() === "rainbow") {
         return application.paintStateSelector.setState(10);
+      } else {
+        return application.paintStateSelector.setState(2);
       }
-      return application.paintStateSelector.setState(2);
     },
     U: doRemember,
     O: doNavigateHome,
@@ -8571,7 +8572,7 @@ exports.parseFieldData1 = (data) ->
     catalogStore = db.createObjectStore("catalog", {
       autoIncrement: true
     });
-    catalogStore.createIndex(
+    return catalogStore.createIndex(
       "catalogByGrid",
       [
         "gridN",
@@ -8881,7 +8882,6 @@ exports.parseFieldData1 = (data) ->
             // Check if the column value matches the specific value
             if (cursor.value.entryType === "preset") {
               count++;
-              // Don't remove, for debugging
               // objectStore.delete(cursor.primaryKey);
             }
             cursor.continue();

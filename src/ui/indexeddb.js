@@ -89,7 +89,7 @@
     catalogStore = db.createObjectStore("catalog", {
       autoIncrement: true
     });
-    catalogStore.createIndex(
+    return catalogStore.createIndex(
       "catalogByGrid",
       [
         "gridN",
