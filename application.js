@@ -5900,7 +5900,7 @@ exports.parseFieldData1 = (data) ->
 
   ({ GhostClickDetector } = require("./ghost_click_detector.js"));
 
-  MIN_WIDTH = 260;
+  MIN_WIDTH = 300;
   MAX_WIDTH = 520;
 
   minVisibleSize = 1 / 100;
@@ -6351,7 +6351,7 @@ exports.parseFieldData1 = (data) ->
       found = this.navigator.search(this.cells);
       updateCanvasSize();
       if (found > 0) {
-        //return this.navigator.navigateToResult(0);
+        return this.navigator.navigateToResult(0);
       }
     }
 
@@ -9523,7 +9523,6 @@ exports.parseFieldData1 = (data) ->
           }
           return res.continue();
         } else {
-          console.log("no");
           if (lastFunc !== null) {
             closeFuncGroup();
           }
@@ -9559,6 +9558,9 @@ exports.parseFieldData1 = (data) ->
       console.log("Loaddata");
       transaction = this.db.transaction(["catalog"], "readonly");
       filesStore = transaction.objectStore("catalog");
+      if (presetStatus === "preset") {
+        filesStore = filesStore.index("catalogByGrid");
+      }
       cursor = filesStore.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return rec.entryType === presetStatus;
@@ -9569,7 +9571,9 @@ exports.parseFieldData1 = (data) ->
       var catalog, catalogIndex, cursor, transaction;
       transaction = this.db.transaction(["catalog"], "readonly");
       catalog = transaction.objectStore("catalog");
-      // catalogIndex = catalog.index("catalogByGrid");
+      if (presetStatus === "preset") {
+        catalog = catalog.index("catalogByGrid");
+      }
       cursor = catalog.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return (

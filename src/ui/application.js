@@ -184,7 +184,7 @@
 
   ({ GhostClickDetector } = require("./ghost_click_detector.js"));
 
-  MIN_WIDTH = 260;
+  MIN_WIDTH = 300;
   MAX_WIDTH = 520;
 
   minVisibleSize = 1 / 100;

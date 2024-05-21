@@ -1040,7 +1040,6 @@
           }
           return res.continue();
         } else {
-          console.log("no");
           if (lastFunc !== null) {
             closeFuncGroup();
           }
@@ -1076,6 +1075,9 @@
       console.log("Loaddata");
       transaction = this.db.transaction(["catalog"], "readonly");
       filesStore = transaction.objectStore("catalog");
+      if (presetStatus === "preset") {
+        filesStore = filesStore.index("catalogByGrid");
+      }
       cursor = filesStore.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return rec.entryType === presetStatus;
@@ -1086,7 +1088,9 @@
       var catalog, catalogIndex, cursor, transaction;
       transaction = this.db.transaction(["catalog"], "readonly");
       catalog = transaction.objectStore("catalog");
-      // catalogIndex = catalog.index("catalogByGrid");
+      if (presetStatus === "preset") {
+        catalog = catalog.index("catalogByGrid");
+      }
       cursor = catalog.openCursor();
       return this.loadFromCursor(cursor, function (rec) {
         return (
