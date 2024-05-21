@@ -2230,12 +2230,12 @@
     },
     U: doRemember,
     O: doNavigateHome,
-    G: doTogglePlayer,
+    P: doTogglePlayer,
     SA: function (e) {
       return application.observer.straightenView();
     },
     "#32": doTogglePlayer,
-    P: function (e) {
+    M: function (e) {
       return doSetPanMode(true);
     },
     E: function (e) {
