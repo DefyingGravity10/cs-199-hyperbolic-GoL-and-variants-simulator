@@ -6351,7 +6351,7 @@ exports.parseFieldData1 = (data) ->
       found = this.navigator.search(this.cells);
       updateCanvasSize();
       if (found > 0) {
-        return this.navigator.navigateToResult(0);
+        //return this.navigator.navigateToResult(0);
       }
     }
 
